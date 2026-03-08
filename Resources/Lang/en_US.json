@@ -1097,7 +1097,7 @@
   "FuryInfoLong": "As the Fury, use your Shapeshift button to enter Rage Mode.\nRage Mode changes the Fury their speed and Kill Cooldown for a set duration of time.\n\nAdditionally there is a setting to reveal when the Fury enters Rage Mode to everyone.\nWithout the use of Rage Mode, the Fury acts like a regular Impostor.",
   "DivinerInfoLong": "As the Diviner, when someone tries to kill you, you will block the kill, and you will teleport to a random Vent. You will have a limited time to kill your killer. If you succeed in doing so, you live. If the time runs out before you kill your killer, you die permanently. If you try to kill someone else other than your killer, you will die.",
   "DarkenedInfoLong": "(Betrayal Add-ons):\nThe Darkened Add-on is obtained by being charmed by the Dark Fairy when they completed a similar task that you have.\nOnce converted, you are now on the Dark Fairy's team and no longer on your original team.",
-  "UnderclockedInfoLong": "As the Underclocked, your Kill Cooldown is increased by a certian amount.\n\nThis feature is only assigned to roles with a Kill button.",
+  "UnderclockedInfoLong": "As the Underclocked, your Kill Cooldown is increased by a certain amount.\n\nThis addon is only assigned to roles with a Kill button.",
   "ShowTextOverlay": "Text Overlay",
   "Overlay.GuesserMode": "<size=50%>Guesser Mode</size>",
   "Overlay.NoGameEnd": "<size=50%>No Game End</size>",
@@ -4447,7 +4447,7 @@
 
   "Bane": "Bane",
   "BaneInfo": "Mark an area to kill players",
-  "BaneInfoLong": "As the Bane, use your Shapeshift button to mark an area. For a short period of time, anyone who walks in that area dies.",
+  "BaneInfoLong": "As the Bane, use your Shapeshift button to mark an area. The first person who walks in that area dies.",
   "BaneTrapCooldown": "Trap Cooldown",
   "BaneMaxTrapCount": "Number of Traps that can be set",
   "BaneTrapMaxPlayerCount": "Maximum Kills per Trap",
