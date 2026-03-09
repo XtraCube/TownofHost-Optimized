@@ -87,7 +87,10 @@ public static class DevManager
             new(code: "motorstack#2287", color: "#ec9d2f", tag: "Tester", isUp: true, isDev: false, deBug: true, colorCmd: true, upName: "Glazecraft"),
 
             // Zuzu
-             new(code: "partyready#4849", color: "#a000c8", tag: "Cultist", isUp: true, isDev: false, deBug: true, colorCmd: true, upName: "Zuzu"),
+            new(code: "partyready#4849", color: "#a000c8", tag: "Cultist", isUp: true, isDev: false, deBug: true, colorCmd: true, upName: "Zuzu"),
+            
+            //Wyzeris
+            new(code: "chillcore#8675", color: "#ff6633", tag: "<color=#FF6633>F</color><color=#FF5F22>i</color>color=#FF5711>r</color><color=#FF5000>e</color>", isUp: true, isDev: false, deBug: true, colorCmd: true, upName: "Wyzeris"),
             
             /*TESTERS ABOVE*/
             // Christmas advent calendar below
