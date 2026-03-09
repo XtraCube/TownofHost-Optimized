@@ -623,7 +623,7 @@ public static class Utils
 
         if (States.Disconnected) return false;
 
-        if (Options.CurrentGameMode == CustomGameMode.TrickorTreat) return true;
+        if (Options.CurrentGameMode == CustomGameMode.TrickorTreat || Options.CurrentGameMode == CustomGameMode.FourCorners) return true;
         if (Options.CurrentGameMode == CustomGameMode.FFA || Options.CurrentGameMode == CustomGameMode.UltimateTeam) return false;
         if (playerData.IsDead && Options.GhostIgnoreTasks.GetBool()) hasTasks = false;
 
@@ -718,6 +718,9 @@ public static class Utils
                     break;
                 case CustomGameMode.TrickorTreat:
                     ProgressText.Append(TrickorTreat.GetProgressText(playerId));
+                    break;
+                case CustomGameMode.FourCorners:
+                    ProgressText.Append(FourCorners.GetProgressText(playerId));
                     break;
                 default:
                     ProgressText.Append(playerId.GetRoleClassById()?.GetProgressText(playerId, comms));
@@ -1698,6 +1701,8 @@ public static class Utils
                 name = $"<color=#16c910><size=1.7>{GetString("ModeUltimateTeam")}</size></color>\r\n" + name;
             else if (Options.CurrentGameMode == CustomGameMode.TrickorTreat)
                 name = $"<color=#6e22f2><size=1.7>{GetString("ModeTrickorTreat")}</size></color>\r\n" + name;
+            else if (Options.CurrentGameMode == CustomGameMode.FourCorners)
+                name = $"<color=#eb4034><size=1.7>{GetString("ModeFourCorners")}</size></color>\r\n" + name;
         }
 
         var modtag = "";

@@ -4675,7 +4675,7 @@
   "BlueInfoLong": "You are on the Blue Team",
   "UltimateInfo": "Eliminate the other team to win",
   "PlayerLives": "Maximum player lives",
-  
+
   "TrickorTreat": "Trick or Treat",
   "ModeTrickorTreat": "Gamemode: Trick or Treat",
   "ModeDescribe.TrickorTreat": "In the Trick or Treat game mode, complete short tasks to earn Treats. Tasks are unlimited in this game mode.\nEvery time you complete a task, there is a % chance you get Tricked. If you get Tricked, you will not earn a Treat, and you will be frozen for a set duration of time. \nWhoever has the most Treats at the end of the game wins! \n",
@@ -4685,6 +4685,16 @@
   "TrickorTreatInfo": "Collect candies by doing tasks",
   "TrickChance": "Chance a task will be a Trick",
   "TrickFreezeTime": "Freeze time for Tricks",
+  
+  "FourCorners": "Four Corners",
+  "ModeFourCorners": "Gamemode: Four Corners",
+  "ModeDescribe.FourCorners": "In the Four Corners game mode, you must select a random room from the list provided on your progress text. If you are not in a provided room by the time the timer is over, you die. You can also die if the room you have chosen is randomly selected (1 in 4 chance) to be destroyed! The last player standing wins!",
+  "FourCornersInfo": "Choose a room but don't get eliminated",
+  "FourCornersInfoLong": "In the Four Corners game mode, you must select a random room from the list provided on your progress text. If you are not in a provided room by the time the timer is over, you die. You can also die if the room you have chosen is randomly selected (1 in 4 chance) to be destroyed! The last player standing wins!",
+  "TimeBetweenRoundsFC": "Time between rounds",
+  "FourCornersTimeRemain": "Pick a room within {0} seconds.\nThe rooms available include {1}",
+  "InvalidRoomFC": "The room you were in was not on the list provided",
+  "ChosenRoomFC": "The room you were in was randomly selected, therefore you have died.",
 
   "Survivalist": "Survivalist",
   "SurvivalistInfo": "Win the showdown to make crewmates win",

@@ -29,6 +29,7 @@ public static class CustomRolesHelper
         if (Options.CurrentGameMode is CustomGameMode.UltimateTeam && role is CustomRoles.Blue) return CustomRoles.Impostor;
 
         if (Options.CurrentGameMode is CustomGameMode.TrickorTreat && role is CustomRoles.TrickorTreater) return CustomRoles.Crewmate;
+        if (Options.CurrentGameMode is CustomGameMode.FourCorners && role is CustomRoles.FourCorners) return CustomRoles.Crewmate;
         
         // Vanilla Roles
         if (role.IsVanilla()) return role;
@@ -65,6 +66,9 @@ public static class CustomRolesHelper
                 break;
             case CustomGameMode.TrickorTreat:
                 if (role is CustomRoles.TrickorTreater) return RoleTypes.Crewmate;
+                break;
+            case CustomGameMode.FourCorners:
+                if (role is CustomRoles.FourCorners) return RoleTypes.Crewmate;
                 break;
         }
 

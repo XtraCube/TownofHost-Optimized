@@ -173,6 +173,13 @@ class RpcSetTasksPatch
             NumShortTasks = 6;
             NumLongTasks = 0;
         }
+        
+        if (Options.CurrentGameMode == CustomGameMode.FourCorners)
+        {
+            hasCommonTasks = false;
+            NumShortTasks = 1;
+            NumLongTasks = 0;
+        }
 
         if (pc.Is(CustomRoles.Workhorse))
         {

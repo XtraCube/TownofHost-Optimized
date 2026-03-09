@@ -2102,6 +2102,9 @@ internal class ChatCommands
             case CustomGameMode.TrickorTreat:
                 Utils.SendMessage(GetString("ModeDescribe.TrickorTreat"), playerId);
                 return;
+            case CustomGameMode.FourCorners:
+                Utils.SendMessage(GetString("ModeDescribe.FourCorners"), playerId);
+                return;
             case CustomGameMode.CandR:
                 var copName = GetString(CustomRoles.Cop.ToString()).ToLower().Trim().TrimStart('*').Replace(" ", string.Empty);
                 var robberName = GetString(CustomRoles.Robber.ToString()).ToLower().Trim().TrimStart('*').Replace(" ", string.Empty);

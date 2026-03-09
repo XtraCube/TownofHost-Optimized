@@ -37,6 +37,7 @@ public static class AddonAssign
             case CustomGameMode.CandR:
             case CustomGameMode.UltimateTeam:
             case CustomGameMode.TrickorTreat:
+            case CustomGameMode.FourCorners:
                 return;
         }
         AddonRolesList.Clear();

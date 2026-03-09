@@ -1015,6 +1015,9 @@ public enum CustomRoles
     // Trick or Treat
     TrickorTreater,
     
+    // Four Corners
+    FourCorners,
+    
     //GM
     GM,
 
@@ -1216,7 +1219,8 @@ public enum CustomWinner
     Blade = CustomRoles.Blade,
     Red = CustomRoles.Red,
     Blue = CustomRoles.Blue,
-    TrickorTreat = CustomRoles.TrickorTreater
+    TrickorTreat = CustomRoles.TrickorTreater,
+    FourCorners = CustomRoles.FourCorners
 }
 [Obfuscation(Exclude = true)]
 public enum AdditionalWinners

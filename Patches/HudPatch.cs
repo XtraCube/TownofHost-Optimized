@@ -468,6 +468,26 @@ class TaskPanelBehaviourPatch
                     sbFinal.Clear();
                     sbFinal.Append(sb);
                     break;
+                case CustomGameMode.FourCorners:
+                    var lines4 = taskText.Split("\r\n</color>\n")[0].Split("\r\n\n")[0].Split("\r\n");
+                    StringBuilder sb5 = new();
+                    foreach (var eachLine in lines4)
+                    {
+                        var line = eachLine.Trim();
+                        if ((line.StartsWith("<color=#ff1919ff>") || line.StartsWith("<color=#ff0000ff>")) && sb5.Length < 1 && !line.Contains('(')) continue;
+                        sb5.Append(line + "\r\n");
+                    }
+
+                    if (sb5.Length > 1)
+                    {
+                        var text = sb5.ToString().TrimEnd('\n').TrimEnd('\r');
+                        if (!Utils.HasTasks(player.Data, false) && sb5.ToString().Any(s => s == '\n'))
+                            text = $"{Utils.ColorString(Utils.GetRoleColor(player.GetCustomRole()).ShadeColor(0.2f), GetString("FakeTask"))}\r\n{text}";
+                        sb.Append($"\r\n\r\n<size=85%>{text}</size>");
+                    }
+                    sbFinal.Clear();
+                    sbFinal.Append(sb);
+                    break;
 
             }
 
