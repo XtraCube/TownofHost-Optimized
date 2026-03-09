@@ -80,7 +80,7 @@ internal static class FourCorners
     public static string GetNotifyText(byte playerId)
     {
         var player = Utils.GetPlayerById(playerId);
-        if (player.IsAlive()) return string.Format(GetString("FourCornersTimeRemain"), RoundTime.ToString(), ActiveRooms[0].ToString(), ActiveRooms[1].ToString(), ActiveRooms[2].ToString(), ActiveRooms[3].ToString());
+        if (player.IsAlive()) return string.Format(GetString("FourCornersTimeRemain"), RoundTime.ToString(), GetString(ActiveRooms[0].ToString()), GetString(ActiveRooms[1].ToString()), GetString(ActiveRooms[2].ToString()), GetString(ActiveRooms[3].ToString()));
         else
         {
             if (Reasons[player] == "invalid") return string.Format(GetString("InvalidRoomFC"));
