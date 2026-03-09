@@ -4693,8 +4693,8 @@
   "FourCornersInfoLong": "In the Four Corners game mode, you must select a random room from the list provided on your progress text. If you are not in a provided room by the time the timer is over, you die. You can also die if the room you have chosen is randomly selected (1 in 4 chance) to be destroyed! The last player standing wins!",
   "TimeBetweenRoundsFC": "Time between rounds",
   "FourCornersTimeRemain": "\nPick a room within {0} seconds.\nThe rooms available include {1}, {2}, {3}, and {4}",
-  "InvalidRoomFC": "The room you were in was not on the list provided",
-  "ChosenRoomFC": "The room you were in was randomly selected, therefore you have died.",
+  "InvalidRoomFC": "\nThe room you were in was not on the list provided",
+  "ChosenRoomFC": "\nThe room you were in was randomly selected, therefore you have died.",
 
   "Survivalist": "Survivalist",
   "SurvivalistInfo": "Win the showdown to make crewmates win",
