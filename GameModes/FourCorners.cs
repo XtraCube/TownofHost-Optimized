@@ -124,6 +124,15 @@ internal static class FourCorners
                     player.KillFlash();
                 }
 
+                ActiveRooms.Clear();
+                var validRooms = SystemTypeHelpers.AllTypes
+                    .Where(x => x != SystemTypes.HeliSabotage && ShipStatus.Instance.AllRooms.Select(room => room.RoomId).ToList().Contains(x))
+                    .ToList();
+                ActiveRooms.Add(validRooms[IRandom.Instance.Next(0, validRooms.Count)]);
+                ActiveRooms.Add(validRooms[IRandom.Instance.Next(0, validRooms.Count)]);
+                ActiveRooms.Add(validRooms[IRandom.Instance.Next(0, validRooms.Count)]);
+                ActiveRooms.Add(validRooms[IRandom.Instance.Next(0, validRooms.Count)]);
+                
                 RoundTime = TimeBetweenRounds.GetInt();
             }
         }
