@@ -15,9 +15,9 @@ internal static class FourCorners
 
     public static void SetupCustomOption()
     {
-        ShowChatInGame = BooleanOptionItem.Create(67_226_02, "ShowChatInGame", false, TabGroup.ModSettings, false)
+        ShowChatInGame = BooleanOptionItem.Create(68_226_02, "ShowChatInGame", false, TabGroup.ModSettings, false)
             .SetGameMode(CustomGameMode.FourCorners);
-        TimeBetweenRounds = IntegerOptionItem.Create(67_226_03, "TimeBetweenRoundsFC", new(5, 45, 1), 25, TabGroup.ModSettings, false)
+        TimeBetweenRounds = IntegerOptionItem.Create(68_226_03, "TimeBetweenRoundsFC", new(5, 45, 1), 25, TabGroup.ModSettings, false)
             .SetGameMode (CustomGameMode.FourCorners) 
             .SetValueFormat(OptionFormat.Seconds);
     }
@@ -79,8 +79,7 @@ internal static class FourCorners
     public static string GetProgressText(byte playerId)
     {
         var player = Utils.GetPlayerById(playerId);
-        
-        if (player.IsAlive()) return string.Format(GetString("FourCornersTimeRemain"), RoundTime.ToString(), ActiveRooms.ToString());
+        if (player.IsAlive()) return string.Format(GetString("FourCornersTimeRemain"), RoundTime.ToString(), ActiveRooms[0].ToString(), ActiveRooms[1].ToString(), ActiveRooms[2].ToString(), ActiveRooms[3].ToString());
         else
         {
             if (Reasons[player] == "invalid") return string.Format(GetString("InvalidRoomFC"));
