@@ -4920,5 +4920,10 @@
   
   "Feeblemind": "Feeblemind",
   "FeeblemindInfo": "Forget the tasks you have done",
-  "FeeblemindInfoLong": "The Feeblemind's tasks will reset after every meeting."
+  "FeeblemindInfoLong": "The Feeblemind's tasks will reset after every meeting.",
+  
+  "Rookie": "Rookie",
+  "RookieInfo": "You're brand new",
+  "RookieInfoLong": "Sometimes the Rookie fails to complete their tasks. If this happens, their tasks are reset",
+  "RookieChance": "Chance for Rookie to fail a task"
 }

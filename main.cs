@@ -1077,6 +1077,7 @@ public enum CustomRoles
     Randomizer,
     Rebirth,
     Revealed,
+    Rookie,
     Mimic,
     Mundane,
     Necroview,
