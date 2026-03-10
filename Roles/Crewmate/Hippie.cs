@@ -45,6 +45,6 @@ internal class Hippie : RoleBase
     }
 
     public override string GetMarkOthers(PlayerControl seer, PlayerControl seen, bool isForMeeting = false)
-        => seen.Is(CustomRoles.Hippie) ? ColorString(GetRoleColor(CustomRoles.Lovers), " ❀") : string.Empty;
+        => seen.Is(CustomRoles.Hippie) ? ColorString(GetRoleColor(CustomRoles.Lovers), " ☮") : string.Empty;
 
 }
