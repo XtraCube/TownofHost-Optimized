@@ -76,9 +76,8 @@ public static class GameOptionsMenuPatch
 
                 var enabled = !option.IsHiddenOn(Options.CurrentGameMode) && option.Parent?.GetBool() is null or true;
 
-                if (option is TextOptionItem header)
+                if (option is TextOptionItem)
                 {
-                    
                     CategoryHeaderMasked categoryHeaderMasked = Object.Instantiate(__instance.categoryHeaderOrigin, Vector3.zero, Quaternion.identity, __instance.settingsContainer);
                     categoryHeaderMasked.SetHeader(StringNames.RolesCategory, 20);
                     categoryHeaderMasked.Title.text = option.GetName(disableColor: true);
@@ -89,30 +88,8 @@ public static class GameOptionsMenuPatch
                     chmText.fontStyle = FontStyles.Bold;
                     chmText.outlineWidth = 0.17f;
                     categoryHeaderMasked.gameObject.SetActive(enabled);
-
-                    var button = categoryHeaderMasked.gameObject.GetComponent<PassiveButton>();
-                    if (button == null) button = categoryHeaderMasked.gameObject.AddComponent<PassiveButton>();
-
-                    button.OnClick.RemoveAllListeners();
-
-                    button.OnClick.AddListener((Action)(() =>
-                    {
-                        if (option.Children.Any()) foreach (var child in option.Children)
-                        {
-                            bool hide = !header.Children.First().IsHidden;
-                            child.SetHidden(hide);
-                        }
-
-                        // refresh the settings menu
-                        ReCreateSettings(__instance);
-                    }));
-
-                    categoryHeaderMasked.Title.text = (header.Children.Any(c => !c.IsHidden) ? "▼ " : "▶ ") + option.GetName(disableColor: true);
-                    
-                    categoryHeaderMasked.gameObject.SetActive(enabled);
-
                     ModGameOptionsMenu.CategoryHeaderList.TryAdd(index, categoryHeaderMasked);
-                    
+
                     if (enabled) num -= 0.63f;
                 }
                 else if (option.IsHeader && enabled) num -= 0.3f;

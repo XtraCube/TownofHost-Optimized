@@ -735,39 +735,6 @@ public static class Options
     {
         return CustomRoleSpawnChances.TryGetValue(role, out var option) ? option.GetValue()/* / 10f */ : roleSpawnChances[role];
     }
-
-    public static OptionItem ImpostorVanilla;
-    public static OptionItem ImpostorKilling;
-    public static OptionItem ImpostorSupport;
-    public static OptionItem ImpostorConcealing;
-    public static OptionItem ImpostorHindering;
-    public static OptionItem ImpostorGhosts;
-    public static OptionItem MadmateOpt;
-
-    // Crewmate
-    public static OptionItem CrewmateVanilla;
-    public static OptionItem CrewmateVanillaGhosts;
-    public static OptionItem CrewmateBasic;
-    public static OptionItem CrewmateHindering;
-    public static OptionItem CrewmateSupport;
-    public static OptionItem CrewmateKilling;
-    public static OptionItem CrewmatePower;
-    public static OptionItem CrewmateGhosts;
-
-    // Neutral
-    public static OptionItem NeutralBenign;
-    public static OptionItem NeutralEvil;
-    public static OptionItem NeutralChaos;
-    public static OptionItem NeutralKilling;
-    public static OptionItem NeutralApocalypse;
-    public static OptionItem NeutralGhosts;
-
-    // Coven
-    public static OptionItem CovenPower;
-    public static OptionItem CovenKilling;
-    public static OptionItem CovenTrickery;
-    public static OptionItem CovenUtility;
-    
     private static System.Collections.IEnumerator CoLoadOptions()
     {
         //#######################################
@@ -905,7 +872,7 @@ public static class Options
 
         #region Impostors Settings
         // Impostor
-        ImpostorVanilla = TextOptionItem.Create(10000000, "RoleType.VanillaRoles", TabGroup.ImpostorRoles) // Vanilla
+        TextOptionItem.Create(10000000, "RoleType.VanillaRoles", TabGroup.ImpostorRoles) // Vanilla
             .SetGameMode(CustomGameMode.Standard)
             .SetHeader(true)
             .SetColor(new Color32(250, 218, 105, byte.MaxValue));
@@ -921,7 +888,7 @@ public static class Options
             CustomRoleManager.GetExperimentalOptions(Custom_Team.Impostor).ForEach(r => r.SetupCustomOption());
         }
 
-        ImpostorKilling = TextOptionItem.Create(10000001, "RoleType.ImpKilling", TabGroup.ImpostorRoles) // KILLING
+        TextOptionItem.Create(10000001, "RoleType.ImpKilling", TabGroup.ImpostorRoles) // KILLING
             .SetGameMode(CustomGameMode.Standard)
             .SetHeader(true)
             .SetColor(new Color32(255, 0, 0, byte.MaxValue));// KILLING
@@ -931,7 +898,7 @@ public static class Options
         /*
          * SUPPORT ROLES
          */
-        ImpostorSupport = TextOptionItem.Create(10000002, "RoleType.ImpSupport", TabGroup.ImpostorRoles)
+        TextOptionItem.Create(10000002, "RoleType.ImpSupport", TabGroup.ImpostorRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 255, 0, byte.MaxValue));
 
@@ -940,7 +907,7 @@ public static class Options
         /*
          * CONCEALING ROLES
          */
-        ImpostorConcealing = TextOptionItem.Create(10000003, "RoleType.ImpConcealing", TabGroup.ImpostorRoles)
+        TextOptionItem.Create(10000003, "RoleType.ImpConcealing", TabGroup.ImpostorRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(170, 0, 255, byte.MaxValue));
 
@@ -949,7 +916,7 @@ public static class Options
         /*
          * HINDERING ROLES
          */
-        ImpostorHindering = TextOptionItem.Create(10000004, "RoleType.ImpHindering", TabGroup.ImpostorRoles)
+        TextOptionItem.Create(10000004, "RoleType.ImpHindering", TabGroup.ImpostorRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(0, 255, 0, byte.MaxValue));
 
@@ -958,7 +925,7 @@ public static class Options
         /*
          * MADMATE ROLES
          */
-        MadmateOpt = TextOptionItem.Create(10000005, "RoleType.Madmate", TabGroup.ImpostorRoles)
+        TextOptionItem.Create(10000005, "RoleType.Madmate", TabGroup.ImpostorRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(112, 0, 0, byte.MaxValue));
 
@@ -967,7 +934,7 @@ public static class Options
         /*
          * Impostor Ghost Roles
         */
-        ImpostorGhosts = TextOptionItem.Create(10000111, "RoleType.ImpGhost", TabGroup.ImpostorRoles)
+        TextOptionItem.Create(10000111, "RoleType.ImpGhost", TabGroup.ImpostorRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 100, 100, byte.MaxValue));
 
@@ -981,7 +948,7 @@ public static class Options
         /*
          * VANILLA ROLES
          */
-        CrewmateVanilla = TextOptionItem.Create(10000006, "RoleType.VanillaRoles", TabGroup.CrewmateRoles)
+        TextOptionItem.Create(10000006, "RoleType.VanillaRoles", TabGroup.CrewmateRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(250, 218, 105, byte.MaxValue));
 
@@ -1000,7 +967,7 @@ public static class Options
         /*
          * BASIC ROLES
          */
-        CrewmateBasic = TextOptionItem.Create(10000007, "RoleType.CrewBasic", TabGroup.CrewmateRoles)
+        TextOptionItem.Create(10000007, "RoleType.CrewBasic", TabGroup.CrewmateRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(150, 150, 150, byte.MaxValue));
 
@@ -1014,7 +981,7 @@ public static class Options
         /*
          * HINDERING ROLES
          */
-        CrewmateHindering = TextOptionItem.Create(10000008, "RoleType.CrewHindering", TabGroup.CrewmateRoles)
+        TextOptionItem.Create(10000008, "RoleType.CrewHindering", TabGroup.CrewmateRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 145, 0, byte.MaxValue));
 
@@ -1023,7 +990,7 @@ public static class Options
         /*
          * SUPPORT ROLES
          */
-        CrewmateSupport = TextOptionItem.Create(10000009, "RoleType.CrewSupport", TabGroup.CrewmateRoles)
+        TextOptionItem.Create(10000009, "RoleType.CrewSupport", TabGroup.CrewmateRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(0, 255, 255, byte.MaxValue));
 
@@ -1032,7 +999,7 @@ public static class Options
         /*
          * KILLING ROLES
          */
-        CrewmateKilling = TextOptionItem.Create(10000010, "RoleType.CrewKilling", TabGroup.CrewmateRoles)
+        TextOptionItem.Create(10000010, "RoleType.CrewKilling", TabGroup.CrewmateRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(0, 0, 255, byte.MaxValue));
 
@@ -1041,7 +1008,7 @@ public static class Options
         /*
          * POWER ROLES
          */
-        CrewmatePower = TextOptionItem.Create(10000011, "RoleType.CrewPower", TabGroup.CrewmateRoles)
+        TextOptionItem.Create(10000011, "RoleType.CrewPower", TabGroup.CrewmateRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 0, 255, byte.MaxValue));
 
@@ -1050,7 +1017,7 @@ public static class Options
         /*
          * Crewmate Ghost Roles
          */
-        CrewmateGhosts = TextOptionItem.Create(10000101, "RoleType.CrewGhost", TabGroup.CrewmateRoles)
+        TextOptionItem.Create(10000101, "RoleType.CrewGhost", TabGroup.CrewmateRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(140, 255, 255, byte.MaxValue));
 
@@ -1075,46 +1042,44 @@ public static class Options
 
         }
         // Neutral
-        NeutralBenign = TextOptionItem.Create(10000012, "RoleType.NeutralBenign", TabGroup.NeutralRoles)
+        TextOptionItem.Create(10000012, "RoleType.NeutralBenign", TabGroup.NeutralRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(100, 255, 0, byte.MaxValue));
 
         CustomRoleManager.GetNormalOptions(Custom_RoleType.NeutralBenign).ForEach(r => r.SetupCustomOption());
 
-        NeutralEvil = TextOptionItem.Create(10000013, "RoleType.NeutralEvil", TabGroup.NeutralRoles)
+        TextOptionItem.Create(10000013, "RoleType.NeutralEvil", TabGroup.NeutralRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 0, 115, byte.MaxValue));
 
         CustomRoleManager.GetNormalOptions(Custom_RoleType.NeutralEvil).ForEach(r => r.SetupCustomOption());
 
-        NeutralChaos = TextOptionItem.Create(10000014, "RoleType.NeutralChaos", TabGroup.NeutralRoles)
+        TextOptionItem.Create(10000014, "RoleType.NeutralChaos", TabGroup.NeutralRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 60, 0, byte.MaxValue));
 
         CustomRoleManager.GetNormalOptions(Custom_RoleType.NeutralChaos).ForEach(r => r.SetupCustomOption());
 
-        NeutralKilling = TextOptionItem.Create(10000015, "RoleType.NeutralKilling", TabGroup.NeutralRoles)
+        TextOptionItem.Create(10000015, "RoleType.NeutralKilling", TabGroup.NeutralRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(205, 85, 85, byte.MaxValue));
 
         CustomRoleManager.GetNormalOptions(Custom_RoleType.NeutralKilling).ForEach(r => r.SetupCustomOption());
 
-        NeutralApocalypse = TextOptionItem.Create(10000116, "RoleType.NeutralApocalypse", TabGroup.NeutralRoles)
+        TextOptionItem.Create(10000116, "RoleType.NeutralApocalypse", TabGroup.NeutralRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 0, 60, byte.MaxValue));
 
         TransformedNeutralApocalypseCanBeGuessed = BooleanOptionItem.Create(60024, "TNACanBeGuessed", false, TabGroup.NeutralRoles, false)
-            .SetParent(NeutralApocalypse)
             .SetGameMode(CustomGameMode.Standard)
             .SetHeader(true);
 
         ApocCanSeeEachOthersAddOns = BooleanOptionItem.Create(60025, "ApocCanSeeEachOthersAddOns", true, TabGroup.NeutralRoles, false)
-            .SetParent(NeutralApocalypse)
             .SetGameMode(CustomGameMode.Standard);
 
         CustomRoleManager.GetNormalOptions(Custom_RoleType.NeutralApocalypse).ForEach(r => r.SetupCustomOption());
 
-        NeutralGhosts = TextOptionItem.Create(10000117, "RoleType.NeutralGhost", TabGroup.NeutralRoles)
+        TextOptionItem.Create(10000117, "RoleType.NeutralGhost", TabGroup.NeutralRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(160, 160, 160, byte.MaxValue));
 
@@ -1135,25 +1100,25 @@ public static class Options
 
         }
 
-        CovenPower = TextOptionItem.Create(10000017, "RoleType.CovenPower", TabGroup.CovenRoles)
+        TextOptionItem.Create(10000017, "RoleType.CovenPower", TabGroup.CovenRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(180, 0, 255, byte.MaxValue));
 
         CustomRoleManager.GetNormalOptions(Custom_RoleType.CovenPower).ForEach(r => r.SetupCustomOption());
 
-        CovenKilling = TextOptionItem.Create(10000018, "RoleType.CovenKilling", TabGroup.CovenRoles)
+        TextOptionItem.Create(10000018, "RoleType.CovenKilling", TabGroup.CovenRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(170, 0, 255, byte.MaxValue));
 
         CustomRoleManager.GetNormalOptions(Custom_RoleType.CovenKilling).ForEach(r => r.SetupCustomOption());
 
-        CovenTrickery = TextOptionItem.Create(10000019, "RoleType.CovenTrickery", TabGroup.CovenRoles)
+        TextOptionItem.Create(10000019, "RoleType.CovenTrickery", TabGroup.CovenRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(160, 0, 255, byte.MaxValue));
 
         CustomRoleManager.GetNormalOptions(Custom_RoleType.CovenTrickery).ForEach(r => r.SetupCustomOption());
 
-        CovenUtility = TextOptionItem.Create(10000024, "RoleType.CovenUtility", TabGroup.CovenRoles)
+        TextOptionItem.Create(10000024, "RoleType.CovenUtility", TabGroup.CovenRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(150, 0, 255, byte.MaxValue));
 
@@ -2224,12 +2189,9 @@ public static class Options
 
     public static void SetupRoleOptions(int id, TabGroup tab, CustomRoles role, CustomGameMode customGameMode = CustomGameMode.Standard, bool zeroOne = false)
     {
-        var parent = CustomRolesHelper.GetOptionFromRoleType(role.GetCustomRoleType());
         var spawnOption = StringOptionItem.Create(id, role.ToString(), zeroOne ? EnumHelper.GetAllNames<RatesZeroOne>() : EnumHelper.GetAllNames<SpawnChance>(), 0, tab, false).SetColor(Utils.GetRoleColor(role))
             .SetHeader(true)
             .SetGameMode(customGameMode) as StringOptionItem;
-
-        if (parent != AddBracketsToAddons && spawnOption != null) spawnOption.SetParent(parent);
 
         var countOption = IntegerOptionItem.Create(id + 1, "Maximum", new(1, 15, 1), 1, tab, false)
             .SetParent(spawnOption)
@@ -2345,13 +2307,10 @@ public static class Options
 
     public static void SetupSingleRoleOptions(int id, TabGroup tab, CustomRoles role, int count = 1, CustomGameMode customGameMode = CustomGameMode.Standard, bool zeroOne = false)
     {
-        var parent = CustomRolesHelper.GetOptionFromRoleType(role.GetCustomRoleType());
         var spawnOption = StringOptionItem.Create(id, role.ToString(), zeroOne ? EnumHelper.GetAllNames<RatesZeroOne>() : EnumHelper.GetAllNames<SpawnChance>(), 0, tab, false).SetColor(Utils.GetRoleColor(role))
             .SetHeader(true)
             .SetGameMode(customGameMode) as StringOptionItem;
 
-        if (parent != AddBracketsToAddons && spawnOption != null) spawnOption.SetParent(parent);
-        
         var countOption = IntegerOptionItem.Create(id + 1, "Maximum", new(count, count, count), count, tab, false)
             .SetParent(spawnOption)
             .SetHidden(true)
