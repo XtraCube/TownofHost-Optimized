@@ -1623,6 +1623,40 @@ public static class CustomRolesHelper
             CountTypes.Slaad => CustomRoles.Slaad,
             _ => throw new NotImplementedException()
         };
+    
+    public static OptionItem GetOptionFromRoleType(Custom_RoleType type)
+    {
+        return type switch
+        {
+            Custom_RoleType.ImpostorVanilla => Options.ImpostorVanilla,
+            Custom_RoleType.ImpostorKilling => Options.ImpostorKilling,
+            Custom_RoleType.ImpostorSupport => Options.ImpostorSupport,
+            Custom_RoleType.ImpostorHindering => Options.ImpostorHindering,
+            Custom_RoleType.ImpostorConcealing => Options.ImpostorConcealing,
+            Custom_RoleType.ImpostorGhosts => Options.ImpostorGhosts,
+            Custom_RoleType.Madmate => Options.MadmateOpt,
+            Custom_RoleType.CrewmateVanilla => Options.CrewmateVanilla,
+            Custom_RoleType.CrewmateVanillaGhosts => Options.CrewmateGhosts,
+            Custom_RoleType.CrewmateBasic => Options.CrewmateBasic,
+            Custom_RoleType.CrewmateHindering => Options.CrewmateHindering,
+            Custom_RoleType.CrewmateSupport => Options.CrewmateSupport,
+            Custom_RoleType.CrewmateKilling => Options.CrewmateKilling,
+            Custom_RoleType.CrewmatePower => Options.CrewmatePower,
+            Custom_RoleType.CrewmateGhosts => Options.CrewmateGhosts,
+            Custom_RoleType.NeutralBenign => Options.NeutralBenign,
+            Custom_RoleType.NeutralEvil => Options.NeutralEvil,
+            Custom_RoleType.NeutralChaos => Options.NeutralChaos,
+            Custom_RoleType.NeutralKilling => Options.NeutralKilling,
+            Custom_RoleType.NeutralApocalypse => Options.NeutralApocalypse,
+            Custom_RoleType.NeutralGhosts => Options.NeutralGhosts,
+            Custom_RoleType.CovenKilling => Options.CovenKilling,
+            Custom_RoleType.CovenPower => Options.CovenPower,
+            Custom_RoleType.CovenUtility => Options.CovenUtility,
+            Custom_RoleType.CovenTrickery => Options.CovenTrickery,
+            _ => Options.AddBracketsToAddons
+        };
+    }
+    
     public static bool HasSubRole(this PlayerControl pc) => Main.PlayerStates[pc.PlayerId].SubRoles.Any();
 }
 [Obfuscation(Exclude = true)]
@@ -1672,6 +1706,7 @@ public enum Custom_RoleType
 
     None
 }
+
 [Obfuscation(Exclude = true)]
 public enum CountTypes
 {
