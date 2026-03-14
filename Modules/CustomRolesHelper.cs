@@ -213,6 +213,7 @@ public static class CustomRolesHelper
             CustomRoles.Pickpocket or
             CustomRoles.Traitor or
             CustomRoles.Virus or
+            CustomRoles.Shade or
             CustomRoles.Spiritcaller or
             CustomRoles.Jackal or
             CustomRoles.Juggernaut or
@@ -348,6 +349,7 @@ public static class CustomRolesHelper
             CustomRoles.Virus or
             CustomRoles.Spiritcaller or
             CustomRoles.Ritualist or
+            CustomRoles.Shade or
             CustomRoles.DarkFairy;
 
     public static bool IsMadmate(this CustomRoles role)
@@ -368,6 +370,7 @@ public static class CustomRolesHelper
             CustomRoles.Madmate or
             CustomRoles.Darkened or
             CustomRoles.Undead or
+            CustomRoles.Shaded or
             CustomRoles.Enchanted;
 
     public static bool IsNotKnightable(this CustomRoles role)
@@ -415,6 +418,7 @@ public static class CustomRolesHelper
             or CustomRoles.Rascal
             or CustomRoles.Soulless
             or CustomRoles.Darkened
+            or CustomRoles.Shaded
             or CustomRoles.Enchanted;
     }
 
@@ -1462,6 +1466,8 @@ public static class CustomRolesHelper
            CustomRoles.Pyromaniac => CountTypes.Pyromaniac,
            CustomRoles.PlagueDoctor => CountTypes.PlagueDoctor,
            CustomRoles.Virus => CountTypes.Virus,
+           CustomRoles.Shade => CountTypes.Shade,
+           CustomRoles.Shaded => CountTypes.Shade,
            CustomRoles.Pickpocket => CountTypes.Pickpocket,
            CustomRoles.Traitor => CountTypes.Traitor,
            CustomRoles.Refugee => CountTypes.Impostor,
@@ -1531,6 +1537,8 @@ public static class CustomRolesHelper
             CustomRoles.Juggernaut => CustomWinner.Juggernaut,
             CustomRoles.Infectious => CustomWinner.Infectious,
             CustomRoles.Virus => CustomWinner.Virus,
+            CustomRoles.Shade => CustomWinner.Shade,
+            CustomRoles.Shaded => CustomWinner.Shade,
             CustomRoles.Specter => CustomWinner.Specter,
             CustomRoles.CursedSoul => CustomWinner.CursedSoul,
             CustomRoles.Pickpocket => CustomWinner.Pickpocket,
@@ -1596,6 +1604,7 @@ public static class CustomRolesHelper
             CountTypes.Infectious => CustomRoles.Infectious,
             CountTypes.Pyromaniac => CustomRoles.Pyromaniac,
             CountTypes.Virus => CustomRoles.Virus,
+            CountTypes.Shade => CustomRoles.Shade,
             CountTypes.Pickpocket => CustomRoles.Pickpocket,
             CountTypes.Traitor => CustomRoles.Traitor,
             CountTypes.Huntsman => CustomRoles.Huntsman,
@@ -1728,5 +1737,6 @@ public enum CountTypes
     Atoner,
     Hacker,
     Wight,
-    Slaad
+    Slaad,
+    Shade
 }

@@ -1370,7 +1370,8 @@ static class ExtendedPlayerControl
             || sheriff.Is(CustomRoles.Contagious)
             || sheriff.Is(CustomRoles.Egoist)
             || sheriff.Is(CustomRoles.Darkened)
-            || sheriff.Is(CustomRoles.Enchanted);
+            || sheriff.Is(CustomRoles.Enchanted)
+            || sheriff.Is(CustomRoles.Shaded);
     }
     public static bool ShouldBeDisplayed(this CustomRoles subRole)
     {
@@ -1385,7 +1386,8 @@ static class ExtendedPlayerControl
             CustomRoles.Lovers and not
             CustomRoles.Infected and not
             CustomRoles.Enchanted and not
-             CustomRoles.Darkened and not
+            CustomRoles.Darkened and not
+            CustomRoles.Shaded and not
             CustomRoles.Contagious;
     }
 
@@ -1553,6 +1555,7 @@ static class ExtendedPlayerControl
                 or CustomRoles.Contagious
                 or CustomRoles.Egoist
                 or CustomRoles.Darkened
+                or CustomRoles.Shaded
                 or CustomRoles.Enchanted)
             && KnowSubRoleTarget(seer, target))
             return true;

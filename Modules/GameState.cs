@@ -137,6 +137,10 @@ public class PlayerState(byte playerId)
         {
             countTypes = CountTypes.Coven;
         }
+        if (pc.Is(CustomRoles.Shaded))
+        {
+            countTypes = CountTypes.Shade;
+        }
         if (Main.PlayerStates[pc.PlayerId].IsNecromancer)
         {
             countTypes = CountTypes.Coven;
@@ -271,6 +275,10 @@ public class PlayerState(byte playerId)
                     2 => countTypes,
                     _ => throw new NotImplementedException()
                 };
+                break;
+            
+            case CustomRoles.Shade:
+                countTypes = CountTypes.Shade;
                 break;
 
             // This exist as it would be possible for them to exist on the same player via Bandit

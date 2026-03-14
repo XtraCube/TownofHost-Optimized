@@ -1035,6 +1035,11 @@ public static class GuessManager
                 {
                     if (!listOfRoles.Contains(CustomRoles.Darkened))
                         listOfRoles.Add(CustomRoles.Darkened);
+                } 
+                if (CustomRoles.Shade.IsEnable())
+                {
+                    if (!listOfRoles.Contains(CustomRoles.Shaded))
+                        listOfRoles.Add(CustomRoles.Shaded);
                 }
 
                 arrayOfRoles = [.. listOfRoles];

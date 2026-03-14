@@ -318,5 +318,7 @@
   "Feeblemind": "#f7ff69",
   "FourCorners": "#eb4034",
   "Rookie": "#ffff00",
-  "Mage": "#99ccff"
+  "Mage": "#99ccff",
+  "Shade": "#202030",
+  "Shaded": "#202030"
 }

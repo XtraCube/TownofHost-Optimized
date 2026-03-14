@@ -81,6 +81,9 @@ public static class CustomWinnerHolder
                 case CustomRoles.Darkened:
                     ResetAndSetWinner(CustomWinner.DarkFairy);
                     return true;
+                case CustomRoles.Shaded:
+                    ResetAndSetWinner(CustomWinner.Shade);
+                    return true;
             }
         }
         return false;

@@ -947,6 +947,7 @@ public enum CustomRoles
     SchrodingersCat,
     Seeker,
     SerialKiller,
+    Shade,
     ShadowKing,
     Shaman,
     Shocker,
@@ -1100,6 +1101,7 @@ public enum CustomRoles
     Spurt,
     Recruit,
     Seer,
+    Shaded,
     Silent,
     Sleuth,
     Sloth,
@@ -1223,7 +1225,8 @@ public enum CustomWinner
     Blue = CustomRoles.Blue,
     TrickorTreat = CustomRoles.TrickorTreater,
     FourCorners = CustomRoles.FourCorners,
-    Slaad = CustomRoles.Slaad
+    Slaad = CustomRoles.Slaad,
+    Shade = CustomRoles.Shade
 }
 [Obfuscation(Exclude = true)]
 public enum AdditionalWinners
