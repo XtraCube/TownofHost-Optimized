@@ -320,5 +320,6 @@
   "Rookie": "#ffff00",
   "Mage": "#99ccff",
   "Shade": "#202030",
-  "Shaded": "#202030"
+  "Shaded": "#202030",
+  "ShadeX": "#202030"
 }

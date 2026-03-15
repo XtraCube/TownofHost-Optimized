@@ -1577,6 +1577,7 @@ public static class CustomRolesHelper
             CustomRoles.Godzilla => CustomWinner.Godzilla,
             CustomRoles.Wight => CustomWinner.Wight,
             CustomRoles.Slaad => CustomWinner.Slaad,
+            CustomRoles.ShadeX => CustomWinner.Shade,
             _ => throw new NotImplementedException()
 
         };
@@ -1633,6 +1634,7 @@ public static class CustomRolesHelper
             _ => throw new NotImplementedException()
         };
     public static bool HasSubRole(this PlayerControl pc) => Main.PlayerStates[pc.PlayerId].SubRoles.Any();
+    public static bool HasAddon(this PlayerControl pc, CustomRoles addon) => Main.PlayerStates[pc.PlayerId].SubRoles.Contains(addon);
 }
 [Obfuscation(Exclude = true)]
 public enum Custom_Team

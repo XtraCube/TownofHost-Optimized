@@ -4932,10 +4932,13 @@
   "MageInfoLong": "The Mage can use their kill button to spell a player. If they spell a Crewmate, the spell will be placed on themselves. If they spell an Impostor, Neutral, or Coven, the target will get the spell. All spelled players die at the end of the next meeting if the Mage is not dead.",
   "MageSpellNotice": "The following players spelled are: {0}",
   "MageTitle": "❀ The Mage has spelled some players ❀",
-  
+
   "Shade": "Shade",
   "ShadeInfo": "Control people from the dead",
   "ShadeInfoLong": "As the Shade, you have no abilities when you are alive. You can select up to a certain amount of alive players to possess (adding them the Shaded addon) with your protect button. You can use the protect button on a Shaded player again to possess them and control their body for a limited amount of time, but this reduces your total ability uses.\n",
+  "ShadeX": "Shade",
+  "ShadeXInfo": "Control people from the dead",
+  "ShadeXInfoLong": "As the Shade, you have no abilities when you are alive. You can select up to a certain amount of alive players to possess (adding them the Shaded addon) with your protect button. You can use the protect button on a Shaded player again to possess them and control their body for a limited amount of time, but this reduces your total ability uses.\n",
   "Shaded": "Shaded",
   "ShadedInfo": "You are controlled by the Shade",
   "ShadedInfoLong": "You are recruited to the Shade's team, who is a dead player. They can choose to control your movement and actions at any time.",

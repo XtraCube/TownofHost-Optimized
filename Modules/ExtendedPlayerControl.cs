@@ -1497,6 +1497,7 @@ static class ExtendedPlayerControl
         else if (seer.Is(CustomRoles.GM) || target.Is(CustomRoles.GM) || (seer.AmOwner && Main.GodMode.Value)) return true;
         else if (Options.SeeEjectedRolesInMeeting.GetBool() && Main.PlayerStates[target.PlayerId].deathReason == PlayerState.DeathReason.Vote) return true;
         else if (Altruist.HasEnabled && seer.IsMurderedThisRound()) return false;
+        else if (ShadeX.Possessed == seer) return false;
         else if (seer.GetCustomRole() == target.GetCustomRole() && seer.GetCustomRole().IsNK()) return true;
         else if (Options.LoverKnowRoles.GetBool() && seer.Is(CustomRoles.Lovers) && target.Is(CustomRoles.Lovers)) return true;
         else if (Options.ImpsCanSeeEachOthersRoles.GetBool() && seer.Is(Custom_Team.Impostor) && target.Is(Custom_Team.Impostor) && !Main.PlayerStates[seer.PlayerId].IsNecromancer && !Main.PlayerStates[target.PlayerId].IsNecromancer) return true;

@@ -948,6 +948,7 @@ public enum CustomRoles
     Seeker,
     SerialKiller,
     Shade,
+    ShadeX,
     ShadowKing,
     Shaman,
     Shocker,
