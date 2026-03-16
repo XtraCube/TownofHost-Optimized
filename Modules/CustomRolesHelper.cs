@@ -961,7 +961,7 @@ public static class CustomRolesHelper
                     return false;
                 break;
 
-            case CustomRoles.Feeblemind:
+            case CustomRoles.Forgetful:
                 if (pc.GetCustomRole().IsNeutral() || pc.GetCustomRole().IsImpostor() || pc.GetCustomRole().IsCoven() ||
                     pc.GetCustomRole().IsTasklessCrewmate() || pc.GetCustomRole().IsTaskBasedCrewmate())
                     return false;
