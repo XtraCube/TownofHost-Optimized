@@ -1,16 +1,16 @@
 
 namespace TOHO.Roles.AddOns.Crewmate;
 
-public class Feeblemind : IAddon
+public class Forgetful : IAddon
 {
-    public CustomRoles Role => CustomRoles.Feeblemind;
+    public CustomRoles Role => CustomRoles.Forgetful;
     private const int Id = 38700;
     public static bool IsEnable = false;
     public AddonTypes Type => AddonTypes.Harmful;
 
     public void SetupCustomOption()
     {
-        Options.SetupAdtRoleOptions(Id, CustomRoles.Feeblemind, canSetNum: true);
+        Options.SetupAdtRoleOptions(Id, CustomRoles.Forgetful, canSetNum: true);
     }
 
     public void Init()
