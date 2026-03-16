@@ -4918,9 +4918,9 @@
   "NoGuessesRemaining": "You don't have any guesses remaining.",
   "NoGuessesRemainingTitle": "GUESSING INFORMATION",
   
-  "Feeblemind": "Feeblemind",
-  "FeeblemindInfo": "Forget the tasks you have done",
-  "FeeblemindInfoLong": "The Feeblemind's tasks will reset after every meeting.",
+  "Forgetful": "Forgetful",
+  "ForgetfulInfo": "Forget the tasks you have done",
+  "ForgetfulInfoLong": "The Forgetful's tasks will reset after every meeting.",
   
   "Rookie": "Rookie",
   "RookieInfo": "You're brand new",
