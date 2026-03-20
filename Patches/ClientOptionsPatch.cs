@@ -10,7 +10,6 @@ public static class OptionsMenuBehaviourStartPatch
     private static ClientOptionItem ShowFPS;
     private static ClientOptionItem EnableGM;
     private static ClientOptionItem AutoStart;
-    private static ClientOptionItem DarkTheme;
     private static ClientOptionItem DisableLobbyMusic;
     private static ClientOptionItem ShowTextOverlay;
     private static ClientOptionItem HorseMode;
