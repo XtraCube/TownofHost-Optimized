@@ -1049,6 +1049,7 @@ public enum CustomRoles
     Cyber,
     Darkened,
     Diseased,
+    Distracted,
     DoubleShot,
     Eavesdropper,
     Egoist,

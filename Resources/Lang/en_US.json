@@ -4945,5 +4945,11 @@
   "ShadeAbilityUses": "Ability Uses",
   "ShadeAbilityUsesGainedWithEachShadedKill": "Shade ability uses gained by each Shaded kill",
   "ShadeProtectCooldown": "Shade protect cooldown",
-  "ShadePossessTime": "Shade possession time"
+  "ShadePossessTime": "Shade possession time",
+  
+  "Distracted": "Distracted",
+  "DistractedInfo": "Slow down whem players are near you",
+  "DistractedInfoLong": "When the Distracted is near someone, their speed will be reduced.",
+  "SpeedReduction391": "Speed Reduction for Distracted",
+  "Radius391": "Radius to be Distracted"
 }

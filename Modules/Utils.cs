@@ -2576,6 +2576,7 @@ public static class Utils
 
             if (Statue.IsEnable) Statue.AfterMeetingTasks();
             if (Windy.IsEnable) Windy.AfterMeetingTasks();
+            if (Distracted.IsEnable) Distracted.AfterMeetingTasks();
             if (Burst.IsEnable) Burst.AfterMeetingTasks();
             if (Forgetful.IsEnable) Forgetful.AfterMeetingTasks();
 
