@@ -2,6 +2,9 @@
 using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using System.IO;
+using System.Text.Json;
+using Sentry.Internal.Extensions;
 
 namespace TOHO;
 
@@ -186,10 +189,18 @@ public class ThemeOptionItem
         UpdateToggle();
     }
 
+    private static readonly FileInfo ThemeOptionInfo = new("./TOHO-DATA/Theme.json");
+    
+    public static Dictionary<int, int> dict = [];
+    
     public static ThemeOptionItem Create(
         ConfigEntry<int> config,
         OptionsMenuBehaviour optionsMenuBehaviour)
     {
+        if (!File.Exists(ThemeOptionInfo.DirectoryName)) ThemeOptionInfo.Create().Dispose();
+        if (ThemeOptionInfo.DirectoryName != null) dict = JsonSerializer.Deserialize<Dictionary<int, int>>(File.ReadAllText(ThemeOptionInfo.DirectoryName));
+        if (dict[0] <= 6 && dict[0] >= 1)  ThemeID=dict[0];
+        
         return new(config, optionsMenuBehaviour);
     }
 
@@ -250,5 +261,7 @@ public class ThemeOptionItem
                 break;
         }
         modOptionsButton.Text.text = "Theme: " + theme;
+        dict.TryAdd(0, ThemeID);
+        if (ThemeOptionInfo.DirectoryName != null) File.WriteAllText(ThemeOptionInfo.DirectoryName, dict.ToString());
     }
 }
