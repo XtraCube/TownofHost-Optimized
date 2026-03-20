@@ -44,7 +44,7 @@ internal class Mercenary : RoleBase
 
     public override void ApplyGameOptions(IGameOptions opt, byte playerId)
     {
-        AURoleOptions.ShapeshifterCooldown = HasKilled(Utils.GetPlayerById(playerId)) ? OptTimeLimit : 255f;
+        AURoleOptions.ShapeshifterCooldown = OptTimeLimit;
         AURoleOptions.ShapeshifterDuration = 1f;
     }
 
