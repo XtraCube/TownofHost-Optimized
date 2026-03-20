@@ -120,6 +120,7 @@ public class Main : BasePlugin
     public static ConfigEntry<string> Preset5 { get; private set; }
     //Other Configs
     public static ConfigEntry<string> WebhookURL { get; private set; }
+    public static ConfigEntry<int> ConfigTheme { get; private set; }
     public static ConfigEntry<string> BetaBuildURL { get; private set; }
     public static ConfigEntry<float> LastKillCooldown { get; private set; }
     public static ConfigEntry<float> LastShapeshifterCooldown { get; private set; }
@@ -594,6 +595,7 @@ public class Main : BasePlugin
         Preset4 = Config.Bind("Preset Name Options", "Preset4", "Preset_4");
         Preset5 = Config.Bind("Preset Name Options", "Preset5", "Preset_5");
         WebhookURL = Config.Bind("Other", "WebhookURL", "none");
+        ConfigTheme = Config.Bind("Other", "ConfigTheme", 0);
         BetaBuildURL = Config.Bind("Other", "BetaBuildURL", "");
         MessageWait = Config.Bind("Other", "MessageWait", 1);
         LastKillCooldown = Config.Bind("Other", "LastKillCooldown", (float)30);

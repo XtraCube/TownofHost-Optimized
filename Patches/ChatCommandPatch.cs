@@ -3694,7 +3694,7 @@ class ChatUpdatePatch
 
         Instance ??= __instance;
 
-        if (Main.DarkTheme.Value)
+        if (ThemeOptionItem.ThemeID != 1)
         {
             var chatBubble = __instance.chatBubblePool.Prefab.Cast<ChatBubble>();
             chatBubble.TextArea.overrideColorTags = false;

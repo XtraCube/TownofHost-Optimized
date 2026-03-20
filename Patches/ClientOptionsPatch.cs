@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using BepInEx.Configuration;
 namespace TOHO;
 
 //��Դ��https://github.com/tukasa0001/TownOfHost/pull/1265
@@ -21,6 +21,7 @@ public static class OptionsMenuBehaviourStartPatch
     private static ClientOptionItem EnableCustomSoundEffect;
     private static ClientOptionItem EnableCustomDecorations;
     private static ClientOptionItem SwitchVanilla;
+    private static ThemeOptionItem TOI;
 
 #if DEBUG
     private static ClientOptionItem VersionCheat;
@@ -69,10 +70,6 @@ public static class OptionsMenuBehaviourStartPatch
                     Logger.SendInGame(Translator.GetString("CancelStartCountDown"));
                 }
             }
-        }
-        if (DarkTheme == null || DarkTheme.ToggleButton == null)
-        {
-            DarkTheme = ClientOptionItem.Create("DarkTheme", Main.DarkTheme, __instance);
         }
         if (DisableLobbyMusic == null || DisableLobbyMusic.ToggleButton == null)
         {
@@ -145,6 +142,11 @@ public static class OptionsMenuBehaviourStartPatch
                 Harmony.UnpatchAll();
                 Main.Instance.Unload();
             }
+        }
+        
+        if ((TOI == null || TOI.modOptionsButton == null))
+        {
+            TOI = ThemeOptionItem.Create(Main.ConfigTheme, __instance);
         }
 
 #if DEBUG

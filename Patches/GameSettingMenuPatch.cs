@@ -460,7 +460,7 @@ public static class FixDarkThemeForSearchBar
 {
     public static void Postfix()
     {
-        if (!GameSettingMenu.Instance || !Main.DarkTheme.Value) return;
+        if (!GameSettingMenu.Instance || (ThemeOptionItem.ThemeID == 1)) return;
         var field = GameSettingMenuPatch.InputField;
         if (field != null)
         {

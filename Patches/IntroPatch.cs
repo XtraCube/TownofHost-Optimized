@@ -205,7 +205,7 @@ class SetUpRoleTextPatch
         sb.Append($"UnlockFPS: {Main.UnlockFPS.Value}\n");
         sb.Append($"Show FPS: {Main.ShowFPS.Value}\n");
         sb.Append($"Auto Start: {Main.AutoStart.Value}\n");
-        sb.Append($"Dark Theme: {Main.DarkTheme.Value}\n");
+        sb.Append($"Theme: {ThemeOptionItem.ThemeID}\n");
         sb.Append($"Disable Lobby Music: {Main.DisableLobbyMusic.Value}\n");
         sb.Append($"Show Text Overlay: {Main.ShowTextOverlay.Value}\n");
         sb.Append($"Horse Mode: {Main.HorseMode.Value}\n");

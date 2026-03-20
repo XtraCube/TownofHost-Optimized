@@ -17,14 +17,59 @@ class ChatBubbleSetNamePatch
 {
     public static void Postfix(ChatBubble __instance, [HarmonyArgument(1)] bool isDead, [HarmonyArgument(2)] bool voted)
     {
-        if (Main.DarkTheme.Value)
+        switch (ThemeOptionItem.ThemeID)
         {
-            if (isDead)
-                __instance.Background.color = new(0.1f, 0.1f, 0.1f, 0.6f);
-            else
-                __instance.Background.color = new(0.1f, 0.1f, 0.1f, 1f);
+            case 1:
+                __instance.TextArea.color = Color.black;
 
-            __instance.TextArea.color = Color.white;
+                if (isDead)
+                    __instance.Background.color = new(0.9f, 0.9f, 0.9f, 153);
+                else
+                    __instance.Background.color = new(0.9f, 0.9f, 0.9f, 255);                
+                break;
+            case 2:
+                __instance.TextArea.color = Color.white;
+
+                if (isDead)
+                    __instance.Background.color = new(0.1f, 0.1f, 0.1f, 153);
+                else
+                    __instance.Background.color = new(0.1f, 0.1f, 0.1f, 255);
+                break;
+            case 3:
+                __instance.TextArea.color = Color.white;
+
+                __instance.TextArea.color = Color.white;
+
+                if (isDead)
+                    __instance.Background.color = new Color32(112, 33, 25, 153);
+                else
+                    __instance.Background.color = new Color32(112, 33, 25, 255);
+                break;
+            case 4:
+                __instance.TextArea.color = Color.white;
+
+                if (isDead)
+                    __instance.Background.color = new Color32(117, 83, 11, 153);
+                else
+                    __instance.Background.color = new Color32(117, 83, 11, 255);
+                break;
+            case 5:
+                __instance.TextArea.color = Color.white;
+
+                if (isDead)
+                    __instance.Background.color = new Color32(36, 69, 25, 153);
+                else
+                    __instance.Background.color = new Color32(36, 69, 25, 255);
+                break;
+            case 6:
+                __instance.TextArea.color = Color.white;
+
+                if (isDead)
+                    __instance.Background.color = new Color32(6, 13, 56, 153);
+                else
+                    __instance.Background.color = new Color32(6, 13, 56, 255);
+                
+                break;
         }
 
         if (!GameStates.IsInGame) return;

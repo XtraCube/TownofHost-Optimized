@@ -63,7 +63,7 @@ public class ClientOptionItem
                 var generalTab = mouseMoveToggle.transform.parent.parent.parent;
 
                 var modOptionsButton = Object.Instantiate(mouseMoveToggle, generalTab);
-                modOptionsButton.transform.localPosition = leaveButton?.transform?.localPosition ?? new(0f, -2.4f, 1f);
+                modOptionsButton.transform.localPosition = new(1.2f, -1.8f, 1f);
                 modOptionsButton.name = "TOHOOptions";
                 modOptionsButton.Text.text = Translator.GetString("TOHOOptions");
                 modOptionsButton.Background.color = new Color32(180, 126, 222, byte.MaxValue);
@@ -118,5 +118,137 @@ public class ClientOptionItem
         var color = (Config != null && Config.Value) ? new Color32(180, 126, 222, byte.MaxValue) : new Color32(77, 77, 77, byte.MaxValue);
         ToggleButton.Background.color = color;
         ToggleButton.Rollover?.ChangeOutColor(color);
+    }
+}
+
+public class ThemeOptionItem
+{
+    public ConfigEntry<bool> Config;
+    public ToggleButtonBehaviour modOptionsButton;
+    public static int ThemeID = 1;
+    
+    public static SpriteRenderer CustomBackground;
+
+    private ThemeOptionItem(
+        ConfigEntry<int> config,
+        OptionsMenuBehaviour optionsMenuBehaviour
+        )
+    {
+        var mouseMoveToggle = optionsMenuBehaviour.DisableMouseMovement;
+        var generalTab = mouseMoveToggle.transform.parent.parent.parent;
+        PassiveButton leaveButton = null;
+        foreach (var button in optionsMenuBehaviour.ControllerSelectable.ToArray())
+        {
+            if (button == null) continue;
+
+            if (button.name == "LeaveGameButton")
+                leaveButton = button.GetComponent<PassiveButton>();
+        }        
+        modOptionsButton = Object.Instantiate(mouseMoveToggle, generalTab);
+
+        modOptionsButton.transform.localPosition = new(-1.2f, -1.8f, 1f);
+        modOptionsButton.name = "TOHOTheme";
+
+        var theme = "None";
+        switch (ThemeID)
+        {
+            case 1:
+                theme = "Classic";
+                break;
+            case 2:
+                theme = "Dark";
+                break;
+            case 3:
+                theme = "Mars Red";
+                break;
+            case 4:
+                theme = "Golden Yellow";
+                break;
+            case 5:
+                theme = "Forest Green";
+                break;
+            case 6:
+                theme = "Deep Sea Blue";
+                break;
+        }
+        modOptionsButton.Text.text = "Theme: " + theme;
+        modOptionsButton.Background.color = new Color32(180, 126, 222, byte.MaxValue);
+        var modOptionsPassiveButton = modOptionsButton.GetComponent<PassiveButton>();
+        modOptionsPassiveButton.OnClick = new();
+        modOptionsPassiveButton.OnClick.AddListener((UnityEngine.Events.UnityAction)(() =>
+        {
+            if (ThemeID >= 6) ThemeID = 0;
+            else ThemeID++;
+            UpdateToggle();
+        }));
+        if (leaveButton != null)
+            leaveButton.transform.localPosition = new(-1.35f, -2.411f, -1f);
+        UpdateToggle();
+    }
+
+    public static ThemeOptionItem Create(
+        ConfigEntry<int> config,
+        OptionsMenuBehaviour optionsMenuBehaviour)
+    {
+        return new(config, optionsMenuBehaviour);
+    }
+
+    public void UpdateToggle()
+    {
+        if (modOptionsButton == null) return;
+
+        var color = new Color(0, 0, 0);
+        
+        switch (ThemeID)
+        {
+            case 1: 
+                color = new Color32(225, 225, 225, byte.MaxValue);
+                break;
+
+            case 2: 
+                color = new Color32(55, 55, 55, byte.MaxValue);
+                break;
+
+            case 3: 
+                color = new Color32(112, 33, 25, byte.MaxValue);
+                break;
+
+            case 4: 
+                color = new Color32(117, 83, 11, byte.MaxValue);
+                break;
+
+            case 5: 
+                color = new Color32(36, 69, 25, byte.MaxValue);
+                break;
+
+            case 6: 
+                color = new Color32(6, 13, 56, byte.MaxValue);
+                break;
+        }
+        modOptionsButton.Background.color = color;
+        modOptionsButton.Rollover?.ChangeOutColor(color);
+        var theme = "None";
+        switch (ThemeID)
+        {
+            case 1:
+                theme = "Classic";
+                break;
+            case 2:
+                theme = "Dark";
+                break;
+            case 3:
+                theme = "Mars Red";
+                break;
+            case 4:
+                theme = "Golden Yellow";
+                break;
+            case 5:
+                theme = "Forest Green";
+                break;
+            case 6:
+                theme = "Deep Sea Blue";
+                break;
+        }
+        modOptionsButton.Text.text = "Theme: " + theme;
     }
 }

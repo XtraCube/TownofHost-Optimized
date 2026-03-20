@@ -19,9 +19,28 @@ class ChatControllerUpdatePatch
     }
     public static void Postfix(ChatController __instance)
     {
-        if (Main.DarkTheme.Value)
+        if (ThemeOptionItem.ThemeID != 1)
         {
             var backgroundColor = new Color32(40, 40, 40, byte.MaxValue);
+
+            switch (ThemeOptionItem.ThemeID)
+            {
+                case 1: 
+                case 2:
+                    break;
+                case 3:
+                    backgroundColor = new Color32(112, 33, 25, byte.MaxValue);
+                    break;
+                case 4:
+                    backgroundColor = new Color32(117, 83, 11, byte.MaxValue);
+                    break;
+                case 5:
+                    backgroundColor = new Color32(36, 69, 25, byte.MaxValue);
+                    break;
+                case 6:
+                    backgroundColor = new Color32(6, 13, 56, byte.MaxValue);
+                    break;
+            }
 
             // free chat
             __instance.freeChatField.background.color = backgroundColor;
