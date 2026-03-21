@@ -34,6 +34,7 @@ public static class CustomSoundsManager
     private static readonly string SOUNDS_PATH = @$"{Environment.CurrentDirectory.Replace(@"\", "/")}/BepInEx/resources/";
     public static void Play(string sound)
     {
+        if (OperatingSystem.IsAndroid()) return; // Android doesn't have winmm.dll
         if (!Constants.ShouldPlaySfx() || !Main.EnableCustomSoundEffect.Value) return;
         var path = SOUNDS_PATH + sound + ".wav";
         if (!Directory.Exists(SOUNDS_PATH)) Directory.CreateDirectory(SOUNDS_PATH);
@@ -55,9 +56,11 @@ public static class CustomSoundsManager
         StartPlay(path);
         Logger.Msg($"play sound：{sound}", "CustomSounds");
     }
-
+#if ANDROID
+    private static void StartPlay(string _) {  }
+#else
     [DllImport("winmm.dll", CharSet = CharSet.Unicode)]
     private static extern bool PlaySound(string Filename, int Mod, int Flags);
     private static void StartPlay(string path) => PlaySound(@$"{path}", 0, 1); //第3个形参，把1换为9，连续播放
-
+#endif
 }
