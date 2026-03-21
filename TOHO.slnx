@@ -1,0 +1,8 @@
+﻿<Solution>
+    <Configurations>
+        <BuildType Name="Canary" />
+        <BuildType Name="Debug" />
+        <BuildType Name="Release" />
+    </Configurations>
+    <Project Path="TOHO/TOHO.csproj" />
+</Solution>
