@@ -1,4 +1,6 @@
-﻿using Hazel;
+﻿using System.Reflection;
+using HarmonyLib;
+using Hazel;
 using InnerNet;
 using TOHO.Modules;
 
@@ -175,8 +177,8 @@ internal class StartGameHostPatch
 [HarmonyPatch]
 internal class AuthTimeoutPatch
 {
-    [HarmonyPatch(typeof(AuthManager._CoConnect_d__4), nameof(AuthManager._CoConnect_d__4.MoveNext))]
-    [HarmonyPatch(typeof(AuthManager._CoWaitForNonce_d__6), nameof(AuthManager._CoWaitForNonce_d__6.MoveNext))]
+    [HarmonyPatch(typeof(AuthManager_CoConnect), "MoveNext")]
+    [HarmonyPatch(typeof(AuthManager_CoWaitForNonce), "MoveNext")]
     [HarmonyPrefix]
     // From Reactor.gg
     // https://github.com/NuclearPowered/Reactor/blob/master/Reactor/Patches/Miscellaneous/CustomServersPatch.cs
@@ -192,15 +194,15 @@ internal class AuthTimeoutPatch
 
     // If you dont patch this, u still need to wait for 5s
     // I have no idea why this is happening
-    [HarmonyPatch(typeof(AmongUsClient._CoJoinOnlinePublicGame_d__49), nameof(AmongUsClient._CoJoinOnlinePublicGame_d__49.MoveNext))]
+    [HarmonyPatch(typeof(AmongUsClient_CoJoinOnlinePublicGame), "MoveNext")]
     [HarmonyPrefix]
-    public static void EnableUdpMatchmakingPrefix(AmongUsClient._CoJoinOnlinePublicGame_d__49 __instance)
+    public static void EnableUdpMatchmakingPrefix(AmongUsClient_CoJoinOnlinePublicGame __instance)
     {
         // Skip to state 1 which just calls CoJoinOnlineGameDirect
         if (__instance.__1__state == 0 && !ServerManager.Instance.IsHttp)
         {
             __instance.__1__state = 1;
-            __instance.__8__1 = new AmongUsClient.__c__DisplayClass49_0
+            __instance.__8__1 = new AmongUsClient_DisplayClassToken
             {
                 matchmakerToken = string.Empty,
             };

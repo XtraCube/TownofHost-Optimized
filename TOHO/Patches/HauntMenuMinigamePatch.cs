@@ -1,4 +1,5 @@
-﻿using TOHO.Roles.Crewmate;
+﻿using HarmonyLib;
+using TOHO.Roles.Crewmate;
 using TOHO.Roles.Impostor;
 
 namespace TOHO.Patches;

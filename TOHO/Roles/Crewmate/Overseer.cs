@@ -1,4 +1,5 @@
-﻿using AmongUs.GameOptions;
+﻿using System.Collections.Generic;
+using AmongUs.GameOptions;
 using Hazel;
 using InnerNet;
 using TOHO.Roles.AddOns.Common;

@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace TOHO.Modules;
 
 public static class DoorsReset

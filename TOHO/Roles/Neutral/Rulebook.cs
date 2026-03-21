@@ -1,4 +1,5 @@
-﻿using static TOHO.Options;
+﻿using System.Collections.Generic;
+using static TOHO.Options;
 using static TOHO.CovenManager;
 using TOHO.Modules;
 

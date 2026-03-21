@@ -1,5 +1,7 @@
 ﻿using Hazel;
 using System;
+using System.Collections.Generic;
+using HarmonyLib;
 using TOHO.Roles.Core;
 using TOHO.Modules.ChatManager;
 using UnityEngine;

@@ -1,4 +1,5 @@
-﻿using AmongUs.GameOptions;
+﻿using System.Linq;
+using AmongUs.GameOptions;
 using TOHO.Roles.Core;
 using UnityEngine;
 using static TOHO.Options;

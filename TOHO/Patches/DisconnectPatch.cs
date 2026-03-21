@@ -1,3 +1,5 @@
+using HarmonyLib;
+
 namespace TOHO;
 
 [HarmonyPatch(typeof(AmongUsClient), nameof(AmongUsClient.OnDisconnected))]

@@ -1,13 +1,16 @@
 using Assets.CoreScripts;
 using Hazel;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using TOHO.Roles.Core;
 using UnityEngine;
 using static TOHO.Translator;
 using AmongUs.InnerNet.GameDataMessages;
+using HarmonyLib;
 using TOHO.Modules;
 using TOHO.Modules.ChatManager;
 using TOHO.Roles.Core.AssignManager;

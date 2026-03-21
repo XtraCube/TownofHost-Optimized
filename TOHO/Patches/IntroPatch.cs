@@ -8,6 +8,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Linq;
+using System.Reflection;
+using HarmonyLib;
+using Il2CppInterop.Runtime.InteropTypes;
 using TOHO.Modules;
 using TOHO.Patches;
 using TOHO.Roles.AddOns.Impostor;
@@ -84,12 +88,12 @@ class CoBeginPatch
         FourCorners.SetData();
     }
 }
-[HarmonyPatch(typeof(IntroCutscene._ShowRole_d__41), nameof(IntroCutscene._ShowRole_d__41.MoveNext))]
+[HarmonyPatch(typeof(IntroCutscene_ShowRole), "MoveNext")]
 class SetUpRoleTextPatch
 {
     public static bool IsInIntro = false;
 
-    public static void Postfix(IntroCutscene._ShowRole_d__41 __instance, ref bool __result)
+    public static void Postfix(IntroCutscene_ShowRole __instance, ref bool __result)
     {
         if (__instance.__1__state == 1 && __result) // while wait for 2.5s
         {
@@ -337,8 +341,9 @@ class BeginCrewmatePatch
                 if (pc.Is(CustomRoles.Lovers) && pc != PlayerControl.LocalPlayer)
                     teamToDisplay.Add(pc);
             }
-
+#if !ANDROID
             __instance.overlayHandle.color = new Color32(255, 154, 206, byte.MaxValue);
+#endif
             return true;
         }
         else if (PlayerControl.LocalPlayer.Is(CustomRoles.Egoist))
@@ -346,14 +351,18 @@ class BeginCrewmatePatch
             teamToDisplay = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
             teamToDisplay.Add(PlayerControl.LocalPlayer);
 
+#if !ANDROID
             __instance.overlayHandle.color = new Color32(86, 0, 255, byte.MaxValue);
+#endif
             return true;
         }
         else if (role.IsMadmate() || PlayerControl.LocalPlayer.Is(CustomRoles.Madmate))
         {
             teamToDisplay = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
             __instance.BeginImpostor(teamToDisplay);
+#if !ANDROID
             __instance.overlayHandle.color = Palette.ImpostorRed;
+#endif
             return false;
         }
         else if (PlayerControl.LocalPlayer.IsPlayerCoven())
@@ -783,7 +792,9 @@ class BeginImpostorPatch
                 }
             }
 
+#if !ANDROID
             __instance.overlayHandle.color = Palette.ImpostorRed;
+#endif
             return true;
         }
 
@@ -793,7 +804,9 @@ class BeginImpostorPatch
             yourTeam.Add(PlayerControl.LocalPlayer);
             foreach (var pc in Main.AllPlayerControls.Where(x => !x.AmOwner)) yourTeam.Add(pc);
             __instance.BeginCrewmate(yourTeam);
+#if !ANDROID
             __instance.overlayHandle.color = Palette.CrewmateBlue;
+#endif
             return false;
         }
 
@@ -803,7 +816,9 @@ class BeginImpostorPatch
             yourTeam.Add(PlayerControl.LocalPlayer);
             foreach (var pc in Main.AllPlayerControls.Where(x => !x.AmOwner)) yourTeam.Add(pc);
             __instance.BeginCrewmate(yourTeam);
+#if !ANDROID
             __instance.overlayHandle.color = GetRoleColor(role);
+#endif
             return false;
         }
 
@@ -827,7 +842,9 @@ class BeginImpostorPatch
                 }
             }
 
+#if !ANDROID
             __instance.overlayHandle.color = Palette.ImpostorRed;
+#endif
         }
 
         if (role.IsCoven())
@@ -836,7 +853,9 @@ class BeginImpostorPatch
             yourTeam.Add(PlayerControl.LocalPlayer);
             foreach (var pc in Main.AllPlayerControls.Where(x => !x.AmOwner)) yourTeam.Add(pc);
             __instance.BeginCrewmate(yourTeam);
+#if !ANDROID
             __instance.overlayHandle.color = new Color32(172, 66, 242, byte.MaxValue);
+#endif
             return false;
         }
 
@@ -849,11 +868,27 @@ class BeginImpostorPatch
         BeginCrewmatePatch.Postfix(__instance);
     }
 }
-[HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.OnDestroy))]
+[HarmonyPatch]
 class IntroCutsceneDestroyPatch
 {
-    public static void Prefix()
+    public static MethodBase TargetMethod()
     {
+        if (AccessTools.Method(typeof(IntroCutscene), "OnDestroy") is { } methodInfo)
+        {
+            return methodInfo;
+        }
+
+        return AccessTools.Method(typeof(IntroCutscene_CoBegin), "MoveNext");
+    }
+
+    public static void Prefix(Il2CppObjectBase __instance)
+    {
+        if (__instance.TryCast<IntroCutscene_CoBegin>() is { __1__state: >= 0 })
+        {
+            // return if using enumerator movenext and we are not at last state
+            return;
+        }
+        
         if (AmongUsClient.Instance.AmHost && !AmongUsClient.Instance.IsGameOver)
         {
             // Host is Desync Role
@@ -887,8 +922,14 @@ class IntroCutsceneDestroyPatch
             }
         }
     }
-    public static void Postfix()
+    public static void Postfix(Il2CppObjectBase __instance)
     {
+        if (__instance.TryCast<IntroCutscene_CoBegin>() is { __1__state: >= 0 })
+        {
+            // return if using enumerator movenext and we are not at last state
+            return;
+        }
+
         if (!GameStates.IsInGame) return;
 
         Main.IntroDestroyed = true;

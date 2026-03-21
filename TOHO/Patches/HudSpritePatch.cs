@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using HarmonyLib;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using TOHO.Roles.Core;
 using UnityEngine;

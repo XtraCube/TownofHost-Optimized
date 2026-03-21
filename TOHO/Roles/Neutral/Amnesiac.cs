@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AmongUs.GameOptions;
 using TOHO.Roles.Core.AssignManager;
 using UnityEngine;

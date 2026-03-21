@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using HarmonyLib;
 using Hazel;
 using InnerNet;
 using TOHO.Modules;

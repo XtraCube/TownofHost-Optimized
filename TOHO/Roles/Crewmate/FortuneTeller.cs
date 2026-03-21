@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TOHO.Modules;
 using TOHO.Roles.Core;
 using TOHO.Roles.Coven;

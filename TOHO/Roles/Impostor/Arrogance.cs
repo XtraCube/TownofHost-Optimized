@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static TOHO.Options;
 
 namespace TOHO.Roles.Impostor;

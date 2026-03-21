@@ -1,4 +1,5 @@
-﻿using Hazel;
+﻿using System.Linq;
+using Hazel;
 using InnerNet;
 using TOHO.Roles.Core;
 using UnityEngine;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AmongUs.GameOptions;
 using static TOHO.Options;
 using static TOHO.Translator;

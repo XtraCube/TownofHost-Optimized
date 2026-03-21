@@ -1,4 +1,8 @@
-﻿namespace TOHO.Roles.AddOns.Common;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
+
+namespace TOHO.Roles.AddOns.Common;
 
 public class Influenced : IAddon
 {

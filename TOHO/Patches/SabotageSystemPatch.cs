@@ -1,4 +1,5 @@
 using AmongUs.GameOptions;
+using HarmonyLib;
 using Hazel;
 using TOHO.Roles.Core;
 using TOHO.Roles.Neutral;

@@ -1,4 +1,6 @@
-﻿using AmongUs.GameOptions;
+﻿using System.Linq;
+using AmongUs.GameOptions;
+using HarmonyLib;
 using Hazel;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using InnerNet;

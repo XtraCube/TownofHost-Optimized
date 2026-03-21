@@ -1,4 +1,7 @@
-﻿using AmongUs.GameOptions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using AmongUs.GameOptions;
 using Hazel;
 using static TOHO.Options;
 using static TOHO.Translator;

@@ -1,4 +1,6 @@
+using System.Linq;
 using AmongUs.GameOptions;
+using HarmonyLib;
 using TOHO.Modules;
 using TOHO.Roles.Core;
 using TOHO.Roles.Impostor;

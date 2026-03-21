@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using HarmonyLib;
+
 namespace TOHO;
 
 public class AirshipElectricalDoors

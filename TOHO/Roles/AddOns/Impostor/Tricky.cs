@@ -1,4 +1,6 @@
-﻿using static TOHO.Options;
+﻿using System.Linq;
+using HarmonyLib;
+using static TOHO.Options;
 
 namespace TOHO.Roles.AddOns.Impostor;
 public class Tricky : IAddon

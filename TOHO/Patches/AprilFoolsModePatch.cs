@@ -1,4 +1,4 @@
-﻿using Il2CppSystem;
+﻿using HarmonyLib;
 using static CosmeticsLayer;
 
 namespace TOHO.Patches;
@@ -94,9 +94,9 @@ public static class LongBoiPatches
     public static bool LongBoyAwake_Prefix(LongBoiPlayerBody __instance)
     {
         //Fixes base-game layer issues
-        __instance.cosmeticLayer.OnSetBodyAsGhost += (Action)__instance.SetPoolableGhost;
-        __instance.cosmeticLayer.OnColorChange += (Action<int>)__instance.SetHeightFromColor;
-        __instance.cosmeticLayer.OnCosmeticSet += (Action<string, int, CosmeticKind>)__instance.OnCosmeticSet;
+        __instance.cosmeticLayer.OnSetBodyAsGhost += (Il2CppSystem.Action)__instance.SetPoolableGhost;
+        __instance.cosmeticLayer.OnColorChange += (Il2CppSystem.Action<int>)__instance.SetHeightFromColor;
+        __instance.cosmeticLayer.OnCosmeticSet += (Il2CppSystem.Action<string, int, CosmeticKind>)__instance.OnCosmeticSet;
         __instance.gameObject.layer = 8;
         return false;
     }

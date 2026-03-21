@@ -2,6 +2,9 @@
 using Hazel;
 using InnerNet;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using TOHO.Modules;
 using TOHO.Roles.Core;
 using static TOHO.MeetingHudStartPatch;

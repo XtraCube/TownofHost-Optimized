@@ -1,4 +1,5 @@
-﻿using TOHO.Modules;
+﻿using System.Collections.Generic;
+using TOHO.Modules;
 using TOHO.Roles.Double;
 using static TOHO.Utils;
 using static TOHO.Options;

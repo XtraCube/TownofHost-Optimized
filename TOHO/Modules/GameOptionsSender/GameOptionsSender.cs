@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using AmongUs.GameOptions;
 using Hazel;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
-using Il2CppSystem;
 using InnerNet;
 
 namespace TOHO.Modules;
@@ -34,7 +34,7 @@ public abstract class GameOptionsSender
             ? opt.AprilFoolsOnMode : opt.GameMode; //Change game mode, same as well as in "RpcSyncSettings()"
 
         // option => byte[]
-        MessageWriter writer = MessageWriter.Get(SendOption.None);
+        MessageWriter writer = MessageWriter.Get();
         writer.Write(opt.Version);
         writer.StartMessage(0);
         writer.Write((byte)currentGameMode);
@@ -49,10 +49,7 @@ public abstract class GameOptionsSender
         }
         writer.EndMessage();
 
-        // Create into array
-        var byteArray = new Il2CppStructArray<byte>(writer.Length - 1);
-        // MessageWriter.ToByteArray
-        Buffer.BlockCopy(writer.Buffer.Cast<Array>(), 1, byteArray.Cast<Array>(), 0, writer.Length - 1);
+        var byteArray = writer.ToByteArray(false);
 
         SendOptionsArray(byteArray);
         writer.Recycle();

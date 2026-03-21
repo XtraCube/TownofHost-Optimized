@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Reflection;
+using HarmonyLib;
+using UnityEngine;
 
 namespace TOHO.Patches;
 
@@ -11,7 +13,7 @@ namespace TOHO.Patches;
  * So not used, execpt vanilla Hide&Seek
 */
 
-[HarmonyPatch(typeof(AmongUsClient._CoStartGameHost_d__28), nameof(AmongUsClient._CoStartGameHost_d__28.MoveNext))]
+[HarmonyPatch(typeof(AmongUsClient._CoStartGameHost_d__28), "MoveNext")]
 public static class DleksPatch
 {
     private static bool Prefix(AmongUsClient._CoStartGameHost_d__28 __instance, ref bool __result)

@@ -1,5 +1,6 @@
 ﻿using static TOHO.Translator;
 using System;
+using System.Collections.Generic;
 using static TOHO.Options;
 
 namespace TOHO.Roles.Neutral;

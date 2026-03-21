@@ -2,6 +2,7 @@
 using Hazel;
 using InnerNet;
 using System;
+using System.Collections.Generic;
 using TOHO.Modules;
 using TOHO.Roles.Core;
 

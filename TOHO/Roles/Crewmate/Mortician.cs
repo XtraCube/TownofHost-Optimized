@@ -1,4 +1,5 @@
-﻿using TOHO.Roles.Core;
+﻿using System.Collections.Generic;
+using TOHO.Roles.Core;
 using UnityEngine;
 using static TOHO.MeetingHudStartPatch;
 using static TOHO.Options;

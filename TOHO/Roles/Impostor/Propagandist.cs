@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AmongUs.GameOptions;
 using Hazel;
 using System.Text;
@@ -36,7 +37,7 @@ internal class Propagandist : RoleBase
         return true;
     }
 
-    public override int AddRealVotesNum(PlayerVoteArea PVA) => Players.Count();
+    public override int AddRealVotesNum(PlayerVoteArea PVA) => Players.Count;
 
     public override void AddVisualVotes(PlayerVoteArea votedPlayer, ref List<MeetingHud.VoterState> statesList)
     {

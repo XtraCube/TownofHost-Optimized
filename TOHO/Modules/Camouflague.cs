@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AmongUs.Data;
 using TOHO.Modules;
 using TOHO.Roles.Impostor;

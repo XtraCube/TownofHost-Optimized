@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using AmongUs.GameOptions;
 using TOHO.Roles.Core;
 using TOHO.Roles.Neutral;

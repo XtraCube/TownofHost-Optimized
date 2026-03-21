@@ -6,6 +6,9 @@ using TOHO.Modules;
 using AmongUs.Data;
 using System.Text;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
 using static NetworkedPlayerInfo;
 
 namespace TOHO;

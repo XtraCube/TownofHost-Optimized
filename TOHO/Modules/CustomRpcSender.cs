@@ -3,6 +3,9 @@ using Hazel;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using InnerNet;
 using System;
+using System.Linq;
+using System.Reflection;
+using HarmonyLib;
 
 namespace TOHO;
 

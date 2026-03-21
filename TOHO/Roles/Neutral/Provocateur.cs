@@ -1,4 +1,5 @@
-﻿using TOHO.Roles.Double;
+﻿using System.Collections.Generic;
+using TOHO.Roles.Double;
 using static TOHO.Options;
 using static TOHO.Translator;
 

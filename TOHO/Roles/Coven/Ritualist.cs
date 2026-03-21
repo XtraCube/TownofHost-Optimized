@@ -1,5 +1,7 @@
 using Hazel;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using TOHO.Roles.AddOns.Impostor;
 using TOHO.Modules.ChatManager;

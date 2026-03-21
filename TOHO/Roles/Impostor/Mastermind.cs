@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using TOHO.Roles.Crewmate;
 using static TOHO.Options;
 using static TOHO.Translator;

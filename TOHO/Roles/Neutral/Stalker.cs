@@ -1,4 +1,5 @@
-﻿using AmongUs.GameOptions;
+﻿using System.Collections.Generic;
+using AmongUs.GameOptions;
 using TOHO.Roles.Core;
 
 namespace TOHO.Roles.Neutral;

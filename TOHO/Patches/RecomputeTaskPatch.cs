@@ -1,3 +1,5 @@
+using HarmonyLib;
+
 namespace TOHO;
 
 [HarmonyPatch(typeof(GameData), nameof(GameData.RecomputeTaskCounts))]

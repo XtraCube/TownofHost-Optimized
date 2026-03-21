@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Reflection;
 using AmongUs.GameOptions;
 using Hazel;
 using InnerNet;

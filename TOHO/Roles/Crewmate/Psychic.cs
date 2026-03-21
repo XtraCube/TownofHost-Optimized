@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
 using Hazel;
 using InnerNet;
 using TOHO.Roles.Core;
@@ -89,15 +92,15 @@ internal class Psychic : RoleBase
         if (!_Player.IsAlive() || !AmongUsClient.Instance.AmHost) return;
 
         List<PlayerControl> BadListPc = Main.AllAlivePlayerControls.Where(x => Illusionist.IsNonCovIllusioned(x.PlayerId) ||
-        (x.Is(Custom_Team.Impostor) && !x.Is(CustomRoles.Trickster) && !x.Is(CustomRoles.Admired)) ||
-        x.IsAnySubRole(x => x.IsConverted()) ||
-        (x.GetCustomRole().IsCrewKiller() && CkshowEvil.GetBool()) ||
-        (x.GetCustomRole().IsNE() && NEshowEvil.GetBool()) ||
-        (x.GetCustomRole().IsNC() && NCshowEvil.GetBool()) ||
-        (x.GetCustomRole().IsNB() && NBshowEvil.GetBool()) ||
-        (x.GetCustomRole().IsNK() && NKshowEvil.GetBool()) ||
-        (x.GetCustomRole().IsNA() && NAshowEvil.GetBool()) ||
-        (x.GetCustomRole().IsCoven() && CovshowEvil.GetBool())
+                                                                               (x.Is(Custom_Team.Impostor) && !x.Is(CustomRoles.Trickster) && !x.Is(CustomRoles.Admired)) ||
+                                                                               x.IsAnySubRole(x => x.IsConverted()) ||
+                                                                               (x.GetCustomRole().IsCrewKiller() && CkshowEvil.GetBool()) ||
+                                                                               (x.GetCustomRole().IsNE() && NEshowEvil.GetBool()) ||
+                                                                               (x.GetCustomRole().IsNC() && NCshowEvil.GetBool()) ||
+                                                                               (x.GetCustomRole().IsNB() && NBshowEvil.GetBool()) ||
+                                                                               (x.GetCustomRole().IsNK() && NKshowEvil.GetBool()) ||
+                                                                               (x.GetCustomRole().IsNA() && NAshowEvil.GetBool()) ||
+                                                                               (x.GetCustomRole().IsCoven() && CovshowEvil.GetBool())
         ).ToList();
 
         var randomBadPlayer = BadListPc.RandomElement();

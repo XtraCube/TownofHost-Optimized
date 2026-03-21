@@ -1,4 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using AmongUs.GameOptions;
+using HarmonyLib;
 using TOHO.Modules;
 using TOHO.Roles.Core;
 using static TOHO.Options;

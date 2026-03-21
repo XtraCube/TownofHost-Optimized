@@ -1,5 +1,7 @@
 ﻿using Hazel;
 using System;
+using System.Collections.Generic;
+using HarmonyLib;
 
 namespace TOHO.Patches;
 

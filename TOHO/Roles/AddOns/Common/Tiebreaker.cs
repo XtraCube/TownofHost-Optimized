@@ -1,4 +1,6 @@
-﻿namespace TOHO.Roles.AddOns.Common;
+﻿using System.Collections.Generic;
+
+namespace TOHO.Roles.AddOns.Common;
 
 public class Tiebreaker : IAddon
 {

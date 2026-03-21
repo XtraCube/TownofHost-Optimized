@@ -2,6 +2,7 @@
 using Hazel;
 using InnerNet;
 using System;
+using System.Collections.Generic;
 using TOHO.Roles.AddOns.Crewmate;
 using TOHO.Roles.Core;
 using TOHO.Roles.Double;

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using InnerNet;
 using AmongUs.Data;
+using HarmonyLib;
 using UnityEngine;
 using static TOHO.Translator;
 using Hazel;

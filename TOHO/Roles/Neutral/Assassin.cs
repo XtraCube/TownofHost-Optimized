@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using TOHO.Modules;
 using static TOHO.Translator;
 using static TOHO.Options;
