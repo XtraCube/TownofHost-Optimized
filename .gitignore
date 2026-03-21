@@ -1,13 +1,9 @@
-/.vs
-/bin
-/obj
-/.editorconfig
-/.vscode
-/.idea
+.vs/
+bin/
+obj/
+.editorconfig
+.vscode/
+.idea/
 
 token.env
 FodyWeavers.xsd
-TOHO.sln
-.vscode/settings.json
-/token.env
-token.env
