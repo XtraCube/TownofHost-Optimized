@@ -1,5 +1,9 @@
 ﻿using Hazel;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using HarmonyLib;
 using TOHO.Roles.Core;
 using TOHO.Roles.Impostor;
 using UnityEngine;

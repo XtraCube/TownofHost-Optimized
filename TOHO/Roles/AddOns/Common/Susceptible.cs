@@ -1,5 +1,3 @@
-using System;
-
 namespace TOHO.Roles.AddOns.Common;
 
 public class Susceptible : IAddon

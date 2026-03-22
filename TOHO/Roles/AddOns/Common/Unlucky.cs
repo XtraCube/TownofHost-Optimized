@@ -1,4 +1,5 @@
-﻿using static TOHO.Options;
+﻿using System.Reflection;
+using static TOHO.Options;
 
 namespace TOHO.Roles.AddOns.Common;
 

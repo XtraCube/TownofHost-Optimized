@@ -1,4 +1,5 @@
-﻿using Hazel;
+﻿using System.Collections.Generic;
+using Hazel;
 using InnerNet;
 using System.Text;
 using TOHO.Roles.Core;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Hazel;
 using TOHO.Modules;
 using TOHO.Modules.ChatManager;

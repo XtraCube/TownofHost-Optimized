@@ -3,8 +3,10 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using HarmonyLib;
 using TMPro;
 using TOHO.Modules;
 using UnityEngine;
@@ -75,6 +77,9 @@ public class ModUpdater
     const string MiniRegionInstallResource = "TOHO.Resources.Mini.RegionInstall.dll";
     private static void CheckCustomRegions()
     {
+        // starlight handles regions
+        if (OperatingSystem.IsAndroid()) return;
+
         var regions = ServerManager.Instance.AvailableRegions;
         var hasCustomRegions = false;
         var forceUpdate = false;
@@ -271,12 +276,13 @@ public class ModUpdater
     {
         try
         {
+            var oldData = Path.Combine(Main.BasePath, "TOH_DATA");
             var fileName = Assembly.GetExecutingAssembly().Location;
-            if (Directory.Exists("TOH_DATA") && File.Exists(@"./TOHO-DATA/BanWords.txt"))
+            if (Directory.Exists(oldData) && File.Exists(Path.Combine(Main.TohoData, "BanWords.txt")))
             {
-                DirectoryInfo di = new("TOH_DATA");
+                DirectoryInfo di = new(oldData);
                 di.Delete(true);
-                Logger.Warn("Deleting old data´╝ÜTOH_DATA", "NewVersionCheck");
+                Logger.Warn("Deleting old data TOH_DATA", "NewVersionCheck");
             }
         }
         catch (Exception ex)

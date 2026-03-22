@@ -1,4 +1,6 @@
-﻿namespace TOHO.Roles.Impostor;
+﻿using System.Collections.Generic;
+
+namespace TOHO.Roles.Impostor;
 
 internal class Trapster : RoleBase
 {

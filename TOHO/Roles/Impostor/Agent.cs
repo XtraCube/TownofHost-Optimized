@@ -1,4 +1,7 @@
-﻿namespace TOHO.Roles.Impostor;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace TOHO.Roles.Impostor;
 
 internal class Agent : RoleBase
 {

@@ -1,4 +1,5 @@
-﻿using Hazel;
+﻿using System.Collections.Generic;
+using Hazel;
 
 namespace TOHO.Roles.Impostor;
 

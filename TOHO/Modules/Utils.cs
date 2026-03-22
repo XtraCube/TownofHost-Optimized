@@ -1,17 +1,19 @@
 using AmongUs.Data;
 using AmongUs.GameOptions;
 using Hazel;
-using Il2CppInterop.Generator.Extensions;
 using InnerNet;
 using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using AmongUs.InnerNet.GameDataMessages;
+using HarmonyLib;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using TOHO.Modules;
 using TOHO.Modules.ChatManager;
 using TOHO.Patches;
@@ -25,7 +27,6 @@ using TOHO.Roles.Impostor;
 using TOHO.Roles.Neutral;
 using UnityEngine;
 using static TOHO.Translator;
-using Object = Il2CppSystem.Object;
 
 namespace TOHO;
 
@@ -1584,15 +1585,13 @@ public static class Utils
     public static bool IsPlayerModerator(string friendCode)
     {
         if (friendCode == "") return false;
-        var friendCodesFilePath = @"./TOHO-DATA/Moderators.txt";
-        var friendCodes = File.ReadAllLines(friendCodesFilePath);
+        var friendCodes = File.ReadAllLines(BanManager.ModeratorListPath);
         return friendCodes.Any(code => code.Contains(friendCode));
     }
-    public static bool IsPlayerVIP(string friendCode)
+    public static bool IsPlayerVip(string friendCode)
     {
         if (friendCode == "") return false;
-        var friendCodesFilePath = @"./TOHO-DATA/VIP-List.txt";
-        var friendCodes = File.ReadAllLines(friendCodesFilePath);
+        var friendCodes = File.ReadAllLines(BanManager.VIPListPath);
         return friendCodes.Any(code => code.Contains(friendCode));
     }
     public static bool CheckColorHex(string ColorCode)
@@ -1655,6 +1654,26 @@ public static class Utils
         Color32 color32 = (Color32)color;
         return $"{color32.r:X2}{color32.g:X2}{color32.b:X2}{color32.a:X2}";
     }
+
+    public static string GetVipTagsFile(string friendCode)
+    {
+        return Path.Combine(Main.TohoData, "Tags", "VIP_TAGS", $"{friendCode}.txt");
+    }
+
+    public static string GetVipNameFile(string friendCode)
+    {
+        return Path.Combine(Main.TohoData, "Tags", "VIP_TAGS", $"{friendCode}-name.txt");
+    }
+
+    public static string GetModTagsFile(string friendCode)
+    {
+        return Path.Combine(Main.TohoData, "Tags", "MOD_TAGS", $"{friendCode}.txt");
+    }
+
+    public static string GetModNameFile(string friendCode)
+    {
+        return Path.Combine(Main.TohoData, "Tags", "MOD_TAGS", $"{friendCode}-name.txt");
+    }
     
     public static void ApplySuffix(PlayerControl player)
     {
@@ -1710,10 +1729,10 @@ public static class Utils
         var modtag = "";
         if (Options.ApplyVipList.GetValue() == 1 && player.FriendCode != PlayerControl.LocalPlayer.FriendCode)
         {
-            if (IsPlayerVIP(player.FriendCode))
+            if (IsPlayerVip(player.FriendCode))
             {
-                string colorFilePath = @$"./TOHO-DATA/Tags/VIP_TAGS/{player.FriendCode}.txt";
-                string nameFilePath = @$"./TOHO-DATA/Tags/VIP_TAGS/{player.FriendCode}-name.txt";
+                string colorFilePath = GetVipTagsFile(player.FriendCode);
+                string nameFilePath = GetVipNameFile(player.FriendCode);
                 string VipTag = GetString("VipTag");
                 
                 if (File.Exists(nameFilePath))
@@ -1764,8 +1783,8 @@ public static class Utils
         {
             if (IsPlayerModerator(player.FriendCode))
             {
-                string colorFilePath = @$"./TOHO-DATA/Tags/MOD_TAGS/{player.FriendCode}.txt";
-                string nameFilePath = @$"./TOHO-DATA/Tags/MOD_TAGS/{player.FriendCode}-name.txt";
+                string colorFilePath = GetModTagsFile(player.FriendCode);
+                string nameFilePath = GetModNameFile(player.FriendCode);
                 string ModTag = GetString("ModTag");
                 
                 if (File.Exists(nameFilePath))
@@ -2788,10 +2807,12 @@ public static class Utils
         try
         {
             var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
+            if (stream == null) throw new MissingManifestResourceException($"Resource not found: {path}");
+
             var texture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-            using MemoryStream ms = new();
+            using var ms = new MemoryStream();
             stream.CopyTo(ms);
-            ImageConversion.LoadImage(texture, ms.ToArray(), false);
+            texture.LoadImage(ms.ToArray(), false);
             return texture;
         }
         catch

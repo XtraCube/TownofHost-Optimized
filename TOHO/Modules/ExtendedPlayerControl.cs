@@ -3,6 +3,8 @@ using Hazel;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using InnerNet;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TOHO.Modules;
 using TOHO.Patches;

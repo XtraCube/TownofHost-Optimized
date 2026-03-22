@@ -1,5 +1,5 @@
-﻿using TOHO.Modules;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using TOHO.Modules;
 
 namespace TOHO.Roles.Impostor;
 

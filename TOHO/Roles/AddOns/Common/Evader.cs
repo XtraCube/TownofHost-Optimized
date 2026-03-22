@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+using System.Linq;
+
 namespace TOHO.Roles.AddOns.Common;
 
 public class Evader : IAddon

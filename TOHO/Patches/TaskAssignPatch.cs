@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using AmongUs.GameOptions;
 using AmongUs.InnerNet.GameDataMessages;
+using HarmonyLib;
 using Hazel;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using TOHO.Modules;

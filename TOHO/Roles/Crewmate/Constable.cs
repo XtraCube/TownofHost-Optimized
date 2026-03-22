@@ -1,6 +1,5 @@
-﻿using Hazel;
+﻿using System.Collections.Generic;
 using TOHO.Modules;
-using TOHO.Modules.ChatManager;
 using static TOHO.Options;
 using static TOHO.Translator;
 

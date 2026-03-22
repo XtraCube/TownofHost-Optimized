@@ -1,4 +1,3 @@
-using System;
 using TOHO.Roles.Core;
 using static TOHO.Options;
 namespace TOHO.Roles.Neutral;

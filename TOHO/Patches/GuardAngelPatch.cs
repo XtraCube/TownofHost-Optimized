@@ -1,4 +1,6 @@
-﻿namespace TOHO;
+﻿using HarmonyLib;
+
+namespace TOHO;
 internal class GuardAngelPatch
 {
     [HarmonyPatch(typeof(MeetingIntroAnimation), nameof(MeetingIntroAnimation.Start))]

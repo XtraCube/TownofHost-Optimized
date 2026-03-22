@@ -1,4 +1,5 @@
-﻿using AmongUs.GameOptions;
+﻿using System.Linq;
+using AmongUs.GameOptions;
 using static TOHO.Options;
 using static TOHO.Translator;
 

@@ -1,4 +1,5 @@
-﻿using static TOHO.Translator;
+﻿using System.Linq;
+using static TOHO.Translator;
 
 namespace TOHO;
 

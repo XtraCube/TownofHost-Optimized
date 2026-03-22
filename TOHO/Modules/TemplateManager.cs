@@ -1,16 +1,20 @@
 using AmongUs.Data;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using HarmonyLib;
 using static TOHO.Translator;
 
 namespace TOHO;
 
 public static class TemplateManager
 {
-    private static readonly string TEMPLATE_FILE_PATH = "./TOHO-DATA/template.txt";
+    private static readonly string TEMPLATE_FILE_PATH = Path.Combine(Main.TohoData, "template.txt");
     private static readonly Dictionary<string, Func<string>> _replaceDictionaryNormalOptions = new()
     {
         ["RoomCode"] = () => InnerNet.GameCode.IntToGameName(AmongUsClient.Instance.GameId),
@@ -105,17 +109,20 @@ public static class TemplateManager
                     _ => "English"
                 };
             else fileName = "English";
-            if (!Directory.Exists(@"TOHO-DATA")) Directory.CreateDirectory(@"TOHO-DATA");
+            if (!Directory.Exists(Main.TohoData)) Directory.CreateDirectory(Main.TohoData);
             var defaultTemplateMsg = GetResourcesTxt($"TOHO.Resources.Config.template.{fileName}.txt");
-            if (!File.Exists(@"./TOHO-DATA/Default_Teamplate.txt")) //default template
+            var defaultPath = Path.Combine(Main.TohoData, "Default_Template.txt");
+            if (!File.Exists(defaultPath)) //default template
             {
                 Logger.Warn("Creating Default_Template.txt", "TemplateManager");
-                using FileStream fs = File.Create(@"./TOHO-DATA/Default_Teamplate.txt");
+                using FileStream fs = File.Create(defaultPath);
             }
-            File.WriteAllText(@"./TOHO-DATA/Default_Teamplate.txt", defaultTemplateMsg); //overwriting default template
+            File.WriteAllText(defaultPath, defaultTemplateMsg); //overwriting default template
+
             if (!File.Exists(TEMPLATE_FILE_PATH))
             {
-                if (File.Exists(@"./template.txt")) File.Move(@"./template.txt", TEMPLATE_FILE_PATH);
+                var oldTemplatePath = Path.Combine(Main.BasePath, "template.txt");
+                if (File.Exists(oldTemplatePath)) File.Move(oldTemplatePath, TEMPLATE_FILE_PATH);
                 else
                 {
                     Logger.Warn($"Creating a new Template file from: {fileName}", "TemplateManager");

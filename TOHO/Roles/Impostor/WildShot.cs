@@ -1,9 +1,8 @@
-using AmongUs.GameOptions;
+using System.Collections.Generic;
 using static TOHO.Options;
 using static TOHO.Translator;
 using static TOHO.Utils;
 using static TOHO.Main;
-using TOHO.Modules;
 using TOHO.Roles.Core;
 
 

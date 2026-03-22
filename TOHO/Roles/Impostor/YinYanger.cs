@@ -1,4 +1,6 @@
-﻿using TOHO.Roles.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TOHO.Roles.Core;
 using UnityEngine;
 using static TOHO.Options;
 using static TOHO.Translator;

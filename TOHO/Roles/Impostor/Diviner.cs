@@ -1,7 +1,7 @@
-﻿using AmongUs.GameOptions;
+﻿using System.Collections.Generic;
+using System.Linq;
 using static TOHO.Options;
 using static TOHO.Translator;
-using static UnityEngine.GraphicsBuffer;
 
 namespace TOHO.Roles.Impostor;
 

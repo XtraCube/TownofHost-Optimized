@@ -1,7 +1,9 @@
 ﻿using AmongUs.GameOptions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using TOHO.Modules;
+using HarmonyLib;
 using TOHO.Roles.AddOns;
 using TOHO.Roles.AddOns.Common;
 using TOHO.Roles.AddOns.Crewmate;

@@ -1,4 +1,5 @@
-﻿using static TOHO.MeetingHudStartPatch;
+﻿using System.Collections.Generic;
+using static TOHO.MeetingHudStartPatch;
 using static TOHO.Options;
 using static TOHO.Translator;
 using static TOHO.Utils;

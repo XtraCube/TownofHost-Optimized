@@ -1,13 +1,16 @@
 using Assets.CoreScripts;
 using Hazel;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using TOHO.Roles.Core;
 using UnityEngine;
 using static TOHO.Translator;
 using AmongUs.InnerNet.GameDataMessages;
+using HarmonyLib;
 using TOHO.Modules;
 using TOHO.Modules.ChatManager;
 using TOHO.Roles.Core.AssignManager;
@@ -15,7 +18,6 @@ using TOHO.Roles.Coven;
 using TOHO.Roles.Crewmate;
 using TOHO.Roles.Impostor;
 using TOHO.Roles.Neutral;
-using static TOHO.RPC;
 
 
 namespace TOHO;
@@ -23,12 +25,12 @@ namespace TOHO;
 [HarmonyPatch(typeof(ChatController), nameof(ChatController.SendChat))]
 internal class ChatCommands
 {
-    private static readonly string modLogFiles = @"./TOHO-DATA/ModLogs.txt";
-    private static readonly string modTagsFiles = @"./TOHO-DATA/Tags/MOD_TAGS";
-    private static readonly string sponsorTagsFiles = @"./TOHO-DATA/Tags/SPONSOR_TAGS";
-    private static readonly string vipTagsFiles = @"./TOHO-DATA/Tags/VIP_TAGS";
-    private static readonly string VIPListPath = @"./TOHO-DATA/VIP-List.txt";
-    private static readonly string ModListPath = @"./TOHO-DATA/Moderators.txt";
+    private static readonly string modLogFiles = Path.Combine(Main.TohoData, "ModLogs.txt");
+    private static readonly string modTagsFiles = Path.Combine(Main.TohoData, "Tags", "MOD_TAGS");
+    private static readonly string sponsorTagsFiles = Path.Combine(Main.TohoData, "Tags", "SPONSOR_TAGS");
+    private static readonly string vipTagsFiles = Path.Combine(Main.TohoData, "Tags", "VIP_TAGS");
+    private static readonly string VIPListPath = Path.Combine(Main.TohoData, "VIP-List.txt");
+    private static readonly string ModListPath = Path.Combine(Main.TohoData, "Moderators.txt");
 
     private static readonly Dictionary<char, int> Pollvotes = [];
     private static readonly Dictionary<char, string> PollQuestions = [];
@@ -2646,7 +2648,7 @@ internal class ChatCommands
             case "/更改颜色":
             case "/修改颜色":
             case "/换颜色":
-                if (Options.PlayerCanSetColor.GetBool() || player.FriendCode.GetDevUser().IsDev || player.FriendCode.GetDevUser().ColorCmd || (Utils.IsPlayerVIP(player.FriendCode) && Options.ApplyVipList.GetBool()))
+                if (Options.PlayerCanSetColor.GetBool() || player.FriendCode.GetDevUser().IsDev || player.FriendCode.GetDevUser().ColorCmd || (Utils.IsPlayerVip(player.FriendCode) && Options.ApplyVipList.GetBool()))
                 {
                     if (GameStates.IsInGame)
                     {
@@ -3047,7 +3049,7 @@ internal class ChatCommands
                     Utils.SendMessage(GetString("VipColorCommandDisabled"), player.PlayerId);
                     break;
                 }
-                if (!Utils.IsPlayerVIP(player.FriendCode))
+                if (!Utils.IsPlayerVip(player.FriendCode))
                 {
                     Utils.SendMessage(GetString("VipColorCommandNoAccess"), player.PlayerId);
                     break;
@@ -3101,7 +3103,7 @@ internal class ChatCommands
                     Utils.SendMessage(GetString("VipColorCommandDisabled"), player.PlayerId);
                     break;
                 }
-                if (!Utils.IsPlayerVIP(player.FriendCode))
+                if (!Utils.IsPlayerVip(player.FriendCode))
                 {
                     Utils.SendMessage(GetString("VipColorCommandNoAccess"), player.PlayerId);
                     break;

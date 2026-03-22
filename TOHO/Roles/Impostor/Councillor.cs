@@ -1,6 +1,8 @@
 using Hazel;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
+using HarmonyLib;
 using TOHO.Modules;
 using TOHO.Modules.ChatManager;
 using TOHO.Roles.Core;

@@ -1,13 +1,12 @@
-using AmongUs.GameOptions;
 using Hazel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static TOHO.Options;
 using static TOHO.Translator;
 using static TOHO.Utils;
 using TOHO.Modules;
-using TOHO.Roles.Core;
 using TOHO.Roles.Crewmate;
 
 namespace TOHO.Roles.Impostor;

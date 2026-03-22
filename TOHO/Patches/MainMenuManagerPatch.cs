@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using HarmonyLib;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,16 +17,13 @@ public class MainMenuManagerStartPatch
 {
     public static GameObject amongUsLogo;
     public static GameObject Ambience;
-    public static GameObject PlayerParticles;
-    public static GameObject starfield;
-    public static GameObject bgmusic;
-    public static string BGpath = "./TOHO_DATA/background.mp4";
+
     public static SpriteRenderer TOHOLogo { get; private set; }
 
     private static void Postfix(MainMenuManager __instance)
     {
         amongUsLogo = GameObject.Find("LOGO-AU");
-        if (amongUsLogo != null)
+        if (amongUsLogo)
         {
             amongUsLogo.GetComponent<SpriteRenderer>().sprite = Utils.LoadSprite("TOHO.Resources.Images.tohologo.png");
         }
@@ -41,18 +42,6 @@ public class MainMenuManagerStartPatch
             Ambience.SetActive(true);
         }
 
-        PlayerParticles = GameObject.Find("PlayerParticles");
-        starfield = GameObject.Find("starfield");
-        /*
-        if (PlayerParticles != null)
-        {
-            PlayerParticles.SetActive(false);
-        }
-        if (starfield != null)
-        {
-            starfield.SetActive(false);
-        }
-        */
         SetButtonColor(__instance.playButton);
         SetButtonColor(__instance.inventoryButton);
         SetButtonColor(__instance.shopButton); 
@@ -75,19 +64,10 @@ public class MainMenuManagerStartPatch
 [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.LateUpdate))]
 class MainMenuManagerLateUpdatePatch
 {
-    private static int lateUpdate = 590;
-    //private static GameObject LoadingHint;
-
     private static void Postfix(MainMenuManager __instance)
     {
-        if (__instance == null) return;
+        if (!__instance || !__instance.finishStartup) return;
 
-        if (lateUpdate <= 600)
-        {
-            lateUpdate++;
-            return;
-        }
-        lateUpdate = 0;
         var PlayOnlineButton = __instance.PlayOnlineButton;
         if (PlayOnlineButton != null)
         {
@@ -111,6 +91,8 @@ public static class MainMenuManagerPatch
     private static PassiveButton discordButton;
     private static PassiveButton websiteButton;
     //private static PassiveButton patreonButton;
+
+    public static string BGpath => Path.Combine(Main.TohoData, "background.mp4");
 
     [HarmonyPatch(nameof(MainMenuManager.Start)), HarmonyPostfix, HarmonyPriority(Priority.Normal)]
     public static void Start_Postfix(MainMenuManager __instance)
@@ -141,40 +123,49 @@ public static class MainMenuManagerPatch
         leftPanel.GetComponentsInChildren<SpriteRenderer>(true).Where(r => r.name == "Shine").ToList().ForEach(r => r.enabled = false);
 
         leftPanel.gameObject.FindChild<SpriteRenderer>("Divider").enabled = false;
-        
-        GameObject splashArt = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        splashArt.name = "SplashArt";
-        splashArt.transform.position = new Vector3(2f, 0f, 600f);
-        RenderTexture rt = new(512, 512, 0);
-        float videoWidth = rt.width;
-        float videoHeight = rt.height;
-        float aspect = videoWidth / videoHeight;
-        float desiredHeight = 3f * 1.818f;
-        float desiredWidth = 3f * aspect * 3.232f;
-        splashArt.transform.localScale = new Vector3(desiredWidth, desiredHeight, 1f);
-        VideoPlayer vp = splashArt.AddComponent<VideoPlayer>();
-        vp.url = System.IO.Path.GetFullPath("./TOHO_DATA/background.mp4");
-        vp.targetTexture = rt;
-        vp.isLooping = true;
-        vp.Play();
-        Renderer renderer = splashArt.GetComponent<Renderer>();
-        Material mat = new(Shader.Find("Unlit/Texture"));
-        mat.mainTexture = rt;
-        renderer.material = mat;
+
+        if (File.Exists(BGpath))
+        {
+            try
+            {
+                GameObject splashArt = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                splashArt.name = "SplashArt";
+                splashArt.transform.position = new Vector3(2f, 0f, 600f);
+                RenderTexture rt = new(512, 512, 0);
+                float videoWidth = rt.width;
+                float videoHeight = rt.height;
+                float aspect = videoWidth / videoHeight;
+                float desiredHeight = 3f * 1.818f;
+                float desiredWidth = 3f * aspect * 3.232f;
+                splashArt.transform.localScale = new Vector3(desiredWidth, desiredHeight, 1f);
+                VideoPlayer vp = splashArt.AddComponent<VideoPlayer>();
+                vp.url = Path.GetFullPath(BGpath);
+                vp.targetTexture = rt;
+                vp.isLooping = true;
+                vp.Play();
+                Renderer renderer = splashArt.GetComponent<Renderer>();
+                Material mat = new(Shader.Find("Unlit/Texture"));
+                mat.mainTexture = rt;
+                renderer.material = mat;
+            }
+            catch (Exception e)
+            {
+                Logger.Exception(e, "MainMenuVideo");
+            }
+        }
 
         if (template == null) return;
 
         var PlayerParticles = GameObject.Find("PlayerParticles");
         var starfield = GameObject.Find("starfield");
-        if (PlayerParticles != null && System.IO.File.Exists("./TOHO_DATA/background.mp4"))
+        if (PlayerParticles != null && File.Exists(BGpath))
         {
             PlayerParticles.SetActive(false);
         }
-        if (starfield != null && System.IO.File.Exists("./TOHO_DATA/background.mp4"))
+        if (starfield != null && File.Exists(BGpath))
         {
             starfield.SetActive(false);
         }
-        
 
         // donation Button
         if (donationButton == null)

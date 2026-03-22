@@ -1,7 +1,9 @@
 using AmongUs.GameOptions;
 using Hazel;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using TOHO.Modules;
 using TOHO.Roles.AddOns.Impostor;
 using TOHO.Roles.Core;

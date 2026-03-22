@@ -1,4 +1,8 @@
-﻿using AmongUs.GameOptions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using AmongUs.GameOptions;
+using HarmonyLib;
 using TOHO.Roles.Double;
 using TOHO.Roles.Impostor;
 using TOHO.Roles.Neutral;

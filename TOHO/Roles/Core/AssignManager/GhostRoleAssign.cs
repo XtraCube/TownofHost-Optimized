@@ -1,5 +1,8 @@
-﻿using Hazel;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Hazel;
 using System.Text;
+using HarmonyLib;
 
 namespace TOHO.Roles.Core.AssignManager;
 

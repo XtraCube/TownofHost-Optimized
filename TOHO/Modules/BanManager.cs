@@ -1,20 +1,25 @@
 using InnerNet;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using HarmonyLib;
 using static TOHO.Translator;
 
 namespace TOHO;
 
 public static class BanManager
 {
-    private const string DenyNameListPath = "./TOHO-DATA/DenyName.txt";
-    private const string BanListPath = "./TOHO-DATA/BanList.txt";
-    private const string ModeratorListPath = "./TOHO-DATA/Moderators.txt";
-    private const string VIPListPath = "./TOHO-DATA/VIP-List.txt";
-    private const string WhiteListListPath = "./TOHO-DATA/WhiteList.txt";
+    public static string DenyNameListPath => Path.Combine(Main.TohoData, "DenyName.txt");
+    public static string BanListPath => Path.Combine(Main.TohoData, "BanList.txt");
+    public static string ModeratorListPath => Path.Combine(Main.TohoData, "Moderators.txt");
+    public static string VIPListPath => Path.Combine(Main.TohoData, "VIP-List.txt");
+    public static string WhiteListListPath => Path.Combine(Main.TohoData, "WhiteList.txt");
+
     //private static List<string> EACList = []; // Don't make it read-only
     public static List<string> TempBanWhiteList = []; //To prevent writing to ban list
     public static List<Dictionary<string, System.Text.Json.JsonElement>> EACDict = [];
@@ -22,8 +27,6 @@ public static class BanManager
     {
         try
         {
-            Directory.CreateDirectory("TOHO-DATA");
-
             if (!File.Exists(BanListPath))
             {
                 Logger.Warn("Create a new BanList.txt file", "BanManager");
@@ -115,7 +118,6 @@ public static class BanManager
 
         try
         {
-            Directory.CreateDirectory("TOHO-DATA");
             if (!File.Exists(DenyNameListPath)) File.Create(DenyNameListPath).Close();
             using StreamReader sr = new(DenyNameListPath);
             string line;
@@ -198,7 +200,6 @@ public static class BanManager
 
         try
         {
-            Directory.CreateDirectory("TOHO-DATA");
             if (!File.Exists(BanListPath)) File.Create(BanListPath).Close();
             using StreamReader sr = new(BanListPath);
             string line;

@@ -1,7 +1,8 @@
-﻿using AmongUs.GameOptions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AmongUs.GameOptions;
 using Hazel;
 using InnerNet;
-using System.Text.RegularExpressions;
 using TOHO.Modules.ChatManager;
 using TOHO.Roles.Core;
 using TOHO.Roles.Double;

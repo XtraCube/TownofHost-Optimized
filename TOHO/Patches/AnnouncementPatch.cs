@@ -6,8 +6,11 @@ using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using LibCpp2IL;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
+using HarmonyLib;
 using UnityEngine;
 using UnityEngine.Networking;
 

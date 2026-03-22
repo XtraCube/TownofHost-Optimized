@@ -1,4 +1,7 @@
-﻿using TOHO.Roles.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using TOHO.Roles.Core;
 using static TOHO.Translator;
 using static TOHO.Utils;
 

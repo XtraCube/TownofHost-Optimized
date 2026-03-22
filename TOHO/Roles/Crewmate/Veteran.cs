@@ -1,5 +1,6 @@
 using AmongUs.GameOptions;
 using System;
+using System.Collections.Generic;
 using TOHO.Modules;
 using TOHO.Roles.Core;
 using UnityEngine;

@@ -1,11 +1,5 @@
-using AmongUs.GameOptions;
-using Hazel;
-using System.Text;
-using TOHO.Modules;
-using TOHO.Roles.Double;
-using UnityEngine;
+using System.Collections.Generic;
 using static TOHO.Options;
-using static TOHO.Translator;
 
 namespace TOHO.Roles.Impostor;
 
@@ -36,7 +30,7 @@ internal class Propagandist : RoleBase
         return true;
     }
 
-    public override int AddRealVotesNum(PlayerVoteArea PVA) => Players.Count();
+    public override int AddRealVotesNum(PlayerVoteArea PVA) => Players.Count;
 
     public override void AddVisualVotes(PlayerVoteArea votedPlayer, ref List<MeetingHud.VoterState> statesList)
     {

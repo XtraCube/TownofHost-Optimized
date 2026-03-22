@@ -1,4 +1,4 @@
-using Hazel;
+using System.Collections.Generic;
 using TOHO.Modules;
 using static TOHO.Options;
 using static TOHO.Translator;

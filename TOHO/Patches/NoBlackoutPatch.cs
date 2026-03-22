@@ -1,3 +1,5 @@
+using HarmonyLib;
+
 namespace TOHO;
 
 [HarmonyPatch(typeof(LogicGameFlowNormal), nameof(LogicGameFlowNormal.IsGameOverDueToDeath))]

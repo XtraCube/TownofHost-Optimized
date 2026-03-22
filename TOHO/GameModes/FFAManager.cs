@@ -1,4 +1,7 @@
-﻿using Hazel;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
+using Hazel;
 using TOHO.Modules;
 using UnityEngine;
 using static TOHO.Translator;

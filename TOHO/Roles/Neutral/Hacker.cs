@@ -1,4 +1,3 @@
-using AmongUs.GameOptions;
 using static TOHO.Options;
 
 namespace TOHO.Roles.Neutral;

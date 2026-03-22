@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using AmongUs.GameOptions;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using TOHO.Modules;
 using TOHO.Roles.Core;
 using UnityEngine;

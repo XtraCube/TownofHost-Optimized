@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace TOHO.Roles.Impostor;
 
 internal class TimeThief : RoleBase

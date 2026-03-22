@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text.Json;
 
 namespace TOHO.Modules;
@@ -7,7 +9,7 @@ namespace TOHO.Modules;
 public static class OptionSaver
 {
     [Obfuscation(Exclude = true)]
-    private static readonly DirectoryInfo SaveDataDirectoryInfo = new("./TOHO-DATA/SaveData/");
+    private static readonly DirectoryInfo SaveDataDirectoryInfo = new(Path.Combine(Main.TohoData, "SaveData"));
     [Obfuscation(Exclude = true)]
     private static readonly FileInfo OptionSaverFileInfo = new($"{SaveDataDirectoryInfo.FullName}/Options.json");
 

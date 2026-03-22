@@ -1,5 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Hazel;
-using Il2CppSystem;
 using InnerNet;
 using TOHO.Modules;
 using UnityEngine;

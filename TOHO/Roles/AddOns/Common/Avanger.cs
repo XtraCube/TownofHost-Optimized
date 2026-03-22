@@ -1,4 +1,5 @@
-﻿using TOHO.Roles.Crewmate;
+﻿using System.Linq;
+using TOHO.Roles.Crewmate;
 using TOHO.Roles.Double;
 using TOHO.Roles.Neutral;
 using static TOHO.Options;

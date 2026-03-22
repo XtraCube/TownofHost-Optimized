@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+
 namespace TOHO.Roles.AddOns.Common;
 
 public class Sleuth : IAddon
