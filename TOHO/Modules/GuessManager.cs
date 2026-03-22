@@ -27,7 +27,7 @@ public static class GuessManager
     {
         if (!Options.EnableGuessesCap.GetBool()) return;
         GuessAmount.Clear();
-        foreach (var player in Main.AllPlayerControls)
+        foreach (var player in Main.EnumeratePlayerControls())
         {
             GuessAmount.Add(player, Options.AmountGuessesCap.GetInt());
         }
@@ -36,7 +36,7 @@ public static class GuessManager
     public static string GetFormatString()
     {
         string text = GetString("PlayerIdList");
-        foreach (var pc in Main.AllAlivePlayerControls)
+        foreach (var pc in Main.EnumerateAlivePlayerControls())
         {
             string id = pc.PlayerId.ToString();
             string name = pc.GetRealName();
@@ -108,6 +108,8 @@ public static class GuessManager
     public static readonly Dictionary<byte, int> GuesserGuessed = [];
     public static bool GuesserMsg(PlayerControl pc, string msg, bool isUI = false)
     {
+        if (!pc) return false;
+
         var originMsg = msg;
 
         if (!AmongUsClient.Instance.AmHost) return false;
@@ -648,7 +650,7 @@ public static class GuessManager
                     msg += rd.Next(1, 100) < 50 ? string.Empty : " ";
                     msg += Utils.GetRoleName(role);
                 }
-                var player = Main.AllAlivePlayerControls.RandomElement();
+                var player = Main.EnumerateAlivePlayerControls().RandomElement();
                 DestroyableSingleton<HudManager>.Instance.Chat.AddChat(player, msg);
                 var writer = CustomRpcSender.Create("MessagesToSend", SendOption.None);
                 writer.StartMessage(-1);

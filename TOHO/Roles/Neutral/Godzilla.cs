@@ -62,7 +62,7 @@ internal class Godzilla : RoleBase
     {
         var remainingTime = DestroyStartTime + (long)WarningTimeBeforeDestroying.GetFloat() - nowTime;
         if (!InDestroy) return;
-        foreach (var target in Main.AllAlivePlayerControls)
+        foreach (var target in Main.EnumerateAlivePlayerControls())
         {
             var roomName = Translator.GetString(ActiveRoom.ToString());
             target.Notify(string.Format(Translator.GetString("GodzillaRoomWarning"), roomName, remainingTime));
@@ -112,7 +112,7 @@ internal class Godzilla : RoleBase
         Logger.Info($"Destroying room: {room}", "Godzilla");
         CustomSoundsManager.RPCPlayCustomSoundAll("Boom");
 
-        foreach (var target in Main.AllPlayerControls)
+        foreach (var target in Main.EnumeratePlayerControls())
         {
             if (!target.IsAlive() || Medic.IsProtected(target.PlayerId) || target.inVent || 
                 target.IsTransformedNeutralApocalypse() || target.Is(CustomRoles.Solsticer)) 

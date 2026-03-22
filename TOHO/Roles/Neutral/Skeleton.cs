@@ -43,7 +43,7 @@ internal class Skeleton : RoleBase
                 BodiesReported++;
                 if (BodiesReported >= NumberOfReportsToWin.GetInt())
                 {
-                    foreach (var player in Main.AllAlivePlayerControls)
+                    foreach (var player in Main.EnumerateAlivePlayerControls())
                     {
                         if (player.Is(CustomRoles.Skeleton))
                         {

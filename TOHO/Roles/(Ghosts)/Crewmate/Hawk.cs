@@ -46,7 +46,7 @@ internal class Hawk : RoleBase
     {
         playerId.SetAbilityUseLimit(HawkCanKillNum.GetInt());
 
-        foreach (var pc in Main.AllPlayerControls)
+        foreach (var pc in Main.EnumeratePlayerControls())
         {
             if (pc.IsAnySubRole(x => x.IsConverted()))
             {
@@ -58,7 +58,7 @@ internal class Hawk : RoleBase
     {
         if (_Player == null) return;
         int ThisCount = 0;
-        foreach (var pc in Main.AllPlayerControls)
+        foreach (var pc in Main.EnumeratePlayerControls())
         {
             if (pc.IsAnySubRole(x => x.IsConverted()))
             {

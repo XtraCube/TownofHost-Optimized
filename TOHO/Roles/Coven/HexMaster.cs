@@ -212,7 +212,7 @@ internal class HexMaster : CovenManager
             Dictionary<byte, float> targetDistance = [];
             float dis;
 
-            foreach (var target in Main.AllAlivePlayerControls)
+            foreach (var target in Main.EnumerateAlivePlayerControls())
             {
                 if (target.PlayerId != player.PlayerId && target.PlayerId != LastHexedPlayer)
                 {
@@ -241,11 +241,11 @@ internal class HexMaster : CovenManager
                 HexedPlayer[id].Clear();
         }
         var hexedIdList = new List<byte>();
-        foreach (var pc in Main.AllAlivePlayerControls)
+        foreach (var pc in Main.EnumerateAlivePlayerControls())
         {
-            var dic = HexedPlayer.Where(x => x.Value.Contains(pc.PlayerId));
-            if (!dic.Any()) continue;
-            var whichId = dic.FirstOrDefault().Key;
+            var dic = HexedPlayer.Where(x => x.Value.Contains(pc.PlayerId)).ToArray();
+            if (dic.Length == 0) continue;
+            var whichId = dic[0].Key;
             var hexmaster = whichId.GetPlayer();
             if (hexmaster != null && hexmaster.IsAlive())
             {

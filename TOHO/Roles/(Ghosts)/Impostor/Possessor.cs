@@ -63,7 +63,7 @@ internal class Possessor : RoleBase
                     _Player.RpcTeleport((_Player.GetCustomPosition() + target.GetCustomPosition()) / 2);
                 }
 
-                foreach (var allPlayers in Main.AllAlivePlayerControls.Where(pc => pc != target))
+                foreach (var allPlayers in Main.EnumerateAlivePlayerControls().Where(pc => pc != target))
                 {
                     if (Utils.GetDistance(target.GetCustomPosition(), allPlayers.GetCustomPosition()) < AlertRange.GetFloat())
                     {
@@ -107,7 +107,7 @@ internal class Possessor : RoleBase
                 if (controllingPlayer)
                 {
                     float checkPos = float.MaxValue;
-                    foreach (var allPlayers in Main.AllAlivePlayerControls.Where(pc => pc != target))
+                    foreach (var allPlayers in Main.EnumerateAlivePlayerControls().Where(pc => pc != target))
                     {
                         if (Utils.GetDistance(_Player.GetCustomPosition(), allPlayers.GetCustomPosition()) < checkPos)
                         {
@@ -139,7 +139,7 @@ internal class Possessor : RoleBase
         if (!controllingPlayer)
         {
             // Cancel if Target is around other players
-            foreach (var allPlayers in Main.AllAlivePlayerControls.Where(pc => pc != target))
+            foreach (var allPlayers in Main.EnumerateAlivePlayerControls().Where(pc => pc != target))
             {
                 if (Utils.GetDistance(target.GetCustomPosition(), allPlayers.GetCustomPosition()) < AlertRange.GetFloat())
                 {

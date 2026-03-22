@@ -52,7 +52,7 @@ internal class Survivalist : RoleBase
         else
         {
             // Notify all players about remaining time
-            foreach (var pc in Main.AllAlivePlayerControls)
+            foreach (var pc in Main.EnumerateAlivePlayerControls())
             {
                 if (!pc.Is(CustomRoles.Survivalist))
                 pc.Notify(string.Format(GetString("SurvivalistShowdownCountdown"), remainingTime), sendInLog: false);
@@ -70,7 +70,7 @@ internal class Survivalist : RoleBase
         ShowdownStartTime = Utils.GetTimeStamp();
 
         // Disable all abilities except for Survivalist and killers
-        foreach (var pc in Main.AllPlayerControls)
+        foreach (var pc in Main.EnumeratePlayerControls())
         {
             if (!pc.Is(CustomRoles.Survivalist) && !IsThreat(pc))
             {
@@ -89,14 +89,14 @@ internal class Survivalist : RoleBase
         if (survivalistWins)
         {
             CustomWinnerHolder.ResetAndSetWinner(CustomWinner.Crewmate);
-            foreach (var pc in Main.AllPlayerControls)
+            foreach (var pc in Main.EnumeratePlayerControls())
             {
                 if (pc.Is(Custom_Team.Crewmate) && !pc.Is(CustomRoles.Survivalist))
                 {
                     CustomWinnerHolder.WinnerIds.Add(pc.PlayerId);
                 }
             }
-            CustomWinnerHolder.WinnerIds.Add(Main.AllPlayerControls.FirstOrDefault(x => x.Is(CustomRoles.Survivalist))?.PlayerId ?? byte.MaxValue);
+            CustomWinnerHolder.WinnerIds.Add(Main.EnumeratePlayerControls().FirstOrDefault(x => x.Is(CustomRoles.Survivalist))?.PlayerId ?? byte.MaxValue);
         }
         else
         {
@@ -104,7 +104,7 @@ internal class Survivalist : RoleBase
         }
 
         // Re-enable movement for all players
-        foreach (var pc in Main.AllPlayerControls)
+        foreach (var pc in Main.EnumeratePlayerControls())
         {
             pc.RpcGuardAndKill(null);
         }
@@ -160,7 +160,7 @@ internal class Survivalist : RoleBase
     {
         if (InShowdown) return true;
 
-        var survivalist = Main.AllAlivePlayerControls.FirstOrDefault(p => p.Is(CustomRoles.Survivalist));
+        var survivalist = Main.EnumerateAlivePlayerControls().FirstOrDefault(p => p.Is(CustomRoles.Survivalist));
         if (survivalist == null) return false;
 
         // Check if game is ending with non-crew win

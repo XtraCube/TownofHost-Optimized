@@ -80,7 +80,7 @@ internal class EvilTracker : RoleBase
 
         ImpostorsId[playerId] = [];
 
-        foreach (var target in Main.AllAlivePlayerControls)
+        foreach (var target in Main.EnumerateAlivePlayerControls())
         {
             var targetId = target.PlayerId;
             if (targetId != playerId && target.Is(Custom_Team.Impostor))

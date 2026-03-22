@@ -74,7 +74,7 @@ internal class Baker : RoleBase
     private static (int, int) BreadedPlayerCount(byte playerId)
     {
         int breaded = 0, all = BreadNeededToTransform.GetInt();
-        foreach (var pc in Main.AllAlivePlayerControls)
+        foreach (var pc in Main.EnumerateAlivePlayerControls())
         {
             if (pc.PlayerId == playerId) continue;
 
@@ -312,7 +312,7 @@ internal class Baker : RoleBase
     {
         if (lowLoad || player.Is(CustomRoles.Famine)) return;
 
-        if (AllHasBread(player) || (TransformNoMoreBread.GetBool() && BreadedPlayerCount(player.PlayerId).Item1 >= Main.AllAlivePlayerControls.Where(x => !x.IsNeutralApocalypse()).Count()))
+        if (AllHasBread(player) || (TransformNoMoreBread.GetBool() && BreadedPlayerCount(player.PlayerId).Item1 >= Main.EnumerateAlivePlayerControls().Where(x => !x.IsNeutralApocalypse()).Count()))
         {
             player.RpcChangeRoleBasis(CustomRoles.Famine);
             player.RpcSetCustomRole(CustomRoles.Famine);
@@ -421,7 +421,7 @@ internal class Famine : RoleBase
 
         var deathList = new HashSet<byte>();
         var baker = _Player;
-        foreach (var pc in Main.AllAlivePlayerControls)
+        foreach (var pc in Main.EnumerateAlivePlayerControls())
         {
             if ((pc.IsNeutralApocalypse() && !Main.PlayerStates[pc.PlayerId].IsNecromancer) || Baker.HasBread(baker.PlayerId, pc.PlayerId)) continue;
             if (baker.IsAlive())

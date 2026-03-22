@@ -123,7 +123,7 @@ internal class Meteor : RoleBase
         int additionalKills = 0;
 
 
-        foreach (var target in Main.AllAlivePlayerControls)
+        foreach (var target in Main.EnumerateAlivePlayerControls())
         {
             if (target.PlayerId == bombTarget.PlayerId) continue;
 

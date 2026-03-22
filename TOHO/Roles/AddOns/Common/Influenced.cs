@@ -25,7 +25,7 @@ public class Influenced : IAddon
         //The incoming votedata does not count influenced votes
         HashSet<byte> influencedPlayerIds = [];
 
-        Main.AllAlivePlayerControls.Where(x => x.Is(CustomRoles.Influenced))
+        Main.EnumerateAlivePlayerControls().Where(x => x.Is(CustomRoles.Influenced))
             .Do(x => influencedPlayerIds.Add(x.PlayerId));
 
         if (influencedPlayerIds.Count == 0) return;

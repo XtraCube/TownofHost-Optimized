@@ -125,14 +125,10 @@ public static class CollectionExtensions
     /// <returns>A HashSet(<typeparamref name="TDelegate"/>) without duplicate object references nor static duplicates.</returns>
     public static HashSet<TDelegate> FilterDuplicates<TDelegate>(this IEnumerable<TDelegate> collection) where TDelegate : Delegate
     {
-        // Filter out delegates which do not have a object reference (static methods)
-        var filteredCollection = collection.Where(d => d.Target != null);
-
         // Group by the target object (the instance the method belongs to) and select distinct
-        var distinctDelegates = filteredCollection
-            .GroupBy(d => d.Target.GetType())
-            .Select(g => g.First())
-            .Concat(collection.Where(x => x.Target == null)); // adds back static methods
+        var distinctDelegates = collection
+            .GroupBy(d => d.Target?.GetType())
+            .SelectMany(g => g.Key == null ? g : g.Take(1));
 
         return distinctDelegates.ToHashSet();
     }

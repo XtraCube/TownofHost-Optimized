@@ -46,7 +46,7 @@ internal static class TrickorTreat
     public static Dictionary<byte, CustomRoles> SetRoles()
     {
         Dictionary<byte, CustomRoles> finalRoles = [];
-        List<PlayerControl> AllPlayers = Main.AllPlayerControls.ToList();
+        List<PlayerControl> AllPlayers = Main.EnumeratePlayerControls().ToList();
 
         if (Main.EnableGM.Value)
         {
@@ -83,7 +83,7 @@ internal static class TrickorTreat
         RoundTime = GameTime.GetInt() + 8;
         var now = Utils.GetTimeStamp() + 8;
 
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             Candies[player.PlayerId] = 0;
         }

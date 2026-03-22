@@ -76,7 +76,7 @@ public class RoleAssign
         switch (Options.CurrentGameMode)
         {
             case CustomGameMode.FFA:
-                foreach (PlayerControl pc in Main.AllPlayerControls)
+                foreach (PlayerControl pc in Main.EnumeratePlayerControls())
                 {
                     if (Main.EnableGM.Value && pc.IsHost())
                     {
@@ -93,7 +93,7 @@ public class RoleAssign
                 }
                 return;
             case CustomGameMode.UltimateTeam:
-                foreach (PlayerControl pc in Main.AllPlayerControls)
+                foreach (PlayerControl pc in Main.EnumeratePlayerControls())
                 {
                     if (Main.EnableGM.Value && pc.IsHost())
                     {
@@ -111,7 +111,7 @@ public class RoleAssign
                 }
                 return;
             case CustomGameMode.TrickorTreat:
-                foreach (PlayerControl pc in Main.AllPlayerControls)
+                foreach (PlayerControl pc in Main.EnumeratePlayerControls())
                 {
                     if (Main.EnableGM.Value && pc.IsHost())
                     {
@@ -129,7 +129,7 @@ public class RoleAssign
                 }
                 return;
             case CustomGameMode.FourCorners:
-                foreach (PlayerControl pc in Main.AllPlayerControls)
+                foreach (PlayerControl pc in Main.EnumeratePlayerControls())
                 {
                     if (Main.EnableGM.Value && pc.IsHost())
                     {
@@ -147,7 +147,7 @@ public class RoleAssign
                 }
                 return;
             case CustomGameMode.CandR:
-                foreach (PlayerControl pc in Main.AllPlayerControls)
+                foreach (PlayerControl pc in Main.EnumeratePlayerControls())
                 {
                     if (Main.EnableGM.Value && pc.IsHost())
                     {
@@ -292,7 +292,7 @@ public class RoleAssign
         Logger.Info(string.Join(", ", Roles[RoleAssignType.Crewmate].Select(x => x.Role.ToString())), "Selected-Crew-Roles");
         Logger.Msg("======================================================", "SelectedRoles");
 
-        var AllPlayers = Main.AllPlayerControls.ToList();
+        var AllPlayers = Main.EnumeratePlayerControls().ToList();
 
         // Players on the EAC banned list will be assigned as GM when opening rooms
         if (BanManager.CheckEACList(PlayerControl.LocalPlayer.FriendCode, PlayerControl.LocalPlayer.GetClient().GetHashedPuid()))

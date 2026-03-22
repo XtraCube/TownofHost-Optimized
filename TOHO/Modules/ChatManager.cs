@@ -162,7 +162,7 @@ namespace TOHO.Modules.ChatManager
 
         public static void SendQuickChatSpam()
         {
-            var firstAlivePlayer = Main.AllAlivePlayerControls.OrderBy(x => x.PlayerId).FirstOrDefault() ?? PlayerControl.LocalPlayer;
+            var firstAlivePlayer = Main.EnumerateAlivePlayerControls().OrderBy(x => x.PlayerId).FirstOrDefault() ?? PlayerControl.LocalPlayer;
             var title = "<color=#aaaaff>" + GetString("DefaultSystemMessageTitle") + "</color>";
             var name = firstAlivePlayer?.Data?.PlayerName ?? "Error";
             var writer = CustomRpcSender.Create("EzHacked_QuickChatSpamExploit", ExtendedPlayerControl.RpcSendOption);
@@ -257,7 +257,7 @@ namespace TOHO.Modules.ChatManager
                 }
                 else
                 {
-                    var firstAlivePlayer = Main.AllAlivePlayerControls.OrderBy(x => x.PlayerId).FirstOrDefault();
+                    var firstAlivePlayer = Main.EnumerateAlivePlayerControls().OrderBy(x => x.PlayerId).FirstOrDefault();
                     if (firstAlivePlayer == null) firstAlivePlayer = PlayerControl.LocalPlayer;
 
                     var title = "<color=#aaaaff>" + GetString("DefaultSystemMessageTitle") + "</color>";
@@ -303,8 +303,8 @@ namespace TOHO.Modules.ChatManager
             //var rd = IRandom.Instance;
             //CustomRoles[] roles = (CustomRoles[])Enum.GetValues(typeof(CustomRoles));
             //string[] specialTexts = new string[] { "bet", "bt", "guess", "gs", "shoot", "st", "赌", "猜", "审判", "tl", "判", "审", "trial" };
-            //int numPlayers = Main.AllAlivePlayerControls.Count();
-            //var allAlivePlayers = Main.AllAlivePlayerControls.ToArray();
+            //int numPlayers = Main.EnumerateAlivePlayerControls().Count();
+            //var allAlivePlayers = Main.EnumerateAlivePlayerControls().ToArray();
             //int roleCount = roles.Length;
 
             //for (int i = chatHistory.Count; i < 30; i++)

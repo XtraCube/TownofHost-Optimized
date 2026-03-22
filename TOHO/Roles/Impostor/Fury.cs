@@ -60,7 +60,7 @@ internal class Fury : RoleBase
     {
         player.SetKillCooldown(RageKillCooldown.GetFloat());
         player.Notify(GetString("FuryInRage"), AbilityDuration.GetFloat());
-        foreach (var target in Main.AllPlayerControls)
+        foreach (var target in Main.EnumeratePlayerControls())
         {
             if (NotifyRageActive.GetBool()) target.KillFlash();
             if (NotifyRageActive.GetBool()) target.Notify(GetString("SeerFuryInRage"), 5f);

@@ -29,13 +29,13 @@ public class Ghoul : IAddon
     }
     public void Remove(byte playerId)
     {
-        if (!Main.AllPlayerControls.Any(x => x.Is(CustomRoles.Ghoul)))
+        if (!Main.EnumeratePlayerControls().Any(x => x.Is(CustomRoles.Ghoul)))
             IsEnable = false;
     }
 
     public static void ApplyGameOptions(PlayerControl player)
     {
-        if (Main.AllPlayerControls.Any(x => x.Is(CustomRoles.Ghoul) && !x.IsAlive() && x.GetRealKiller()?.PlayerId == player.PlayerId))
+        if (Main.EnumeratePlayerControls().Any(x => x.Is(CustomRoles.Ghoul) && !x.IsAlive() && x.GetRealKiller()?.PlayerId == player.PlayerId))
         {
             if (!player.IsTransformedNeutralApocalypse())
                 KillGhoul.Add(player.PlayerId);
@@ -55,7 +55,7 @@ public class Ghoul : IAddon
         }
         else
         {
-            foreach (var killer in Main.AllAlivePlayerControls.Where(x => KillGhoul.Contains(x.PlayerId)))
+            foreach (var killer in Main.EnumerateAlivePlayerControls().Where(x => KillGhoul.Contains(x.PlayerId)))
             {
                 killer.SetDeathReason(PlayerState.DeathReason.Kill);
                 player.RpcMurderPlayer(killer);

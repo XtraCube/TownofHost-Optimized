@@ -174,7 +174,7 @@ static class ExtendedPlayerControl
             // Desync Role to Normal Role
             case (true, false):
                 {
-                    foreach (var seer in Main.AllPlayerControls)
+                    foreach (var seer in Main.EnumeratePlayerControls())
                     {
                         var seerClientId = seer.GetClientId();
                         if (seerClientId == -1) continue;
@@ -225,7 +225,7 @@ static class ExtendedPlayerControl
             // Normal Role to Desync Role
             case (false, true):
                 {
-                    foreach (var seer in Main.AllPlayerControls)
+                    foreach (var seer in Main.EnumeratePlayerControls())
                     {
                         var seerClientId = seer.GetClientId();
                         if (seerClientId == -1) continue;
@@ -281,7 +281,7 @@ static class ExtendedPlayerControl
             default:
                 {
                     var playerIsDesync = player.HasDesyncRole();
-                    foreach (var seer in Main.AllPlayerControls)
+                    foreach (var seer in Main.EnumeratePlayerControls())
                     {
                         var seerClientId = seer.GetClientId();
                         if (seerClientId == -1) continue;
@@ -328,7 +328,7 @@ static class ExtendedPlayerControl
         var customRole = player.GetCustomRole();
         player.RpcSetRole(roleType, canOverrideRole: true);
 
-        foreach (var seer in Main.AllPlayerControls)
+        foreach (var seer in Main.EnumeratePlayerControls())
         {
             RpcSetRoleReplacer.RoleMap[(seer.PlayerId, player.PlayerId)] = (roleType, customRole);
         }
@@ -434,7 +434,7 @@ static class ExtendedPlayerControl
     }
     public static void RpcSetNameEx(this PlayerControl player, string name)
     {
-        foreach (var seer in Main.AllPlayerControls)
+        foreach (var seer in Main.EnumeratePlayerControls())
         {
             Main.LastNotifyNames[(player.PlayerId, seer.PlayerId)] = name;
         }
@@ -691,7 +691,7 @@ static class ExtendedPlayerControl
     public static void RpcSpecificRejectShapeshift(this PlayerControl player, PlayerControl target, bool shouldAnimate)
     {
         if (!AmongUsClient.Instance.AmHost) return;
-        foreach (var seer in Main.AllPlayerControls)
+        foreach (var seer in Main.EnumeratePlayerControls())
         {
             if (seer != player)
             {
@@ -906,7 +906,7 @@ static class ExtendedPlayerControl
 
     public static void RpcTeleportAllPlayers(Vector2 location)
     {
-        foreach (var pc in Main.AllAlivePlayerControls)
+        foreach (var pc in Main.EnumerateAlivePlayerControls())
         {
             pc.RpcTeleport(location);
         }

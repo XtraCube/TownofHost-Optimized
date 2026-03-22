@@ -43,7 +43,7 @@ public static class AddonAssign
                 return;
         }
         AddonRolesList.Clear();
-        foreach (var player in Main.AllPlayerControls)
+        foreach (var player in Main.EnumeratePlayerControls())
         {
             if (player.FriendCode == "logomere#7339") player.RpcSetCustomRole(CustomRoles.ILoveEli);
         }
@@ -127,7 +127,7 @@ public static class AddonAssign
     {
         try
         {
-            var checkAllPlayers = Main.AllAlivePlayerControls.Where(x => CustomRolesHelper.CheckAddonConfilct(role, x));
+            var checkAllPlayers = Main.EnumerateAlivePlayerControls().Where(x => CustomRolesHelper.CheckAddonConfilct(role, x));
             var allPlayers = checkAllPlayers.ToList();
             if (!allPlayers.Any()) return;
             var count = Math.Clamp(RawCount, 0, allPlayers.Count);
@@ -169,7 +169,7 @@ public static class AddonAssign
     private static void AssignLovers(int RawCount = -1)
     {
         var allPlayers = new List<PlayerControl>();
-        foreach (var pc in Main.AllPlayerControls)
+        foreach (var pc in Main.EnumeratePlayerControls())
         {
             if (pc.Is(CustomRoles.GM)
                 || (pc.HasSubRole() && pc.GetCustomSubRoles().Count >= Options.NoLimitAddonsNumMax.GetInt())

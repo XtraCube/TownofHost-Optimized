@@ -59,7 +59,7 @@ internal class WildShot : RoleBase
 
 
         // Find all alive non-imposter, non-immune players except original target
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             if (!player.Data.Role.IsImpostor &&
                 player.PlayerId != originalTarget.PlayerId &&

@@ -51,7 +51,7 @@ internal class Sun : RoleBase
         {
             List<PlayerControl> targetList = [];
             var rand = IRandom.Instance;
-            foreach (var target in Main.AllAlivePlayerControls)
+            foreach (var target in Main.EnumerateAlivePlayerControls())
             {
                 if (target.GetCustomRole().IsImpostor()) continue;
                 targetList.Add(target);

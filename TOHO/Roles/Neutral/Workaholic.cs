@@ -71,7 +71,7 @@ internal class Workaholic : RoleBase
         }
 
         RPC.PlaySoundRPC(player.PlayerId, Sounds.KillSound);
-        foreach (var pc in Main.AllAlivePlayerControls)
+        foreach (var pc in Main.EnumerateAlivePlayerControls())
         {
             if (pc.PlayerId != player.PlayerId)
             {
@@ -90,7 +90,7 @@ internal class Workaholic : RoleBase
     {
         if (MeetingStates.FirstMeeting && player.IsAlive() && WorkaholicGiveAdviceAlive.GetBool() && !WorkaholicCannotWinAtDeath.GetBool() && !GhostIgnoreTasks.GetBool())
         {
-            foreach (var pc in Main.AllAlivePlayerControls.Where(x => x.Is(CustomRoles.Workaholic)).ToArray())
+            foreach (var pc in Main.EnumerateAlivePlayerControls().Where(x => x.Is(CustomRoles.Workaholic)).ToArray())
             {
                 WorkaholicAlive.Add(pc.PlayerId);
             }

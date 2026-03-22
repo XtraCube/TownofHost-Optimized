@@ -127,7 +127,7 @@ public class SabotageSystemPatch
         {
             Logger.Info($" IsActive", "MushroomMixupSabotageSystem.UpdateSystem.Postfix");
 
-            foreach (var pc in Main.AllAlivePlayerControls)
+            foreach (var pc in Main.EnumerateAlivePlayerControls())
             {
                 if ((!pc.Is(Custom_Team.Impostor) || Main.PlayerStates[pc.PlayerId].IsNecromancer) && pc.HasDesyncRole())
                 {
@@ -178,7 +178,7 @@ public class SabotageSystemPatch
                     _ = new LateTask(() =>
                     {
                         // After MushroomMixup Sabotage, Shapeshift Cooldown sets to 0
-                        foreach (PlayerControl pc in Main.AllAlivePlayerControls)
+                        foreach (PlayerControl pc in Main.EnumerateAlivePlayerControls())
                         {
                             // Do Unshift since Mushroom Mixup reverts all Shapeshifted Players
                             pc.DoUnShiftState(true);
@@ -189,7 +189,7 @@ public class SabotageSystemPatch
                         }
                     }, 1.2f, "Reset Ability Cooldown Arter Mushroom Mixup");
 
-                    foreach (var pc in Main.AllAlivePlayerControls)
+                    foreach (var pc in Main.EnumerateAlivePlayerControls())
                     {
                         if ((!pc.Is(Custom_Team.Impostor) || Main.PlayerStates[pc.PlayerId].IsNecromancer) && pc.HasDesyncRole())
                         {

@@ -50,7 +50,7 @@ internal class Blade : RoleBase
         if (GameStates.IsMeeting) return;
         _ = new LateTask(() =>
         {
-            foreach (var player in Main.AllAlivePlayerControls)
+            foreach (var player in Main.EnumerateAlivePlayerControls())
             {
                 if (player == _Player) continue;
 

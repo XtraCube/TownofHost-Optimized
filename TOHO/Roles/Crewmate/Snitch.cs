@@ -113,7 +113,7 @@ internal class Snitch : RoleBase
 
         if (!IsExposed[snitchId] && snitchTask.RemainingTasksCount <= RemainingTasksToBeFound)
         {
-            foreach (var target in Main.AllAlivePlayerControls)
+            foreach (var target in Main.EnumerateAlivePlayerControls())
             {
                 if (!IsSnitchTarget(target)) continue;
 
@@ -125,7 +125,7 @@ internal class Snitch : RoleBase
 
         if (IsComplete[snitchId] || !snitchTask.IsTaskFinished) return;
 
-        foreach (var target in Main.AllAlivePlayerControls)
+        foreach (var target in Main.EnumerateAlivePlayerControls())
         {
             if (!IsSnitchTarget(target)) continue;
 
@@ -180,7 +180,7 @@ internal class Snitch : RoleBase
             case 1:
                 if (EnableTargetArrow)
                 {
-                    foreach (var target in Main.AllAlivePlayerControls)
+                    foreach (var target in Main.EnumerateAlivePlayerControls())
                     {
                         if (!IsSnitchTarget(target) || !(Illusionist.IsNonCovIllusioned(target.PlayerId) && Illusionist.SnitchCanIllusioned.GetBool())) continue;
 

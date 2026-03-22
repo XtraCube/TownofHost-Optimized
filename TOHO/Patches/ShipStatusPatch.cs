@@ -382,7 +382,7 @@ class ShipStatusSerializePatch
 
             if (GameStates.IsInGame)
             {
-                foreach (var pc in Main.AllAlivePlayerControls)
+                foreach (var pc in Main.EnumerateAlivePlayerControls())
                 {
                     if (pc.BlockVentInteraction())
                     {
@@ -426,7 +426,7 @@ class ShipStatusSerializePatch
         {
             var reactor = Utils.GetCriticalSabotageSystemType();
 
-            foreach (var player in Main.AllPlayerControls)
+            foreach (var player in Main.EnumeratePlayerControls())
             {
                 if (player.AmOwner) continue;
                 var rwriter = MessageWriter.Get(SendOption.Reliable);

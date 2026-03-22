@@ -764,7 +764,7 @@ internal class ChatCommands
                 case "/玩家编号列表":
                     canceled = true;
                     string msgText1 = GetString("PlayerIdList");
-                    foreach (var pc in Main.AllPlayerControls)
+                    foreach (var pc in Main.EnumeratePlayerControls())
                     {
                         if (pc == null) continue;
                         msgText1 += "\n" + pc.PlayerId.ToString() + " → " + pc.GetRealName();
@@ -1118,7 +1118,7 @@ internal class ChatCommands
                         Utils.SendMessage(GetString("Message.CanNotUseInLobby"), PlayerControl.LocalPlayer.PlayerId);
                         break;
                     }
-                    foreach (var pc in Main.AllPlayerControls)
+                    foreach (var pc in Main.EnumeratePlayerControls())
                     {
                         if (pc.IsAlive()) continue;
                         pc.SetName(pc.GetRealName(isMeeting: true));
@@ -1133,7 +1133,7 @@ internal class ChatCommands
                 case "/玩家编号":
                     canceled = true;
                     string msgText = GetString("PlayerIdList");
-                    foreach (var pc in Main.AllPlayerControls)
+                    foreach (var pc in Main.EnumeratePlayerControls())
                     {
                         if (pc == null) continue;
                         msgText += "\n" + pc.PlayerId.ToString() + " → " + pc.GetRealName();
@@ -1299,21 +1299,21 @@ internal class ChatCommands
                     static void DetermineResults()
                     {
                         int basenum = Pollvotes.Values.Max();
-                        var winners = Pollvotes.Where(x => x.Value == basenum);
+                        var winners = Pollvotes.Where(x => x.Value == basenum).ToArray();
 
                         string msg = "";
 
                         Color32 clr = new(47, 234, 45, 255); //Main.PlayerColors.First(x => x.Key == PlayerControl.LocalPlayer.PlayerId).Value;
                         var tytul = Utils.ColorString(clr, GetString("PollResultTitle"));
 
-                        if (winners.Count() == 1)
+                        if (winners.Length == 1)
                         {
-                            var losers = Pollvotes.Where(x => x.Key != winners.First().Key);
-                            msg = string.Format(GetString("Poll.Result"), $"{winners.First().Key}{PollQuestions[winners.First().Key]}", winners.First().Value);
+                            var losers = Pollvotes.Where(x => x.Key != winners[0].Key).ToArray();
+                            msg = string.Format(GetString("Poll.Result"), $"{winners[0].Key}{PollQuestions[winners[0].Key]}", winners[0].Value);
 
                             for (int i = 0; i < losers.Count(); i++)
                             {
-                                msg += $"\n{losers.ElementAt(i).Key} / {losers.ElementAt(i).Value} {PollQuestions[losers.ElementAt(i).Key]}";
+                                msg += $"\n{losers[i].Key} / {losers[i].Value} {PollQuestions[losers[i].Key]}";
 
                             }
                             msg += "</size>";
@@ -1324,13 +1324,13 @@ internal class ChatCommands
                         else
                         {
                             var tienum = Pollvotes.Values.Max();
-                            var tied = Pollvotes.Where(x => x.Value == tienum);
+                            var tied = Pollvotes.Where(x => x.Value == tienum).ToArray();
 
-                            for (int i = 0; i < (tied.Count() - 1); i++)
+                            for (int i = 0; i < (tied.Length - 1); i++)
                             {
-                                msg += "\n" + tied.ElementAt(i).Key + PollQuestions[tied.ElementAt(i).Key] + " & ";
+                                msg += "\n" + tied[i].Key + PollQuestions[tied[i].Key] + " & ";
                             }
-                            msg += "\n" + tied.Last().Key + PollQuestions[tied.Last().Key];
+                            msg += "\n" + tied.Last().Key + PollQuestions[tied[^1].Key];
 
                             Utils.SendMessage(string.Format(GetString("Poll.Tied"), msg, tienum), title: tytul);
                         }
@@ -1358,7 +1358,7 @@ internal class ChatCommands
                         Utils.SendMessage(GetString("PollUsage"), PlayerControl.LocalPlayer.PlayerId);
                         break;
                     }
-                    var resultat = args.TakeWhile(x => !x.Contains('?')).Concat(args.SkipWhile(x => !x.Contains('?')).Take(1));
+                    var resultat = args.TakeWhile(x => !x.Contains('?')).Concat(args.SkipWhile(x => !x.Contains('?')).Take(1)).ToArray();
 
                     string tytul = string.Join(" ", resultat.Skip(1));
                     bool Longtitle = tytul.Length > 30;
@@ -1366,7 +1366,7 @@ internal class ChatCommands
                     var altTitle = Utils.ColorString(new Color32(151, 198, 230, 255), GetString("PollTitle"));
 
                     var ClearTIT = args.ToList();
-                    ClearTIT.RemoveRange(0, resultat.ToArray().Length);
+                    ClearTIT.RemoveRange(0, resultat.Length);
 
                     var Questions = ClearTIT.ToArray();
                     string msg = "";
@@ -2706,7 +2706,7 @@ internal class ChatCommands
                     && !Options.EnableVoteCommand.GetBool()) break;
 
                 string msgText = GetString("PlayerIdList");
-                foreach (var pc in Main.AllPlayerControls)
+                foreach (var pc in Main.EnumeratePlayerControls())
                 {
                     if (pc == null) continue;
                     msgText += "\n" + pc.PlayerId.ToString() + " → " + pc.GetRealName();
@@ -2731,7 +2731,7 @@ internal class ChatCommands
                     break;
                 }
                 string msgText1 = GetString("PlayerIdList");
-                foreach (var pc in Main.AllPlayerControls)
+                foreach (var pc in Main.EnumeratePlayerControls())
                 {
                     if (pc == null) continue;
                     msgText1 += "\n" + pc.PlayerId.ToString() + " → " + pc.GetRealName();
@@ -3169,7 +3169,7 @@ internal class ChatCommands
                     Utils.SendMessage(GetString("Message.CanNotUseInLobby"), player.PlayerId);
                     break;
                 }
-                foreach (var pc in Main.AllPlayerControls)
+                foreach (var pc in Main.EnumeratePlayerControls())
                 {
                     if (pc.IsAlive()) continue;
 
@@ -3707,8 +3707,8 @@ class ChatUpdatePatch
         var player = PlayerControl.LocalPlayer;
         if (GameStates.IsInGame || player.Data.IsDead)
         {
-            player = Main.AllAlivePlayerControls.ToArray().OrderBy(x => x.PlayerId).FirstOrDefault()
-                     ?? Main.AllPlayerControls.ToArray().OrderBy(x => x.PlayerId).FirstOrDefault()
+            player = Main.EnumerateAlivePlayerControls().ToArray().OrderBy(x => x.PlayerId).FirstOrDefault()
+                     ?? Main.EnumeratePlayerControls().ToArray().OrderBy(x => x.PlayerId).FirstOrDefault()
                      ?? player;
         }
         if (player == null) return;

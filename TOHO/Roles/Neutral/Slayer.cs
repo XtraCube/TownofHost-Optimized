@@ -25,7 +25,7 @@ internal class Slayer : RoleBase
         Logger.Info("Slayer Kill", "Mauled");
             _ = new LateTask(() =>
             {
-                foreach (var killing in Main.AllAlivePlayerControls)
+                foreach (var killing in Main.EnumerateAlivePlayerControls())
                 {
                     if (killing == player) continue;
 

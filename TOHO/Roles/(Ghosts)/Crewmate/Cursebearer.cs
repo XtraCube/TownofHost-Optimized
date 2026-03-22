@@ -32,7 +32,7 @@ internal class Cursebearer : RoleBase
     {
         playerId.SetAbilityUseLimit(1);
 
-        foreach (var pc in Main.AllPlayerControls)
+        foreach (var pc in Main.EnumeratePlayerControls())
         {
             if (pc.IsAnySubRole(x => x.IsConverted()))
             {

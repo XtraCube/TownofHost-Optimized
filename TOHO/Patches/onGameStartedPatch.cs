@@ -137,7 +137,9 @@ internal class ChangeRoleSettings
 
             if (AmongUsClient.Instance.AmHost)
             {
-                var invalidColor = Main.AllPlayerControls.Where(p => p.Data.DefaultOutfit.ColorId < 0 || Palette.PlayerColors.Length <= p.Data.DefaultOutfit.ColorId);
+                var invalidColor = Main.EnumeratePlayerControls()
+                    .Where(p => p.Data.DefaultOutfit.ColorId < 0 || Palette.PlayerColors.Length <= p.Data.DefaultOutfit.ColorId)
+                    .ToArray();
                 if (invalidColor.Any())
                 {
                     StringBuilder sb = new();
@@ -151,7 +153,7 @@ internal class ChangeRoleSettings
                 }
             }
 
-            foreach (var pc in Main.AllPlayerControls)
+            foreach (var pc in Main.EnumeratePlayerControls())
             {
                 var outfit = pc.Data.DefaultOutfit;
                 var colorId = pc.Data.DefaultOutfit.ColorId;
@@ -175,7 +177,7 @@ internal class ChangeRoleSettings
                     }
                 }
 
-                foreach (var target in Main.AllPlayerControls)
+                foreach (var target in Main.EnumeratePlayerControls())
                 {
                     var pair = (target.PlayerId, pc.PlayerId);
                     Main.LastNotifyNames[pair] = currentName;
@@ -665,7 +667,7 @@ internal class SelectRolesPatch
                 Main.PlayerStates[PlayerControl.LocalPlayer.PlayerId].SetDead();
             }
 
-            foreach (var player in Main.AllPlayerControls)
+            foreach (var player in Main.EnumeratePlayerControls())
             {
                 if (!player.IsDisconnected() && TagManager.AssignGameMaster(player.FriendCode))
                 {
@@ -732,7 +734,7 @@ public static class RpcSetRoleReplacer
             {
                 var BaseRole = role.GetVNRole();
 
-                foreach (var target in Main.AllPlayerControls)
+                foreach (var target in Main.EnumeratePlayerControls())
                 {
                     RoleTypes targetRoleType = RoleTypes.Crewmate;
                     var targetCustomRole = RoleAssign.RoleResult.GetValueOrDefault(target.PlayerId, CustomRoles.CrewmateTOHO);
@@ -756,7 +758,7 @@ public static class RpcSetRoleReplacer
 
                 if (roleType is not RoleTypes.Impostor and not RoleTypes.Shapeshifter and not RoleTypes.Phantom)
                 {
-                    foreach (var target in Main.AllPlayerControls)
+                    foreach (var target in Main.EnumeratePlayerControls())
                     {
                         if (target.PlayerId == player.PlayerId)
                         {
@@ -782,7 +784,7 @@ public static class RpcSetRoleReplacer
                 }
                 else
                 {
-                    foreach (var target in Main.AllPlayerControls)
+                    foreach (var target in Main.EnumeratePlayerControls())
                     {
                         if (target.PlayerId == player.PlayerId)
                         {
@@ -811,7 +813,7 @@ public static class RpcSetRoleReplacer
     }
     public static void MakeDesyncSenders()
     {
-        foreach (var player in Main.AllPlayerControls)
+        foreach (var player in Main.EnumeratePlayerControls())
         {
             if (player.AmOwner)
             {

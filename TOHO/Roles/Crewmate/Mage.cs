@@ -46,7 +46,7 @@ internal class Mage : RoleBase
 
     public override void AfterMeetingTasks()
     {
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             if (player.GetCustomRole() == CustomRoles.Mage)
             {

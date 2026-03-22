@@ -78,7 +78,7 @@ internal class Constable : RoleBase
         if (IsTribunal)
         {
             ExtraVotes = TribunalExtraVotes.GetInt();
-            foreach (var player in Main.AllPlayerControls)
+            foreach (var player in Main.EnumeratePlayerControls())
             {
                 if (player.IsHost())
                 {

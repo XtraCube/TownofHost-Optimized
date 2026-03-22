@@ -33,7 +33,7 @@ internal class Exorcist : RoleBase
     {
         _ = new LateTask(() =>
         {
-            foreach (var player in Main.AllAlivePlayerControls)
+            foreach (var player in Main.EnumerateAlivePlayerControls())
             {
                 if (player.IsPlayerCrewmateTeam()) continue;
 

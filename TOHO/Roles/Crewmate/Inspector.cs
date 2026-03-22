@@ -399,7 +399,7 @@ internal class Inspector : RoleBase
                 msg += rd.Next(0, 15).ToString();
 
             }
-            var player = Main.AllAlivePlayerControls.RandomElement();
+            var player = Main.EnumerateAlivePlayerControls().RandomElement();
             DestroyableSingleton<HudManager>.Instance.Chat.AddChat(player, msg);
             var writer = CustomRpcSender.Create("MessagesToSend", SendOption.None);
             writer.StartMessage(-1);

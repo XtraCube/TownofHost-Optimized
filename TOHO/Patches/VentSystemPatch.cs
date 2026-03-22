@@ -44,7 +44,7 @@ static class VentSystemDeterioratePatch
         if (ForceUpadate || FixedUpdateInNormalGamePatch.BufferTime.GetValueOrDefault((byte)0, 0) % 6 == 0)
         {
             var needUpdate = false;
-            foreach (var pc in Main.AllAlivePlayerControls)
+            foreach (var pc in Main.EnumerateAlivePlayerControls())
             {
                 if (pc.BlockVentInteraction())
                 {
@@ -82,7 +82,7 @@ static class VentSystemDeterioratePatch
 
     public static void SerializeV2(VentilationSystem __instance, PlayerControl player = null)
     {
-        foreach (var pc in Main.AllAlivePlayerControls)
+        foreach (var pc in Main.EnumerateAlivePlayerControls())
         {
             if (pc.AmOwner || (player != null && pc != player)) continue;
 

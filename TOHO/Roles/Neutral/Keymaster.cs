@@ -112,7 +112,7 @@ internal class Keymaster : RoleBase
             pc.Notify(GetString("KeymasterGG"), 10f);
             KeyColor = 69;
             HasWon = true;
-            foreach (var player in Main.AllAlivePlayerControls)
+            foreach (var player in Main.EnumerateAlivePlayerControls())
                 if (pc.PlayerId != player.PlayerId && StealsWin.GetBool() == true)
                 {
                     Main.PlayerStates[player.PlayerId].deathReason = player.PlayerId == pc.PlayerId ?
@@ -213,8 +213,8 @@ internal class Keymaster : RoleBase
     }
     private static (int, int) KeyedPlayerCount(byte playerId)
     {
-        int all = Main.AllAlivePlayerControls.Count(pc => pc.PlayerId != playerId);
-        int keyed = Main.AllAlivePlayerControls.Count(pc => pc.PlayerId != playerId && IsKeyed(playerId, pc.PlayerId));
+        int all = Main.EnumerateAlivePlayerControls().Count(pc => pc.PlayerId != playerId);
+        int keyed = Main.EnumerateAlivePlayerControls().Count(pc => pc.PlayerId != playerId && IsKeyed(playerId, pc.PlayerId));
 
         return (keyed, all);
     }

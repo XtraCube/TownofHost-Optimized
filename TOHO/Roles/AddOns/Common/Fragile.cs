@@ -57,7 +57,7 @@ public class Fragile : IAddon
                     CustomWinnerHolder.WinnerIds.Add(killer.PlayerId);
                 }
                 RPC.PlaySoundRPC(killer.PlayerId, Sounds.KillSound);
-                foreach (var pc in Main.AllAlivePlayerControls)
+                foreach (var pc in Main.EnumerateAlivePlayerControls())
                 {
                     if (pc.PlayerId != killer.PlayerId)
                     {

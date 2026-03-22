@@ -74,7 +74,7 @@ internal class Ventguard : RoleBase
 
             var ventId = vent.Id;
             BlockedVents.Add(ventId);
-            foreach (var player in Main.AllPlayerControls)
+            foreach (var player in Main.EnumeratePlayerControls())
             {
                 if (!player.IsAlive()) continue;
                 if (player.NotUnlockVent(ventId)) continue;
@@ -97,7 +97,7 @@ internal class Ventguard : RoleBase
         {
             foreach (var ventId in BlockedVents)
             {
-                foreach (var player in Main.AllPlayerControls)
+                foreach (var player in Main.EnumeratePlayerControls())
                 {
                     if (!player.IsAlive()) continue;
                     if (player.NotUnlockVent(ventId)) continue;
@@ -112,7 +112,7 @@ internal class Ventguard : RoleBase
         {
             foreach (var ventId in BlockedVents)
             {
-                foreach (var player in Main.AllPlayerControls)
+                foreach (var player in Main.EnumeratePlayerControls())
                 {
                     if (!player.IsAlive()) continue;
                     if (player.NotUnlockVent(ventId)) continue;

@@ -47,7 +47,7 @@ internal class ShadowKing : RoleBase
     {
         if (SecondLife == false) return true;
         List<PlayerControl> CandidatesList = [];
-        foreach (var candidate in Main.AllAlivePlayerControls)
+        foreach (var candidate in Main.EnumerateAlivePlayerControls())
         {
             if (candidate != target && candidate != killer && !candidate.IsHost()) CandidatesList.Add(candidate);
         }
@@ -88,9 +88,9 @@ internal class ShadowKing : RoleBase
         shapeshifter.RpcRemoveAbilityUse();
         
         List<PlayerControl> AllDeadPlayerControls = [];
-        foreach (var dead in Main.AllPlayerControls)
+        foreach (var dead in Main.EnumeratePlayerControls())
         {
-            if (Main.AllAlivePlayerControls.Contains(dead)) continue;
+            if (Main.EnumerateAlivePlayerControls().Contains(dead)) continue;
             AllDeadPlayerControls.Add(dead);
         }
 

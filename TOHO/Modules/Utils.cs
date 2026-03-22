@@ -41,7 +41,7 @@ public static class Utils
     public static void NotifyGameEnding()
     {
         if (!AmongUsClient.Instance.AmHost) return;
-        foreach (var player in Main.AllPlayerControls.Where(x => x.GetClient() != null && !x.Data.Disconnected))
+        foreach (var player in Main.EnumeratePlayerControls().Where(x => x.GetClient() != null && !x.Data.Disconnected))
         {
             var writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SendChat, ExtendedPlayerControl.RpcSendOption, player.OwnerId);
             writer.Write(GetString("NotifyGameEnding"));
@@ -207,7 +207,7 @@ public static class Utils
     {
         if (!target.Data.IsDead || GameStates.IsMeeting) return;
 
-        foreach (var seer in Main.AllPlayerControls)
+        foreach (var seer in Main.EnumeratePlayerControls())
         {
             if (KillFlashCheck(killer, target, seer))
             {
@@ -1868,7 +1868,7 @@ public static class Utils
         || (Main.CheckShapeshift.TryGetValue(PC.PlayerId, out bool isShapeshifitng) && isShapeshifitng);
     public static PlayerControl GetPlayerById(int PlayerId)
     {
-        return Main.AllPlayerControls.FirstOrDefault(pc => pc.PlayerId == PlayerId) ?? null;
+        return Main.EnumeratePlayerControls().FirstOrDefault(pc => pc.PlayerId == PlayerId) ?? null;
     }
     public static PlayerControl GetPlayer(this byte id) => GetPlayerById(id);
     public static List<PlayerControl> GetPlayerListByIds(this IEnumerable<byte> PlayerIdList)
@@ -1903,12 +1903,12 @@ public static class Utils
     {
         try
         {
-            var cache = Main.PlayerStates.Values.Where(x => x.RoleClass != null);
+            var cache = Main.PlayerStates.Values.Where(x => x.RoleClass != null).ToArray();
 
             if (cache.Any())
             {
-                var Get = cache.Select(x => x.RoleClass);
-                return Get.OfType<t>().Any() ? Get.OfType<t>() : null;
+                var Get = cache.Select(x => x.RoleClass).OfType<t>().ToArray();
+                return Get.Length > 0 ? Get : null;
             }
         }
         catch (Exception exx)
@@ -2011,7 +2011,7 @@ public static class Utils
     private static readonly StringBuilder TargetMark = new(20);
     public static void NotifyRoles(PlayerControl SpecifySeer = null, PlayerControl SpecifyTarget = null, bool isForMeeting = false, bool NoCache = false, bool ForceLoop = true, bool CamouflageIsForMeeting = false, bool MushroomMixupIsActive = false)
     {
-        if (!AmongUsClient.Instance.AmHost || GameStates.IsHideNSeek || Main.AllPlayerControls == null || SetUpRoleTextPatch.IsInIntro) return;
+        if (!AmongUsClient.Instance.AmHost || GameStates.IsHideNSeek || Main.EnumeratePlayerControls() == null || SetUpRoleTextPatch.IsInIntro) return;
         if (GameStates.IsMeeting)
         {
             // When the meeting window is active and game is not ended
@@ -2046,7 +2046,7 @@ public static class Utils
     }
     public static bool DoNotifyRoles(ref CustomRpcSender sender, PlayerControl SpecifySeer = null, PlayerControl SpecifyTarget = null, bool isForMeeting = false, bool NoCache = false, bool ForceLoop = true, bool CamouflageIsForMeeting = false, bool MushroomMixupIsActive = false)
     {
-        if (!AmongUsClient.Instance.AmHost || GameStates.IsHideNSeek || Main.AllPlayerControls == null || SetUpRoleTextPatch.IsInIntro) return false;
+        if (!AmongUsClient.Instance.AmHost || GameStates.IsHideNSeek || Main.EnumeratePlayerControls() == null || SetUpRoleTextPatch.IsInIntro) return false;
         if (MeetingHud.Instance)
         {
             // When the meeting window is active and game is not ended
@@ -2452,7 +2452,7 @@ public static class Utils
     {
         bool shouldPerformVentInteractions = false;
 
-        foreach (var pc in Main.AllPlayerControls)
+        foreach (var pc in Main.EnumeratePlayerControls())
         {
             if (VentSystemDeterioratePatch.BlockVentInteraction(pc))
             {
@@ -2583,7 +2583,7 @@ public static class Utils
 
 
             //Set kill timer
-            foreach (var player in Main.AllAlivePlayerControls)
+            foreach (var player in Main.EnumerateAlivePlayerControls())
             {
                 player.SetKillTimer();
 
@@ -2633,7 +2633,7 @@ public static class Utils
     }
     public static void CountAlivePlayers(bool sendLog = false, bool checkGameEnd = false)
     {
-        int AliveImpostorCount = Main.AllAlivePlayerControls.Count(pc => pc.Is(Custom_Team.Impostor) || pc.GetCustomRole().IsMadmate());
+        int AliveImpostorCount = Main.EnumerateAlivePlayerControls().Count(pc => pc.Is(Custom_Team.Impostor) || pc.GetCustomRole().IsMadmate());
         if (Main.AliveImpostorCount != AliveImpostorCount)
         {
             Logger.Info("Number Impostor left: " + AliveImpostorCount, "CountAliveImpostors");
@@ -3041,8 +3041,8 @@ public static class Utils
     
     
     public static int AllPlayersCount => Main.PlayerStates.Values.Count(state => state.countTypes != CountTypes.OutOfGame);
-    public static int AllAlivePlayersCount => Main.AllAlivePlayerControls.Count(pc => !pc.Is(CountTypes.OutOfGame));
+    public static int AllAlivePlayersCount => Main.EnumerateAlivePlayerControls().Count(pc => !pc.Is(CountTypes.OutOfGame));
     public static bool IsAllAlive => Main.PlayerStates.Values.All(state => state.countTypes == CountTypes.OutOfGame || !state.IsDead);
     public static int PlayersCount(CountTypes countTypes) => Main.PlayerStates.Values.Count(state => state.countTypes == countTypes);
-    public static int AlivePlayersCount(CountTypes countTypes) => Main.AllAlivePlayerControls.Count(pc => pc.Is(countTypes));
+    public static int AlivePlayersCount(CountTypes countTypes) => Main.EnumerateAlivePlayerControls().Count(pc => pc.Is(countTypes));
 }

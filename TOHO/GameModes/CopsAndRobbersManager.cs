@@ -393,7 +393,7 @@ internal static class CopsAndRobbersManager
     {
         Dictionary<byte, CustomRoles> finalRoles = [];
         var random = IRandom.Instance;
-        List<PlayerControl> AllPlayers = Main.AllPlayerControls.Shuffle(random).ToList();
+        List<PlayerControl> AllPlayers = Main.EnumeratePlayerControls().Shuffle(random).ToList();
 
         if (Main.EnableGM.Value)
         {
@@ -788,7 +788,7 @@ internal static class CopsAndRobbersManager
 
     public static void OnCopAttack(PlayerControl cop, PlayerControl robber)
     {
-        foreach (var player in Main.AllPlayerControls.Where(x => x.Is(CustomRoles.GM)))
+        foreach (var player in Main.EnumeratePlayerControls().Where(x => x.Is(CustomRoles.GM)))
         {
             player.KillFlash();
         }
@@ -1212,7 +1212,7 @@ internal static class CopsAndRobbersManager
                         }
                         if (UnShapeshifter.CurrentOutfitType == PlayerOutfitType.Shapeshifted) continue;
 
-                        var randomPlayer = Main.AllPlayerControls.FirstOrDefault(x => x != UnShapeshifter);
+                        var randomPlayer = Main.EnumeratePlayerControls().FirstOrDefault(x => x != UnShapeshifter);
                         UnShapeshifter.RpcShapeshift(randomPlayer, false);
                         UnShapeshifter.RpcRejectShapeshift();
                         RoleType.Cop.SetCostume(UnShapeshifter.PlayerId);
@@ -1336,12 +1336,12 @@ internal static class CopsAndRobbersManager
                     PlayerControl closest = null;
                     if (captured.Any())
                     {
-                        closest = Main.AllAlivePlayerControls.Where(pc => captured.ContainsKey(pc.PlayerId) && pc != null && pc.PlayerId != robberId)
+                        closest = Main.EnumerateAlivePlayerControls().Where(pc => captured.ContainsKey(pc.PlayerId) && pc != null && pc.PlayerId != robberId)
                             .MinBy(capturedPC => Utils.GetDistance(robber.GetCustomPosition(), capturedPC.GetCustomPosition()));
                     }
                     if (closest == null)
                     {
-                        closest = Main.AllAlivePlayerControls.Where(pc => pc.Is(CustomRoles.Cop) && pc != null)
+                        closest = Main.EnumerateAlivePlayerControls().Where(pc => pc.Is(CustomRoles.Cop) && pc != null)
                             .MinBy(closestCop => Utils.GetDistance(robber.GetCustomPosition(), closestCop.GetCustomPosition()));
                     }
 
@@ -1432,7 +1432,7 @@ internal static class CopsAndRobbersManager
                 //check for k9
                 if (k9.ContainsKey(copId))
                 {
-                    PlayerControl closest = Main.AllAlivePlayerControls.Where(pc => pc.Is(CustomRoles.Robber) && !captured.ContainsKey(pc.PlayerId))
+                    PlayerControl closest = Main.EnumerateAlivePlayerControls().Where(pc => pc.Is(CustomRoles.Robber) && !captured.ContainsKey(pc.PlayerId))
                         .MinBy(robberPC => Utils.GetDistance(copPC.GetCustomPosition(), robberPC.GetCustomPosition()));
                     if (closest == null) continue;
                     if (k9.TryGetValue(copId, out var targetId) && targetId != byte.MaxValue)

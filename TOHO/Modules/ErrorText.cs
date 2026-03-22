@@ -57,7 +57,7 @@ public class ErrorText : MonoBehaviour
             error.IncreaseTimer();
         }
 
-        var ToRemove = AllErrors.Where(err => err.ErrorLevel <= 1 && 30f < err.Timer);
+        var ToRemove = AllErrors.Where(err => err.ErrorLevel <= 1 && 30f < err.Timer).ToArray();
         if (ToRemove.Any())
         {
             AllErrors.RemoveAll(err => ToRemove.Contains(err));

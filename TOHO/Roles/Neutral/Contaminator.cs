@@ -58,7 +58,7 @@ internal class Contaminator : RoleBase
             Logger.Info("Contamination", "Contaminated");
             _ = new LateTask(() =>
             {
-                foreach (var killing in Main.AllAlivePlayerControls)
+                foreach (var killing in Main.EnumerateAlivePlayerControls())
                 {
                     if (killing == player) continue;
 

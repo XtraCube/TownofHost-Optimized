@@ -150,7 +150,7 @@ internal class Nuancer : RoleBase
         Main.PlayerStates[target.PlayerId].SetDead();
 
         // Kill nearby players (2m radius)
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             if (player.PlayerId == target.PlayerId || player.PlayerId == killer.PlayerId) continue;
 

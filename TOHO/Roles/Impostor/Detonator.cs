@@ -91,7 +91,7 @@ internal class Detonator : RoleBase
         if (Frozen == null) return;
         _ = new LateTask(() =>
         {
-            foreach (var target in Main.AllAlivePlayerControls)
+            foreach (var target in Main.EnumerateAlivePlayerControls())
             {
                 if (target.IsTransformedNeutralApocalypse()) continue;
                 else if ((target.Is(CustomRoles.NiceMini) || target.Is(CustomRoles.EvilMini)) && Mini.Age < 18) continue;

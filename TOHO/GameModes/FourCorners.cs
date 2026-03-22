@@ -36,7 +36,7 @@ internal static class FourCorners
     public static void SetData()
     {
         RoundTime = TimeBetweenRounds.GetInt() + 8;
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             AlivePlayers.Add(player.PlayerId);
         }
@@ -52,7 +52,7 @@ internal static class FourCorners
     public static Dictionary<byte, CustomRoles> SetRoles()
     {
         Dictionary<byte, CustomRoles> finalRoles = [];
-        List<PlayerControl> AllPlayers = Main.AllPlayerControls.ToList();
+        List<PlayerControl> AllPlayers = Main.EnumeratePlayerControls().ToList();
 
         if (Main.EnableGM.Value)
         {
@@ -105,13 +105,13 @@ internal static class FourCorners
             if (LastFixedUpdate == now) return;
             LastFixedUpdate = now;
 
-            foreach (var player in Main.AllPlayerControls) player.Notify(GetNotifyText(player.PlayerId));
+            foreach (var player in Main.EnumeratePlayerControls()) player.Notify(GetNotifyText(player.PlayerId));
             
             RoundTime--;
             if (RoundTime <= 0)
             {
                 var roomToDestroy = ActiveRooms[IRandom.Instance.Next(0, ActiveRooms.Count)];
-                foreach (var player in Main.AllAlivePlayerControls)
+                foreach (var player in Main.EnumerateAlivePlayerControls())
                 {
                     if (!ActiveRooms.Contains(player.GetPlainShipRoom().RoomId))
                     {

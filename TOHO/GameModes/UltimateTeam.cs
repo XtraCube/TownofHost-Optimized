@@ -92,7 +92,7 @@ internal static class UltimateTeam
     {
         Dictionary<byte, CustomRoles> finalRoles = [];
         var random = IRandom.Instance;
-        List<PlayerControl> AllPlayers = Main.AllPlayerControls.Shuffle(random).ToList();
+        List<PlayerControl> AllPlayers = Main.EnumeratePlayerControls().Shuffle(random).ToList();
 
         if (Main.EnableGM.Value)
         {
@@ -143,7 +143,7 @@ internal static class UltimateTeam
         RoundTime = GameTime.GetInt() + 8;
         var now = Utils.GetTimeStamp() + 8;
 
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             Lives[player.PlayerId] = PlayerLives.GetInt();
         }
@@ -162,7 +162,7 @@ internal static class UltimateTeam
     public static bool OnTag(PlayerControl killer, PlayerControl target)
     {
         if (killer.GetCustomRole() == target.GetCustomRole()) return false;
-        foreach (var player in Main.AllPlayerControls)
+        foreach (var player in Main.EnumeratePlayerControls())
         {
             if (player.IsAlive()) continue;
             if (player.GetRealKiller() == target && Lives[player.PlayerId] > 0)

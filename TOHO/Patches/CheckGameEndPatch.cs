@@ -84,7 +84,7 @@ class GameEndCheckerForNormal
             NameNotifyManager.Reset();
 
             // Reset Camouflage
-            Main.AllPlayerControls.Do(pc => Camouflage.RpcSetSkin(pc, ForceRevert: true, RevertToDefault: true, GameEnd: true));
+            Main.EnumeratePlayerControls().Do(pc => Camouflage.RpcSetSkin(pc, ForceRevert: true, RevertToDefault: true, GameEnd: true));
 
             // Show all Roles
             GameIsEnded = true;
@@ -94,7 +94,7 @@ class GameEndCheckerForNormal
             Logger.Info($"WinnerTeam on enter: {WinnerTeam}", "CheckEndCriteriaForNormal.Prefix");
             Logger.Info($"WinnerIds: {string.Join(", ", WinnerIds)}", "CheckEndCriteriaForNormal.Prefix");
 
-            if (reason == GameOverReason.ImpostorsBySabotage && (CustomRoles.Jackal.RoleExist() || CustomRoles.Sidekick.RoleExist()) && Jackal.CanWinBySabotageWhenNoImpAlive.GetBool() && !Main.AllAlivePlayerControls.Any(x => x.GetCustomRole().IsImpostorTeamV3() || (x.Is(CustomRoles.Madmate) && Madmate.MadmateCountMode.GetInt() == 1)))
+            if (reason == GameOverReason.ImpostorsBySabotage && (CustomRoles.Jackal.RoleExist() || CustomRoles.Sidekick.RoleExist()) && Jackal.CanWinBySabotageWhenNoImpAlive.GetBool() && !Main.EnumerateAlivePlayerControls().Any(x => x.GetCustomRole().IsImpostorTeamV3() || (x.Is(CustomRoles.Madmate) && Madmate.MadmateCountMode.GetInt() == 1)))
             {
                 reason = GameOverReason.ImpostorsByKill;
                 WinnerIds.Clear();
@@ -102,7 +102,7 @@ class GameEndCheckerForNormal
                 WinnerRoles.Add(CustomRoles.Jackal);
             }
 
-            foreach (var pc in Main.AllPlayerControls)
+            foreach (var pc in Main.EnumeratePlayerControls())
             {
                 var countType = Main.PlayerStates[pc.PlayerId].countTypes;
 
@@ -206,7 +206,7 @@ class GameEndCheckerForNormal
 
             if (WinnerTeam is not CustomWinner.Draw and not CustomWinner.None and not CustomWinner.Error)
             {
-                foreach (PlayerControl pc in Main.AllPlayerControls)
+                foreach (PlayerControl pc in Main.EnumeratePlayerControls())
                 {
                     switch (pc.GetCustomRole())
                     {
@@ -251,7 +251,7 @@ class GameEndCheckerForNormal
                 // Egoist (Crewmate)
                 if (WinnerTeam == CustomWinner.Crewmate)
                 {
-                    var egoistCrewArray = Main.AllAlivePlayerControls.Where(x => x != null && x.GetCustomRole().IsCrewmate() && x.Is(CustomRoles.Egoist)).ToArray();
+                    var egoistCrewArray = Main.EnumerateAlivePlayerControls().Where(x => x != null && x.GetCustomRole().IsCrewmate() && x.Is(CustomRoles.Egoist)).ToArray();
 
                     if (egoistCrewArray.Length > 0)
                     {
@@ -268,7 +268,7 @@ class GameEndCheckerForNormal
                 // Egoist (Impostor)
                 if (WinnerTeam == CustomWinner.Impostor)
                 {
-                    var egoistImpArray = Main.AllAlivePlayerControls.Where(x => x != null && x.GetCustomRole().IsImpostor() && x.Is(CustomRoles.Egoist)).ToArray();
+                    var egoistImpArray = Main.EnumerateAlivePlayerControls().Where(x => x != null && x.GetCustomRole().IsImpostor() && x.Is(CustomRoles.Egoist)).ToArray();
 
                     if (egoistImpArray.Length > 0)
                     {
@@ -284,12 +284,12 @@ class GameEndCheckerForNormal
 
                 if (CustomRoles.God.RoleExist())
                 {
-                    var godArray = Main.AllAlivePlayerControls.Where(x => x.Is(CustomRoles.God));
+                    var godArray = Main.EnumerateAlivePlayerControls().Where(x => x.Is(CustomRoles.God)).ToArray();
 
-                    if (godArray.Any())
+                    if (godArray.Length > 0)
                     {
                         bool isGodWinConverted = false;
-                        foreach (var god in godArray.ToArray())
+                        foreach (var god in godArray)
                         {
                             if (CheckForConvertedWinner(god.PlayerId))
                             {
@@ -300,7 +300,10 @@ class GameEndCheckerForNormal
                         if (!isGodWinConverted)
                         {
                             ResetAndSetWinner(CustomWinner.God);
-                            godArray.Do(p => WinnerIds.Add(p.PlayerId));
+                            foreach (PlayerControl pc in godArray)
+                            {
+                                WinnerIds.Add(pc.PlayerId);
+                            }
                         }
                     }
                 }
@@ -321,24 +324,24 @@ class GameEndCheckerForNormal
                         if (WinnerTeam is CustomWinner.Crewmate or CustomWinner.Impostor or CustomWinner.Jackal or CustomWinner.Pelican)
                         {
                             ResetAndSetWinner(CustomWinner.Lovers);
-                            Main.AllPlayerControls
+                            Main.EnumeratePlayerControls()
                                 .Where(p => p.Is(CustomRoles.Lovers))
                                 .Do(p => WinnerIds.Add(p.PlayerId));
                         }
                     }
                 }
 
-                if (Main.AllAlivePlayerControls.All(p => p.IsNeutralApocalypse()))
+                if (Main.EnumerateAlivePlayerControls().All(p => p.IsNeutralApocalypse()))
                 {
-                    foreach (var pc in Main.AllPlayerControls.Where(x => x.IsNeutralApocalypse() && !Main.PlayerStates[x.PlayerId].IsNecromancer))
+                    foreach (var pc in Main.EnumeratePlayerControls().Where(x => x.IsNeutralApocalypse() && !Main.PlayerStates[x.PlayerId].IsNecromancer))
                     {
                         if (!WinnerIds.Contains(pc.PlayerId))
                             WinnerIds.Add(pc.PlayerId);
                     }
                 }
-                if (Main.AllAlivePlayerControls.All(p => p.IsPlayerCoven() || p.Is(CustomRoles.Enchanted)))
+                if (Main.EnumerateAlivePlayerControls().All(p => p.IsPlayerCoven() || p.Is(CustomRoles.Enchanted)))
                 {
-                    foreach (var pc in Main.AllPlayerControls.Where(x => x.IsPlayerCoven() || x.Is(CustomRoles.Enchanted) || Main.PlayerStates[x.PlayerId].IsNecromancer))
+                    foreach (var pc in Main.EnumeratePlayerControls().Where(x => x.IsPlayerCoven() || x.Is(CustomRoles.Enchanted) || Main.PlayerStates[x.PlayerId].IsNecromancer))
                     {
                         if (!WinnerIds.Contains(pc.PlayerId))
                             WinnerIds.Add(pc.PlayerId);
@@ -347,7 +350,7 @@ class GameEndCheckerForNormal
 
                 if (WinnerTeam is CustomWinner.Youtuber)
                 {
-                    var youTuber = Main.AllPlayerControls.FirstOrDefault(x => x.Is(CustomRoles.Youtuber) && WinnerIds.Contains(x.PlayerId));
+                    var youTuber = Main.EnumeratePlayerControls().FirstOrDefault(x => x.Is(CustomRoles.Youtuber) && WinnerIds.Contains(x.PlayerId));
 
                     if (youTuber != null && Youtuber.KillerWinsWithYouTuber.GetBool())
                     {
@@ -360,7 +363,7 @@ class GameEndCheckerForNormal
 
                 if (WinnerTeam == CustomWinner.Lovers || AdditionalWinnerTeams.Contains(AdditionalWinners.Lovers))
                 {
-                    Main.AllPlayerControls
+                    Main.EnumeratePlayerControls()
                         .Where(p => p.Is(CustomRoles.Lovers) && !WinnerIds.Contains(p.PlayerId))
                         .Do(p => WinnerIds.Add(p.PlayerId));
                 }
@@ -368,7 +371,7 @@ class GameEndCheckerForNormal
                 //Neutral Win Together
                 if (Options.NeutralWinTogether.GetBool() && !WinnerIds.Any(x => Utils.GetPlayerById(x) != null && (Utils.GetPlayerById(x).GetCustomRole().IsCrewmate() || Utils.GetPlayerById(x).GetCustomRole().IsImpostor() || Utils.GetPlayerById(x).GetCustomRole().IsCoven()) && !Main.PlayerStates[x].IsNecromancer))
                 {
-                    foreach (var pc in Main.AllPlayerControls)
+                    foreach (var pc in Main.EnumeratePlayerControls())
                         if (pc.GetCustomRole().IsNeutral() && !pc.GetCustomRole().IsMadmate() && !WinnerIds.Contains(pc.PlayerId) && !WinnerRoles.Contains(pc.GetCustomRole()))
                             WinnerIds.Add(pc.PlayerId);
                 }
@@ -379,14 +382,14 @@ class GameEndCheckerForNormal
                         var pc = Utils.GetPlayerById(id);
                         if (pc == null || !(pc.GetCustomRole().IsNeutral() && !pc.GetCustomRole().IsMadmate()) || Main.PlayerStates[pc.PlayerId].IsNecromancer) continue;
 
-                        foreach (var tar in Main.AllPlayerControls)
+                        foreach (var tar in Main.EnumeratePlayerControls())
                             if (!WinnerIds.Contains(tar.PlayerId) && tar.GetCustomRole() == pc.GetCustomRole())
                                 WinnerIds.Add(tar.PlayerId);
                     }
                 }
 
                 //Remove hurried task not done Player from winner id
-                foreach (var pc in Main.AllPlayerControls.Where(x => x.Is(CustomRoles.Hurried)).ToArray())
+                foreach (var pc in Main.EnumeratePlayerControls().Where(x => x.Is(CustomRoles.Hurried)).ToArray())
                 {
                     if (!Hurried.CheckWinState(pc) && WinnerIds.Contains(pc.PlayerId))
                     {
@@ -396,7 +399,7 @@ class GameEndCheckerForNormal
                 }
 
                 //Remove quota not enough kills Player from winner id
-                foreach (var pc in Main.AllPlayerControls.Where(x => x.Is(CustomRoles.Quota)).ToArray())
+                foreach (var pc in Main.EnumeratePlayerControls().Where(x => x.Is(CustomRoles.Quota)).ToArray())
                 {
                     if (!Quota.CheckWinState(pc) && WinnerIds.Contains(pc.PlayerId))
                     {
@@ -417,7 +420,7 @@ class GameEndCheckerForNormal
 
                 void CheckAdditionalWinners()
                 {
-                    foreach (var pc in Main.AllPlayerControls)
+                    foreach (var pc in Main.EnumeratePlayerControls())
                     {
                         if (WinnerIds.Contains(pc.PlayerId)) continue;
                         switch (pc.GetCustomRole())
@@ -533,7 +536,7 @@ class GameEndCheckerForNormal
                     //Lovers follow winner
                     if (WinnerTeam is not CustomWinner.Lovers)
                     {
-                        var loverArray = Main.AllPlayerControls.Where(x => x.Is(CustomRoles.Lovers)).ToArray();
+                        var loverArray = Main.EnumeratePlayerControls().Where(x => x.Is(CustomRoles.Lovers)).ToArray();
 
                         foreach (var lover in loverArray)
                         {
@@ -547,13 +550,13 @@ class GameEndCheckerForNormal
 
                     if (WinnerTeam == CustomWinner.Lovers || AdditionalWinnerTeams.Contains(AdditionalWinners.Lovers))
                     {
-                        Main.AllPlayerControls
+                        Main.EnumeratePlayerControls()
                             .Where(p => p.Is(CustomRoles.Lovers) && !WinnerIds.Contains(p.PlayerId))
                             .Do(p => WinnerIds.Add(p.PlayerId));
                     }
 
                     /*Keep Schrodinger cat win condition at last*/
-                    Main.AllPlayerControls.Where(pc => pc.Is(CustomRoles.SchrodingersCat)).ToList().ForEach(SchrodingersCat.SchrodingerWinCondition);
+                    Main.EnumeratePlayerControls().Where(pc => pc.Is(CustomRoles.SchrodingersCat)).ToList().ForEach(SchrodingersCat.SchrodingerWinCondition);
                 }
             }
 
@@ -585,7 +588,7 @@ class GameEndCheckerForNormal
         // Set Ghost Role
         List<byte> ReviveRequiredPlayerIds = [];
         var winner = WinnerTeam;
-        foreach (var pc in Main.AllPlayerControls)
+        foreach (var pc in Main.EnumeratePlayerControls())
         {
             if (winner == CustomWinner.Draw)
             {
@@ -686,7 +689,7 @@ class GameEndCheckerForNormal
             if (Sunnyboy.HasEnabled && Sunnyboy.CheckGameEnd()) return false;
 
             var neutralRoleCounts = new Dictionary<CountTypes, int>();
-            var allAlivePlayerList = Main.AllAlivePlayerControls.ToArray();
+            var allAlivePlayerList = Main.EnumerateAlivePlayerControls().ToArray();
             int dual = 0, impCount = 0, crewCount = 0, covenCount = 0;
 
             foreach (var pc in allAlivePlayerList)
@@ -731,7 +734,7 @@ class GameEndCheckerForNormal
                 return true;
             }
 
-            else if (Main.AllAlivePlayerControls.Length > 0 && Main.AllAlivePlayerControls.All(p => p.Is(CustomRoles.Lovers))) // If Lover is alive Lover wins
+            else if (Main.AllAlivePlayerControls.Length > 0 && Main.EnumerateAlivePlayerControls().All(p => p.Is(CustomRoles.Lovers))) // If Lover is alive Lover wins
             {
                 reason = GameOverReason.ImpostorsByKill;
                 ResetAndSetWinner(CustomWinner.Lovers);
@@ -825,7 +828,7 @@ class CandRGameEndPredicate : GameEndPredicate
         {
             reason = GameOverReason.HideAndSeek_CrewmatesByTimer;
             ResetAndSetWinner(CustomWinner.Cops);
-            foreach (var pc in Main.AllAlivePlayerControls)
+            foreach (var pc in Main.EnumerateAlivePlayerControls())
             {
                 if (pc.Is(CustomRoles.Cop))
                 {
@@ -836,7 +839,7 @@ class CandRGameEndPredicate : GameEndPredicate
             return true;
         }
 
-        if (!Main.AllAlivePlayerControls.Any())
+        if (!Main.EnumerateAlivePlayerControls().Any())
         {
             reason = GameOverReason.ImpostorsByKill;
             ResetAndSetWinner(CustomWinner.None);
@@ -848,7 +851,7 @@ class CandRGameEndPredicate : GameEndPredicate
 
 
         bool allCaptured = true;
-        foreach (var pc in Main.AllAlivePlayerControls)
+        foreach (var pc in Main.EnumerateAlivePlayerControls())
         {
             if (copsAlive && !allCaptured) break;
             if (pc.Is(CustomRoles.Cop)) copsAlive = true;
@@ -860,7 +863,7 @@ class CandRGameEndPredicate : GameEndPredicate
         {
             reason = GameOverReason.ImpostorDisconnect;
             ResetAndSetWinner(CustomWinner.Robbers);
-            foreach (var pc in Main.AllAlivePlayerControls)
+            foreach (var pc in Main.EnumerateAlivePlayerControls())
             {
                 if (pc.Is(CustomRoles.Robber))
                 {
@@ -876,7 +879,7 @@ class CandRGameEndPredicate : GameEndPredicate
         {
             reason = GameOverReason.ImpostorsByKill;
             ResetAndSetWinner(CustomWinner.Cops);
-            foreach (var pc in Main.AllAlivePlayerControls)
+            foreach (var pc in Main.EnumerateAlivePlayerControls())
             {
                 if (pc.Is(CustomRoles.Cop))
                 {
@@ -898,7 +901,7 @@ class CandRGameEndPredicate : GameEndPredicate
         {
             reason = GameOverReason.CrewmatesByTask;
             ResetAndSetWinner(CustomWinner.Robbers);
-            foreach (var pc in Main.AllAlivePlayerControls)
+            foreach (var pc in Main.EnumerateAlivePlayerControls())
             {
                 if (pc.Is(CustomRoles.Robber))
                 {
@@ -928,14 +931,14 @@ class FourCornersGameEndPredicate : GameEndPredicate
         { 
             reason = GameOverReason.ImpostorsByKill; 
             ResetAndSetWinner(CustomWinner.FourCorners);
-            foreach (var player in Main.AllAlivePlayerControls)
+            foreach (var player in Main.EnumerateAlivePlayerControls())
             {
                 WinnerIds.Add(player.PlayerId);
             }
             Logger.Info("Game end becausen only one player not dead", "FourCorners"); 
             return true;
         }
-        if (!Main.AllAlivePlayerControls.Any())
+        if (!Main.EnumerateAlivePlayerControls().Any())
         { 
             reason = GameOverReason.ImpostorsByKill; 
             ResetAndSetWinner(CustomWinner.None); 
@@ -961,7 +964,7 @@ class TrickorTreatGameEndPredicate : GameEndPredicate
     public static bool CheckGameEndByLivingPlayers(out GameOverReason reason)
     {
 
-        if (!Main.AllAlivePlayerControls.Any())
+        if (!Main.EnumerateAlivePlayerControls().Any())
         { 
             reason = GameOverReason.ImpostorsByKill; 
             ResetAndSetWinner(CustomWinner.None); 
@@ -1011,7 +1014,7 @@ class UltimateTeamGameEndPredicate : GameEndPredicate
             if (UltimateTeam.RedTeam.Count < UltimateTeam.BlueTeam.Count)
             {
                 ResetAndSetWinner(CustomWinner.Blue);
-                foreach (var pc in Main.AllPlayerControls)
+                foreach (var pc in Main.EnumeratePlayerControls())
                 {
                     if (pc.Is(CustomRoles.Blue))
                     {
@@ -1028,7 +1031,7 @@ class UltimateTeamGameEndPredicate : GameEndPredicate
             else
             {
                 ResetAndSetWinner(CustomWinner.Red);
-                foreach (var pc in Main.AllPlayerControls)
+                foreach (var pc in Main.EnumeratePlayerControls())
                 {
                     if (pc.Is(CustomRoles.Red))
                     {
@@ -1043,7 +1046,7 @@ class UltimateTeamGameEndPredicate : GameEndPredicate
             return true;
         }
 
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             if (player.GetCustomRole() == CustomRoles.Red) redAlive = true;
             if (player.GetCustomRole() == CustomRoles.Blue) blueAlive = true;
@@ -1052,7 +1055,7 @@ class UltimateTeamGameEndPredicate : GameEndPredicate
         if (!redAlive)
         {
             ResetAndSetWinner(CustomWinner.Blue);
-            foreach (var pc in Main.AllPlayerControls)
+            foreach (var pc in Main.EnumeratePlayerControls())
                 {
                     if (pc.Is(CustomRoles.Blue))
                     {
@@ -1066,7 +1069,7 @@ class UltimateTeamGameEndPredicate : GameEndPredicate
         if (!blueAlive)
         {
             ResetAndSetWinner(CustomWinner.Red);
-            foreach (var pc in Main.AllPlayerControls)
+            foreach (var pc in Main.EnumeratePlayerControls())
                 {
                     if (pc.Is(CustomRoles.Red))
                     {
@@ -1099,7 +1102,7 @@ class FFAGameEndPredicate : GameEndPredicate
 
         if (FFAManager.RoundTime <= 0)
         {
-            var winner = Main.AllPlayerControls.Where(x => !x.Is(CustomRoles.GM) && x != null).OrderBy(x => FFAManager.GetRankOfScore(x.PlayerId)).First();
+            var winner = Main.EnumeratePlayerControls().Where(x => !x.Is(CustomRoles.GM) && x != null).OrderBy(x => FFAManager.GetRankOfScore(x.PlayerId)).First();
 
             byte winnerId;
             if (winner == null) winnerId = 0;
@@ -1115,7 +1118,7 @@ class FFAGameEndPredicate : GameEndPredicate
         }
         else if (Main.AllAlivePlayerControls.Length == 1)
         {
-            var winner = Main.AllAlivePlayerControls.FirstOrDefault();
+            var winner = Main.EnumerateAlivePlayerControls().FirstOrDefault();
 
             Logger.Info($"Winner: {winner.GetRealName().RemoveHtmlTags()}", "FFA");
 
@@ -1147,8 +1150,8 @@ public abstract class GameEndPredicate
     {
         reason = GameOverReason.ImpostorsByKill;
         if (Options.DisableTaskWin.GetBool() || TaskState.InitialTotalTasks == 0) return false;
-        if (Options.DisableTaskWinIfAllCrewsAreDead.GetBool() && !Main.AllAlivePlayerControls.Any(x => x.Is(Custom_Team.Crewmate))) return false;
-        if (Options.DisableTaskWinIfAllCrewsAreConverted.GetBool() && Main.AllPlayerControls
+        if (Options.DisableTaskWinIfAllCrewsAreDead.GetBool() && !Main.EnumerateAlivePlayerControls().Any(x => x.Is(Custom_Team.Crewmate))) return false;
+        if (Options.DisableTaskWinIfAllCrewsAreConverted.GetBool() && Main.EnumeratePlayerControls()
             .Where(x => x.Is(Custom_Team.Crewmate) && x.GetCustomRole().GetRoleTypes() is RoleTypes.Crewmate or RoleTypes.Engineer or RoleTypes.Scientist or RoleTypes.Noisemaker or RoleTypes.Tracker or RoleTypes.CrewmateGhost or RoleTypes.GuardianAngel)
             .All(x => x.GetCustomSubRoles().Any(y => y.IsConverted()))) return false;
 

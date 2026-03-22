@@ -94,7 +94,7 @@ internal class AnomalyManager
 
     public static void ClownFest()
     {
-        foreach (var clown in Main.AllAlivePlayerControls)
+        foreach (var clown in Main.EnumerateAlivePlayerControls())
         {
             var role = clown.GetCustomRole();
             if (role.IsImpostor()) return;
@@ -111,7 +111,7 @@ internal class AnomalyManager
     }
     public static void Retrial()
     {
-        foreach (var player in Main.AllPlayerControls)
+        foreach (var player in Main.EnumeratePlayerControls())
         {
             if (player.IsHost())
             {
@@ -124,7 +124,7 @@ internal class AnomalyManager
     {
         List<PlayerControl> assigning = [];
         List<CustomRoles> AddOnStorage = [];
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             assigning.Add(player);
             var addons = Main.PlayerStates[player.PlayerId].SubRoles.ToList();
@@ -151,7 +151,7 @@ internal class AnomalyManager
 
     public static void Holiday()
     {
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             var role = player.GetCustomRole();
             if (role.IsImpostor())
@@ -176,7 +176,7 @@ internal class AnomalyManager
     {
         List<PlayerControl> assigning = [];
         List<CustomRoles> AddOnStorage = [];
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             assigning.Add(player);
             var role = Main.PlayerStates[player.PlayerId].MainRole;
@@ -203,7 +203,7 @@ internal class AnomalyManager
     public static void OnFixedUpdate()
     { 
         if (!CrazyColors) return;
-        foreach (var player in Main.AllAlivePlayerControls)
+        foreach (var player in Main.EnumerateAlivePlayerControls())
         {
             player.Notify(ColorString(GetRoleColor(CustomRoles.Rainbow), GetString("CrazyColorsAnomaly")));
             if (LastColorChange + Options.ColorChangeCoolDown.GetInt() <= Utils.GetTimeStamp())

@@ -84,7 +84,7 @@ public class Windy : IAddon
             return;
         }
 
-        foreach (var PVC in Main.AllPlayerControls)
+        foreach (var PVC in Main.EnumeratePlayerControls())
         {
             if (!PVC.IsAlive())
             {
@@ -98,7 +98,7 @@ public class Windy : IAddon
 
         if (Active)
         {
-            foreach (var plr in Main.AllAlivePlayerControls)
+            foreach (var plr in Main.EnumerateAlivePlayerControls())
             {
                 if (Utils.GetDistance(plr.transform.position, victim.transform.position) < 2f && plr != victim)
                 {

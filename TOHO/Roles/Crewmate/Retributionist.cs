@@ -107,7 +107,7 @@ internal class Retributionist : RoleBase
         {
             bool canSeeRoles = PreventSeeRolesBeforeSkillUsedUp.GetBool();
             string text = GetString("PlayerIdList");
-            foreach (var npc in Main.AllAlivePlayerControls)
+            foreach (var npc in Main.EnumerateAlivePlayerControls())
                 text += "\n" + npc.PlayerId.ToString() + " → (" + npc.GetDisplayRoleAndSubName(npc, false) + ") " + npc.GetRealName();
             SendMessage(text, pc.PlayerId);
             return true;

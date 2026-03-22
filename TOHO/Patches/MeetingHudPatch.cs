@@ -455,7 +455,7 @@ class CheckForEndVotingPatch
             goto EndOfSession;
         }
 
-        foreach (var pc in Main.AllAlivePlayerControls)
+        foreach (var pc in Main.EnumerateAlivePlayerControls())
         {
             var pc_role = pc.GetCustomRole();
             if (pc_role.IsImpostor() && pc != exiledPlayer.Object)
@@ -579,12 +579,12 @@ class CheckForEndVotingPatch
     }
     public static bool CheckRole(byte id, CustomRoles role)
     {
-        var player = Main.AllPlayerControls.FirstOrDefault(pc => pc.PlayerId == id);
+        var player = Main.EnumeratePlayerControls().FirstOrDefault(pc => pc.PlayerId == id);
         return player != null && player.Is(role);
     }
     public static bool CheckTeam(byte id, Custom_Team team)
     {
-        var player = Main.AllPlayerControls.FirstOrDefault(pc => pc.PlayerId == id);
+        var player = Main.EnumeratePlayerControls().FirstOrDefault(pc => pc.PlayerId == id);
         return player != null && player.Is(team);
     }
     public static PlayerVoteArea GetPlayerVoteArea(byte playerId)
@@ -632,7 +632,7 @@ class CheckForEndVotingPatch
     {
         if (deathReason == PlayerState.DeathReason.Vote)
         {
-            foreach (var player in Main.AllPlayerControls)
+            foreach (var player in Main.EnumeratePlayerControls())
             {
                 player.GetRoleClass()?.OnCheckForEndVoting(deathReason, playerIds);
             }
@@ -663,7 +663,7 @@ class CheckForEndVotingPatch
     private static PlayerControl PickRevengeTarget(PlayerControl exiledplayer)
     {
         List<PlayerControl> TargetList = [];
-        foreach (var candidate in Main.AllAlivePlayerControls)
+        foreach (var candidate in Main.EnumerateAlivePlayerControls())
         {
             if (candidate.PlayerId == exiledplayer.PlayerId || Main.AfterMeetingDeathPlayers.ContainsKey(candidate.PlayerId)) continue;
         }
@@ -931,7 +931,7 @@ class MeetingHudStartPatch
 
         // Description in first meeting
         if (Options.SendRoleDescriptionFirstMeeting.GetBool() && MeetingStates.FirstMeeting)
-            foreach (var pc in Main.AllAlivePlayerControls.Where(x => !x.IsModded()).ToArray())
+            foreach (var pc in Main.EnumerateAlivePlayerControls().Where(x => !x.IsModded()).ToArray())
             {
                 var role = pc.GetCustomRole();
                 var Des = pc.GetRoleInfo(true);
@@ -1012,7 +1012,7 @@ class MeetingHudStartPatch
         }
 
         string MimicMsg = "";
-        foreach (var pc in Main.AllPlayerControls)
+        foreach (var pc in Main.EnumeratePlayerControls())
         {
             pc?.GetRoleClass()?.OnMeetingHudStart(pc);
             Main.PlayerStates.Do(plr => plr.Value.RoleClass.OnOthersMeetingHudStart(pc));
@@ -1037,7 +1037,7 @@ class MeetingHudStartPatch
 
             // Check Mimic kill
             if (pc.Is(CustomRoles.Mimic) && !pc.IsAlive())
-                Main.AllAlivePlayerControls.Where(x => x.GetRealKiller()?.PlayerId == pc.PlayerId).Do(x => MimicMsg += $"\n{x.GetNameWithRole(true)}");
+                Main.EnumerateAlivePlayerControls().Where(x => x.GetRealKiller()?.PlayerId == pc.PlayerId).Do(x => MimicMsg += $"\n{x.GetNameWithRole(true)}");
         }
 
         if (Eavesdropper.IsEnable)
@@ -1048,7 +1048,7 @@ class MeetingHudStartPatch
         {
             MimicMsg = GetString("MimicDeadMsg") + "\n" + MimicMsg;
 
-            var isImpostorTeamList = Main.AllPlayerControls.Where(x => x.GetCustomRole().IsImpostorTeam()).ToArray();
+            var isImpostorTeamList = Main.EnumeratePlayerControls().Where(x => x.GetCustomRole().IsImpostorTeam()).ToArray();
             foreach (var imp in isImpostorTeamList)
             {
                 AddMsg(MimicMsg, imp.PlayerId, ColorString(GetRoleColor(CustomRoles.Mimic), GetString("MimicMsgTitle")));
@@ -1081,7 +1081,7 @@ class MeetingHudStartPatch
         Logger.Info("------------Opening of the session------------", "Phase");
         ChatUpdatePatch.DoBlockChat = true;
         GameStates.AlreadyDied |= !IsAllAlive;
-        Main.AllPlayerControls.Do(x => ReportDeadBodyPatch.WaitReport[x.PlayerId].Clear());
+        Main.EnumeratePlayerControls().Do(x => ReportDeadBodyPatch.WaitReport[x.PlayerId].Clear());
         MeetingStates.MeetingCalled = true;
     }
     public static void Postfix(MeetingHud __instance)
@@ -1234,7 +1234,7 @@ class MeetingHudStartPatch
         {
             _ = new LateTask(() =>
             {
-                foreach (var pc in Main.AllPlayerControls)
+                foreach (var pc in Main.EnumeratePlayerControls())
                 {
                     pc.RpcSetNameEx(pc.GetRealName(isMeeting: true));
                 }

@@ -116,7 +116,7 @@ internal static class FFAManager
 
         RoundTime = GameTime.GetInt() + 8;
         var now = Utils.GetTimeStamp() + 8;
-        foreach (PlayerControl pc in Main.AllAlivePlayerControls)
+        foreach (PlayerControl pc in Main.EnumerateAlivePlayerControls())
         {
             KBScore[pc.PlayerId] = 0;
             if (FFA_DisableVentingWhenKCDIsUp.GetBool()) FFALastKill[pc.PlayerId] = now;
@@ -215,7 +215,7 @@ internal static class FFAManager
         if (totalalive == 3)
         {
             PlayerControl otherPC = null;
-            foreach (var pc in Main.AllAlivePlayerControls.Where(a => a.PlayerId != killer.PlayerId && a.PlayerId != target.PlayerId && a.IsAlive()).ToArray())
+            foreach (var pc in Main.EnumerateAlivePlayerControls().Where(a => a.PlayerId != killer.PlayerId && a.PlayerId != target.PlayerId && a.IsAlive()).ToArray())
             {
                 TargetArrow.Add(killer.PlayerId, pc.PlayerId);
                 TargetArrow.Add(pc.PlayerId, killer.PlayerId);
@@ -341,7 +341,7 @@ internal static class FFAManager
 
     public static void OnPlayerKill(PlayerControl killer)
     {
-        foreach (var player in Main.AllPlayerControls.Where(x => x.Is(CustomRoles.GM)))
+        foreach (var player in Main.EnumeratePlayerControls().Where(x => x.Is(CustomRoles.GM)))
         {
             player.KillFlash();
         }
@@ -410,7 +410,7 @@ internal static class FFAManager
 
         string arrows = string.Empty;
         PlayerControl otherPlayer = null;
-        foreach (var pc in Main.AllAlivePlayerControls.Where(pc => pc.IsAlive() && pc.PlayerId != seer.PlayerId).ToArray())
+        foreach (var pc in Main.EnumerateAlivePlayerControls().Where(pc => pc.IsAlive() && pc.PlayerId != seer.PlayerId).ToArray())
         {
             otherPlayer = pc;
             break;
@@ -439,7 +439,7 @@ internal static class FFAManager
             RoundTime--;
             if (AmongUsClient.Instance.AmHost)
             {
-                foreach (var pc in Main.AllPlayerControls.Where(pc => NameNotify.TryGetValue(pc.PlayerId, out var nn) && nn.TIMESTAMP < now).ToArray())
+                foreach (var pc in Main.EnumeratePlayerControls().Where(pc => NameNotify.TryGetValue(pc.PlayerId, out var nn) && nn.TIMESTAMP < now).ToArray())
                 {
                     NameNotify.Remove(pc.PlayerId);
                     SendRPCSyncNameNotify(pc);
@@ -457,11 +457,11 @@ internal static class FFAManager
 
                     List<byte> changePositionPlayers = [];
 
-                    foreach (PlayerControl pc in Main.AllAlivePlayerControls)
+                    foreach (PlayerControl pc in Main.EnumerateAlivePlayerControls())
                     {
                         if (changePositionPlayers.Contains(pc.PlayerId) || !pc.IsAlive() || pc.onLadder || pc.inVent) continue;
 
-                        var filtered = Main.AllAlivePlayerControls.Where(a =>
+                        var filtered = Main.EnumerateAlivePlayerControls().Where(a =>
                             pc.IsAlive() && !pc.inVent && a.PlayerId != pc.PlayerId && !changePositionPlayers.Contains(a.PlayerId)).ToArray();
                         if (filtered.Length == 0) break;
 
@@ -487,7 +487,7 @@ internal static class FFAManager
 
                 if (GameStates.AirshipIsActive) return;
 
-                foreach (PlayerControl pc in Main.AllAlivePlayerControls)
+                foreach (PlayerControl pc in Main.EnumerateAlivePlayerControls())
                 {
                     if (pc == null) return;
 

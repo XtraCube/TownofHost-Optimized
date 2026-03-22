@@ -32,7 +32,7 @@ internal class Transporter : RoleBase
             Logger.Info($"Transporter: {player.GetNameWithRole().RemoveHtmlTags()} completed the task", "Transporter");
 
             var rd = IRandom.Instance;
-            List<PlayerControl> AllAlivePlayer = Main.AllAlivePlayerControls.Where(x => x.CanBeTeleported()).ToList();
+            List<PlayerControl> AllAlivePlayer = Main.EnumerateAlivePlayerControls().Where(x => x.CanBeTeleported()).ToList();
 
             if (AllAlivePlayer.Count >= 2)
             {

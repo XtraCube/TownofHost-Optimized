@@ -78,7 +78,7 @@ internal class TimeMaster : RoleBase
         if (TimeMasterInProtect.TryGetValue(target.PlayerId, out var timer) && killer.PlayerId != target.PlayerId)
             if (timer + TimeMasterSkillDuration.GetInt() >= GetTimeStamp(DateTime.UtcNow))
             {
-                foreach (var player in Main.AllPlayerControls)
+                foreach (var player in Main.EnumeratePlayerControls())
                 {
                     if (!killer.Is(CustomRoles.Pestilence) && TimeMasterBackTrack.TryGetValue(player.PlayerId, out var position))
                     {
@@ -108,7 +108,7 @@ internal class TimeMaster : RoleBase
             }
             pc.Notify(GetString("TimeMasterOnGuard"), TimeMasterSkillDuration.GetFloat());
 
-            foreach (var player in Main.AllPlayerControls)
+            foreach (var player in Main.EnumeratePlayerControls())
             {
                 if (TimeMasterBackTrack.TryGetValue(player.PlayerId, out var position))
                 {
