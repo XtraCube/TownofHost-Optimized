@@ -8,7 +8,7 @@ namespace TOHO;
 
 public static class TagManager
 {
-    private static readonly string TAGS_FILE_PATH = "./TOHO-DATA/Tags";
+    private static readonly string TAGS_FILE_PATH = Path.Combine(Main.TohoData, "Tags");
 
     public static void Init()
     { }

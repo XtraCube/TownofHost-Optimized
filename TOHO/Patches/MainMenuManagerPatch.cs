@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using BepInEx;
 using HarmonyLib;
 using TMPro;
 using UnityEngine;
@@ -19,7 +21,7 @@ public class MainMenuManagerStartPatch
     public static GameObject PlayerParticles;
     public static GameObject starfield;
     public static GameObject bgmusic;
-    public static string BGpath = "./TOHO_DATA/background.mp4";
+
     public static SpriteRenderer TOHOLogo { get; private set; }
 
     private static void Postfix(MainMenuManager __instance)
@@ -115,6 +117,8 @@ public static class MainMenuManagerPatch
     private static PassiveButton websiteButton;
     //private static PassiveButton patreonButton;
 
+    public static string BGpath => Path.Combine(Main.TohoData, "background.mp4");
+
     [HarmonyPatch(nameof(MainMenuManager.Start)), HarmonyPostfix, HarmonyPriority(Priority.Normal)]
     public static void Start_Postfix(MainMenuManager __instance)
     {
@@ -156,7 +160,7 @@ public static class MainMenuManagerPatch
         float desiredWidth = 3f * aspect * 3.232f;
         splashArt.transform.localScale = new Vector3(desiredWidth, desiredHeight, 1f);
         VideoPlayer vp = splashArt.AddComponent<VideoPlayer>();
-        vp.url = System.IO.Path.GetFullPath("./TOHO_DATA/background.mp4");
+        vp.url = System.IO.Path.GetFullPath(BGpath);
         vp.targetTexture = rt;
         vp.isLooping = true;
         vp.Play();
@@ -169,11 +173,11 @@ public static class MainMenuManagerPatch
 
         var PlayerParticles = GameObject.Find("PlayerParticles");
         var starfield = GameObject.Find("starfield");
-        if (PlayerParticles != null && System.IO.File.Exists("./TOHO_DATA/background.mp4"))
+        if (PlayerParticles != null && File.Exists(BGpath))
         {
             PlayerParticles.SetActive(false);
         }
-        if (starfield != null && System.IO.File.Exists("./TOHO_DATA/background.mp4"))
+        if (starfield != null && System.IO.File.Exists(BGpath))
         {
             starfield.SetActive(false);
         }

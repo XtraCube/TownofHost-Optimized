@@ -36,6 +36,12 @@ public class Main : BasePlugin
     // == Program Config ==
     public const string OriginalForkId = "OriginalTOH";
 
+    public static string BasePath => OperatingSystem.IsAndroid()
+        ? Application.persistentDataPath
+        : Paths.GameRootPath;
+
+    public static string TohoData => Path.Combine(BasePath, "TOHO-DATA");
+
     public static readonly string ModName = "Town of Host Optimized";
     public static readonly string ForkId = "TOHO";
     public static readonly string ModColor = "#b47ede";
@@ -141,7 +147,8 @@ public class Main : BasePlugin
     public static readonly Dictionary<byte, Color32> PlayerColors = [];
     public static readonly Dictionary<byte, PlayerState.DeathReason> AfterMeetingDeathPlayers = [];
     public static readonly Dictionary<CustomRoles, string> roleColors = [];
-    public const string LANGUAGE_FOLDER_NAME = "TOHO-DATA/Language";
+
+    public static string LanguageFolder => Path.Combine(TohoData, "Language");
 
     public static bool IsFixedCooldown => CustomRoles.Vampire.IsEnable() || CustomRoles.Poisoner.IsEnable();
     public static float RefixCooldownDelay = 0f;
@@ -267,12 +274,12 @@ public class Main : BasePlugin
     {
         var sb = new StringBuilder();
         foreach (var title in roleColors) sb.Append($"{title.Key}:\n");
-        File.WriteAllText(@$"./{LANGUAGE_FOLDER_NAME}/templateRoleColor.dat", sb.ToString());
+        File.WriteAllText($"{LanguageFolder}/templateRoleColor.dat", sb.ToString());
     }
     public static void LoadCustomRoleColor()
     {
         const string filename = "RoleColor.dat";
-        string path = @$"./{LANGUAGE_FOLDER_NAME}/{filename}";
+        string path = $"{LanguageFolder}/{filename}";
         if (File.Exists(path))
         {
             TOHO.Logger.Info($"Load custom Role Color file：{filename}", "LoadCustomRoleColor");
@@ -380,9 +387,9 @@ public class Main : BasePlugin
                         break;
                 }
             }
-            if (!Directory.Exists(LANGUAGE_FOLDER_NAME)) Directory.CreateDirectory(LANGUAGE_FOLDER_NAME);
+            if (!Directory.Exists(LanguageFolder)) Directory.CreateDirectory(LanguageFolder);
             CreateTemplateRoleColorFile();
-            if (File.Exists(@$"./{LANGUAGE_FOLDER_NAME}/RoleColor.dat"))
+            if (File.Exists($"{LanguageFolder}/RoleColor.dat"))
             {
                 UpdateCustomTranslation();
                 LoadCustomRoleColor();
@@ -454,7 +461,7 @@ public class Main : BasePlugin
     }
     static void UpdateCustomTranslation()
     {
-        string path = @$"./{LANGUAGE_FOLDER_NAME}/RoleColor.dat";
+        string path = $"{LanguageFolder}/RoleColor.dat";
         if (File.Exists(path))
         {
             TOHO.Logger.Info("Updating Custom Role Colors", "UpdateRoleColors");
@@ -502,7 +509,7 @@ public class Main : BasePlugin
         {
             sb.Append($"{kvp.Key.ToString()}:{kvp.Value}\n");
         }
-        File.WriteAllText(@$"./{LANGUAGE_FOLDER_NAME}/export_RoleColor.dat", sb.ToString());
+        File.WriteAllText($"{LanguageFolder}/export_RoleColor.dat", sb.ToString());
     }
 
     private void InitializeFileHash()
@@ -521,6 +528,7 @@ public class Main : BasePlugin
     public override void Load()
     {
         Instance = this;
+        Directory.CreateDirectory(TohoData);
 
         //Client Options
         HideName = Config.Bind("Client Options", "Hide Game Code Name", "TOHO");
