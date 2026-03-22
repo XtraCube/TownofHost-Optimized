@@ -2810,13 +2810,9 @@ public static class Utils
             if (stream == null) throw new MissingManifestResourceException($"Resource not found: {path}");
 
             var texture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-            var bytes = new Il2CppStructArray<byte>(stream.Length);
-            if (stream.Read(bytes, 0, bytes.Length) != bytes.Length)
-            {
-                throw new InvalidDataException($"Failed to read the entire resource stream: {path}");
-            }
-
-            texture.LoadImage(bytes, false);
+            using var ms = new MemoryStream();
+            stream.CopyTo(ms);
+            texture.LoadImage(ms.ToArray(), false);
             return texture;
         }
         catch

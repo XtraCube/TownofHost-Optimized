@@ -64,19 +64,10 @@ public class MainMenuManagerStartPatch
 [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.LateUpdate))]
 class MainMenuManagerLateUpdatePatch
 {
-    private static int lateUpdate = 590;
-    //private static GameObject LoadingHint;
-
     private static void Postfix(MainMenuManager __instance)
     {
-        if (__instance == null) return;
+        if (!__instance || !__instance.finishStartup) return;
 
-        if (lateUpdate <= 600)
-        {
-            lateUpdate++;
-            return;
-        }
-        lateUpdate = 0;
         var PlayOnlineButton = __instance.PlayOnlineButton;
         if (PlayOnlineButton != null)
         {
@@ -132,26 +123,36 @@ public static class MainMenuManagerPatch
         leftPanel.GetComponentsInChildren<SpriteRenderer>(true).Where(r => r.name == "Shine").ToList().ForEach(r => r.enabled = false);
 
         leftPanel.gameObject.FindChild<SpriteRenderer>("Divider").enabled = false;
-        
-        GameObject splashArt = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        splashArt.name = "SplashArt";
-        splashArt.transform.position = new Vector3(2f, 0f, 600f);
-        RenderTexture rt = new(512, 512, 0);
-        float videoWidth = rt.width;
-        float videoHeight = rt.height;
-        float aspect = videoWidth / videoHeight;
-        float desiredHeight = 3f * 1.818f;
-        float desiredWidth = 3f * aspect * 3.232f;
-        splashArt.transform.localScale = new Vector3(desiredWidth, desiredHeight, 1f);
-        VideoPlayer vp = splashArt.AddComponent<VideoPlayer>();
-        vp.url = System.IO.Path.GetFullPath(BGpath);
-        vp.targetTexture = rt;
-        vp.isLooping = true;
-        vp.Play();
-        Renderer renderer = splashArt.GetComponent<Renderer>();
-        Material mat = new(Shader.Find("Unlit/Texture"));
-        mat.mainTexture = rt;
-        renderer.material = mat;
+
+        if (File.Exists(BGpath))
+        {
+            try
+            {
+                GameObject splashArt = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                splashArt.name = "SplashArt";
+                splashArt.transform.position = new Vector3(2f, 0f, 600f);
+                RenderTexture rt = new(512, 512, 0);
+                float videoWidth = rt.width;
+                float videoHeight = rt.height;
+                float aspect = videoWidth / videoHeight;
+                float desiredHeight = 3f * 1.818f;
+                float desiredWidth = 3f * aspect * 3.232f;
+                splashArt.transform.localScale = new Vector3(desiredWidth, desiredHeight, 1f);
+                VideoPlayer vp = splashArt.AddComponent<VideoPlayer>();
+                vp.url = Path.GetFullPath(BGpath);
+                vp.targetTexture = rt;
+                vp.isLooping = true;
+                vp.Play();
+                Renderer renderer = splashArt.GetComponent<Renderer>();
+                Material mat = new(Shader.Find("Unlit/Texture"));
+                mat.mainTexture = rt;
+                renderer.material = mat;
+            }
+            catch (Exception e)
+            {
+                Logger.Exception(e, "MainMenuVideo");
+            }
+        }
 
         if (template == null) return;
 
@@ -161,11 +162,10 @@ public static class MainMenuManagerPatch
         {
             PlayerParticles.SetActive(false);
         }
-        if (starfield != null && System.IO.File.Exists(BGpath))
+        if (starfield != null && File.Exists(BGpath))
         {
             starfield.SetActive(false);
         }
-        
 
         // donation Button
         if (donationButton == null)

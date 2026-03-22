@@ -77,6 +77,9 @@ public class ModUpdater
     const string MiniRegionInstallResource = "TOHO.Resources.Mini.RegionInstall.dll";
     private static void CheckCustomRegions()
     {
+        // starlight handles regions
+        if (OperatingSystem.IsAndroid()) return;
+
         var regions = ServerManager.Instance.AvailableRegions;
         var hasCustomRegions = false;
         var forceUpdate = false;
