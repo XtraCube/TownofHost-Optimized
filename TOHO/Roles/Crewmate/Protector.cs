@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Hazel;
 using System.Text;
 using TOHO.Modules;
 using static TOHO.Options;

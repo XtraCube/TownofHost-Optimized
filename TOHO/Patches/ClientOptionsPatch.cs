@@ -1,5 +1,4 @@
 using UnityEngine;
-using BepInEx.Configuration;
 using HarmonyLib;
 
 namespace TOHO;

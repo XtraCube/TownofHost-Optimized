@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using HarmonyLib;
 using TOHO.Roles.Core;
-using TOHO.Roles.Coven;
 using TOHO.Modules;
 using TOHO.Patches;
 using TOHO.Roles.AddOns.Impostor;

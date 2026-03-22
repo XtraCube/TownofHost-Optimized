@@ -18,7 +18,6 @@ using TOHO.Roles.Coven;
 using TOHO.Roles.Crewmate;
 using TOHO.Roles.Impostor;
 using TOHO.Roles.Neutral;
-using static TOHO.RPC;
 
 
 namespace TOHO;

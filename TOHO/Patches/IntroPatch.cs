@@ -1,13 +1,10 @@
 using AmongUs.GameOptions;
 using BepInEx.Unity.IL2CPP.Utils.Collections;
-using Hazel;
-using InnerNet;
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;

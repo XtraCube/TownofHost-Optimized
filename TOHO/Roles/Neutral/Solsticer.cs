@@ -2,7 +2,6 @@
 using AmongUs.GameOptions;
 using HarmonyLib;
 using Hazel;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using InnerNet;
 using TOHO.Roles.Core;
 using static TOHO.MeetingHudStartPatch;

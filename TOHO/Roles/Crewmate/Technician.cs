@@ -2,7 +2,6 @@
 using System.Linq;
 using static TOHO.Options;
 using static TOHO.Utils;
-using TOHO.Roles.Neutral;
 using static TOHO.Translator;
 
 namespace TOHO.Roles.Crewmate;

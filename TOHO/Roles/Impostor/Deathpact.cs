@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using AmongUs.GameOptions;
-using System.Data;
 using System.Linq;
 using System.Text;
 using TOHO.Roles.AddOns.Common;

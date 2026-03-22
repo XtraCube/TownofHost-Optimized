@@ -1,12 +1,6 @@
-using AmongUs.GameOptions;
-using TOHO.Modules;
 using static TOHO.Options;
 using static TOHO.Translator;
-using System.Collections.Generic;
 using System.Linq;
-using Hazel;
-using UnityEngine;
-using TOHO.Roles.AddOns.Common;
 
 namespace TOHO.Roles.Crewmate;
 

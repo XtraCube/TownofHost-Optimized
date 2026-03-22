@@ -1,10 +1,6 @@
 using System.Collections.Generic;
-using AmongUs.GameOptions;
-using Rewired.ComponentControls;
-using TOHO.Modules;
 using TOHO.Roles.Double;
 using static TOHO.Options;
-using static TOHO.Translator;
 
 namespace TOHO.Roles.Neutral;
 

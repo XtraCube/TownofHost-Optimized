@@ -1,12 +1,5 @@
 using System.Collections.Generic;
-using AmongUs.GameOptions;
-using Hazel;
-using System.Text;
-using TOHO.Modules;
-using TOHO.Roles.Double;
-using UnityEngine;
 using static TOHO.Options;
-using static TOHO.Translator;
 
 namespace TOHO.Roles.Impostor;
 

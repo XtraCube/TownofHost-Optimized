@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BepInEx;
 using HarmonyLib;
 using TMPro;
 using UnityEngine;
@@ -18,16 +17,13 @@ public class MainMenuManagerStartPatch
 {
     public static GameObject amongUsLogo;
     public static GameObject Ambience;
-    public static GameObject PlayerParticles;
-    public static GameObject starfield;
-    public static GameObject bgmusic;
 
     public static SpriteRenderer TOHOLogo { get; private set; }
 
     private static void Postfix(MainMenuManager __instance)
     {
         amongUsLogo = GameObject.Find("LOGO-AU");
-        if (amongUsLogo != null)
+        if (amongUsLogo)
         {
             amongUsLogo.GetComponent<SpriteRenderer>().sprite = Utils.LoadSprite("TOHO.Resources.Images.tohologo.png");
         }
@@ -46,18 +42,6 @@ public class MainMenuManagerStartPatch
             Ambience.SetActive(true);
         }
 
-        PlayerParticles = GameObject.Find("PlayerParticles");
-        starfield = GameObject.Find("starfield");
-        /*
-        if (PlayerParticles != null)
-        {
-            PlayerParticles.SetActive(false);
-        }
-        if (starfield != null)
-        {
-            starfield.SetActive(false);
-        }
-        */
         SetButtonColor(__instance.playButton);
         SetButtonColor(__instance.inventoryButton);
         SetButtonColor(__instance.shopButton); 

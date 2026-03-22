@@ -2,7 +2,6 @@
 using static TOHO.Utils;
 using static TOHO.Main;
 using TOHO.Modules;
-using MS.Internal.Xml.XPath;
 
 namespace TOHO.Roles.Impostor;
 internal class Kidnapper : RoleBase

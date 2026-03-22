@@ -1,5 +1,4 @@
 using System.Text;
-using AmongUs.GameOptions;
 using UnityEngine;
 using static TOHO.Options;
 

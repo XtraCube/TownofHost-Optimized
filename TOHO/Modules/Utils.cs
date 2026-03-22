@@ -1,21 +1,19 @@
 using AmongUs.Data;
 using AmongUs.GameOptions;
 using Hazel;
-using Il2CppInterop.Generator.Extensions;
 using InnerNet;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using AmongUs.InnerNet.GameDataMessages;
 using HarmonyLib;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using TOHO.Modules;
 using TOHO.Modules.ChatManager;
 using TOHO.Patches;
@@ -29,7 +27,6 @@ using TOHO.Roles.Impostor;
 using TOHO.Roles.Neutral;
 using UnityEngine;
 using static TOHO.Translator;
-using Object = Il2CppSystem.Object;
 
 namespace TOHO;
 
@@ -2810,10 +2807,16 @@ public static class Utils
         try
         {
             var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
+            if (stream == null) throw new MissingManifestResourceException($"Resource not found: {path}");
+
             var texture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-            using MemoryStream ms = new();
-            stream.CopyTo(ms);
-            ImageConversion.LoadImage(texture, ms.ToArray(), false);
+            var bytes = new Il2CppStructArray<byte>(stream.Length);
+            if (stream.Read(bytes, 0, bytes.Length) != bytes.Length)
+            {
+                throw new InvalidDataException($"Failed to read the entire resource stream: {path}");
+            }
+
+            texture.LoadImage(bytes, false);
             return texture;
         }
         catch

@@ -1,8 +1,4 @@
-using AmongUs.GameOptions;
-using Rewired.ComponentControls;
-using TOHO.Modules;
 using static TOHO.Options;
-using static TOHO.Translator;
 
 namespace TOHO.Roles.Impostor;
 

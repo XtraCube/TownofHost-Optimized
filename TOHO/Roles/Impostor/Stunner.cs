@@ -1,7 +1,4 @@
 using AmongUs.GameOptions;
-using TOHO.Roles.Core;
-using TOHO.Roles.Neutral;
-using UnityEngine;
 using static TOHO.Options;
 using static TOHO.Translator;
 

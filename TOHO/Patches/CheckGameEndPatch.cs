@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using TOHO.Modules;
-using TOHO.Roles.Coven;
 using TOHO.Roles.AddOns.Common;
 using TOHO.Roles.AddOns.Crewmate;
 using TOHO.Roles.AddOns.Impostor;

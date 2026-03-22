@@ -1,5 +1,4 @@
-﻿using System;
-using AmongUs.GameOptions;
+﻿using AmongUs.GameOptions;
 using TOHO.Modules;
 using TOHO.Roles.Core;
 using static TOHO.Options;

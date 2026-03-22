@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using static TOHO.Options;
-using static TOHO.Utils;
 using static TOHO.Main;
-using TOHO.Modules;
-using MS.Internal.Xml.XPath;
-using AmongUs.GameOptions;
 using TOHO.Roles.Double;
 
 namespace TOHO.Roles.Impostor;

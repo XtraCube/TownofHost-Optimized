@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using TOHO.Modules;
 using UnityEngine;
-using static TOHO.Modules.HazelExtensions;
 
 namespace TOHO.Roles.Impostor;
 

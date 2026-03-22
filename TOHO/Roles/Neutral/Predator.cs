@@ -4,7 +4,6 @@ using TOHO.Roles.Core;
 using static TOHO.Options;
 using static TOHO.Utils;
 using static TOHO.CustomWinnerHolder;
-using static TOHO.Translator;
 
 namespace TOHO.Roles.Neutral;
 internal class Predator : RoleBase

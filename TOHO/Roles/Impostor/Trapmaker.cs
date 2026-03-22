@@ -3,7 +3,6 @@ using TOHO.Modules;
 using TOHO.Roles.Core;
 using static TOHO.Options;
 using static TOHO.Translator;
-using static TOHO.Utils;
 
 namespace TOHO.Roles.Impostor;
 

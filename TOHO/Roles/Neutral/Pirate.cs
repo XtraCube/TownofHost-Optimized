@@ -9,7 +9,6 @@ using TOHO.Modules.ChatManager;
 using TOHO.Roles.Core;
 using TOHO.Roles.Double;
 using UnityEngine;
-using static TOHO.Options;
 using static TOHO.Translator;
 using static TOHO.Utils;
 

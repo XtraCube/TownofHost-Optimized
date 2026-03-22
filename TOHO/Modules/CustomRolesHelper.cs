@@ -10,7 +10,6 @@ using TOHO.Roles.AddOns.Crewmate;
 using TOHO.Roles.Crewmate;
 using TOHO.Roles.Impostor;
 using TOHO.Roles.Neutral;
-using static TOHO.Roles.Core.CustomRoleManager;
 
 namespace TOHO;
 
